@@ -28,7 +28,7 @@
 - <img src="https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=next.js&logoColor=white"/> Next.js
 
 ## 8. RestAPI Document
--> Postman or Swagger
+<a href="https://documenter.getpostman.com/view/23095082/2s7ZLhnWb8"/>
 
 ## 9. 컨벤션 or 진행 간 규칙
 ESLint, Prettier
