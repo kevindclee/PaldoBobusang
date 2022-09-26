@@ -14,7 +14,7 @@
 ## 4. 도메인 용어
 품목 : 각 제철 농산물 (ex. 사과, 배추, 등)
 
-품종 : 해당 품목의 종류 (ex. 아오리 사과 / 홀로 사과 / 양광 사과 / 부사 사과)
+품종 : 해당 품목의 종류 (ex. 아오리 사과 / 홍로 사과 / 양광 사과 / 부사 사과)
 
 ## 5. 테이블 구조도
 ![Table Architecture](/readme/table_architecture.png "Table Architecture")
