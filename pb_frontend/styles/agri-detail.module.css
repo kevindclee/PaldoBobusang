@@ -1,0 +1,10 @@
+.detail-body {
+  /* display: flex; */
+  padding: 3rem;
+}
+
+.detail-table {
+  width: calc(inherit - 6rem);
+  height: calc(50vh - 6rem);
+  border: solid 1px black;
+}
