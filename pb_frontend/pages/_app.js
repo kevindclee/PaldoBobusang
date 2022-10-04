@@ -6,7 +6,6 @@ import curAppAtom from '../atoms/curAppAtom';
 
 function MyApp({ Component, pageProps }) {
   const [curApp, setCurApp] = useAtom(curAppAtom);
-  console.log("curApp:", curApp);
   return (
     <>
       <Head>

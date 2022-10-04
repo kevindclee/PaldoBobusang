@@ -101,7 +101,7 @@
   font-size: 1.8rem;
   font-weight: bold;
   color: black;
-  top: 250px;
+  top: 400px;
 }
 
 .attention .attention-arrow {
@@ -111,11 +111,11 @@
 }
 
 .attention .left:empty:before {
-  content: '▼';
+  content: '↑';
 }
 
 .attention .right:empty:before {
-  content: '▼';
+  content: '↑';
 }
 
 .apps .agri-list {
@@ -142,15 +142,15 @@
 
 @media (min-width: 1490px) {
   .attention .left {
-    transform: rotate(45deg);
+    transform: rotate(-45deg);
   }
 
   .attention .right {
-    transform: rotate(-45deg);
+    transform: rotate(45deg);
   }
 }
 
-@media (min-width: 1900px) {
+/* @media (min-width: 1900px) {
   .attention {
     position: absolute;
     display: flex;
@@ -182,7 +182,7 @@
   .attention .right {
     transform: rotate(0);
   }
-}
+} */
 
 @media (max-width: 500px) {
   .logo .back {
