@@ -7,7 +7,7 @@ const Agri = (props) => {
 
     const agri = props.object;
 
-    const img_url = '/images/apple.jpg';
+    const img_url = '/images/ex1.png';
 
     const [modalVisible, setModalVisible] = useState(false);
 
