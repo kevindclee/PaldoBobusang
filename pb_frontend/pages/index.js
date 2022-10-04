@@ -1,5 +1,5 @@
 import { useAtom } from 'jotai'
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router'
 import curAppAtom from '../atoms/curAppAtom';
 import styles from '../styles/main.module.css';
@@ -8,7 +8,7 @@ export default function Home() {
   const [curApp, setCurApp] = useAtom(curAppAtom);
   const [curView, setCurView] = useState('');
   const router = useRouter();
-  setCurApp('');
+  useEffect(() => setCurApp(''), []);
 
   const mouseOverHandler = event => {
     const view = event.target.id;
