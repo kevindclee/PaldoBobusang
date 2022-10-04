@@ -6,6 +6,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import dev.pb.pb_backend.entity.Location;
+import dev.pb.pb_backend.entity.Price;
 import dev.pb.pb_backend.entity.Vegetable;
 import dev.pb.pb_backend.repository.VegetableRepository;
 
@@ -45,6 +47,35 @@ public class VegetableServiceImpl implements VegetableService {
 		Date minusOneDay = new Date();
 		minusOneDay.setTime(curMilliSeconds - MILLI_SECONDS_IN_DAY);
 		return vegetableRepository.findByHarvestStartBeforeAndHarvestEndAfter(plusOneDay, minusOneDay);
+	}
+
+	@Override
+	public Vegetable updateVegetable(Vegetable.Request request) {
+		final Vegetable foundVegetable = findVegetableByCode(request.getVegetableCode());
+		List<Location> locationList = foundVegetable.getLocations();
+		boolean test = false;
+		int index = 0;
+		for (Location loc : locationList) {
+			if (loc.getLocationId() == request.getLocations().get(0).getLocationId()) {
+				test = true;
+				break;
+			}
+			index ++;
+		}
+		if (test) {
+			List<Price> priceList = locationList.get(index).getPrices();
+			if (request.getPrices() != null) {
+				priceList.addAll(request.getPrices());
+			}
+			foundVegetable.setLocations(locationList);
+		} else {
+			if (request.getLocations() != null) {
+				locationList.addAll(request.getLocations());
+			}
+			foundVegetable.setLocations(locationList);
+		}
+		Vegetable savedVegetable = vegetableRepository.save(foundVegetable);
+		return savedVegetable;
 	}
 
 }

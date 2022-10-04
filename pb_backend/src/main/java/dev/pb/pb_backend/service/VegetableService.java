@@ -13,6 +13,8 @@ public interface VegetableService {
 	Vegetable findVegetableByCode(int code);
 	// 레코드 생성
 	Vegetable createVegetable(Vegetable newFruit);
+
+	Vegetable updateVegetable(Vegetable.Request request);
 	
 	// VegetableRepository 쿼리 메서드
 	// locationId 으로 조회
