@@ -90,4 +90,12 @@ public class FruitController {
 		return Fruit.Response.toResponse(fruit);
 	}
 	
+	// 'GET' http://localhost:8090/fruits/location/:locationId
+	@GetMapping("/localEngName/{localEngName}")
+	public List<Fruit.Response> findFruitsByLocalEngName(@PathVariable String localEngName) {
+		System.out.println("GET: findFruitsByLocalEngName() of FruitController called");		
+		List<Fruit> fruitList = fruitService.findFruitsByLocalEngName(localEngName);
+		return Fruit.Response.toResponseList(fruitList);
+	}	
+	
 }

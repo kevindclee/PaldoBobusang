@@ -20,6 +20,7 @@ public interface FruitService {
 	// FruitRepository 쿼리 메서드
 	// locationId 으로 조회
 	List<Fruit> findFruitsByLocationId(int locationId);
+	List<Fruit> findFruitsByLocalEngName(String localEngName);
 	// harvestDate 으로 조회
 	List<Fruit> findFruitsByHarvest(Date curDate);
 	

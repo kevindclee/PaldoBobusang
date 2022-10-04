@@ -97,6 +97,11 @@ public class FruitServiceImpl implements FruitService {
 		return savedFruit;
 	}
 
+	@Override
+	public List<Fruit> findFruitsByLocalEngName(String localEngName) {
+		return fruitRepository.findByLocationsLocalEngName(localEngName);
+	}
+
 }
 
 
