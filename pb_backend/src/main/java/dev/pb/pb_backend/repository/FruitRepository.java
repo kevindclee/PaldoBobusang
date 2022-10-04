@@ -19,4 +19,6 @@ public interface FruitRepository extends JpaRepository<Fruit, Integer> {
 	// harvestDate 으로 조회
 	List<Fruit> findByHarvestStartBeforeAndHarvestEndAfter(Date curDate1, Date curDate2);
 	
+//	List<FruitItemImageProjection> findDistinctByHarvestStartBeforeAndHarvestEndAfter(Date curDate1, Date curDate2);
+	
 }

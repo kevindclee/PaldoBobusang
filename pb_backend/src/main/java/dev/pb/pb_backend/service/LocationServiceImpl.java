@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import dev.pb.pb_backend.entity.Location;
 import dev.pb.pb_backend.projection.LocationCountryCodeProjection;
+import dev.pb.pb_backend.projection.LocationLocationIdProjection;
 import dev.pb.pb_backend.repository.LocationRepository;
 
 @Service
@@ -33,6 +34,21 @@ public class LocationServiceImpl implements LocationService {
 	@Override
 	public List<LocationCountryCodeProjection> findByLocalName(String localName) {
 		return locationRepository.findByLocalName(localName);
+	}
+
+	@Override
+	public LocationLocationIdProjection findLocationIdByCountryCode(int countryCode) {
+		return locationRepository.findByCountryCode(countryCode);
+	}
+
+	@Override
+	public List<Location> findByLocalEngName(String localEngName) {
+		return locationRepository.findByLocalEngName(localEngName);
+	}
+
+	@Override
+	public List<Location> findByCityEngName(String cityEngName) {
+		return locationRepository.findByCityEngName(cityEngName);
 	}
 
 }

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import dev.pb.pb_backend.entity.Location;
 import dev.pb.pb_backend.projection.LocationCountryCodeProjection;
+import dev.pb.pb_backend.projection.LocationLocationIdProjection;
 
 @Repository
 public interface LocationRepository extends JpaRepository<Location, Integer> {
@@ -16,5 +17,11 @@ public interface LocationRepository extends JpaRepository<Location, Integer> {
 
 	// localName 으로 조회
 	List<LocationCountryCodeProjection> findByLocalName(String localName);
+	
+	List<Location> findByLocalEngName(String localEngName);
+	List<Location> findByCityEngName(String cityEngName);
+	
+	// countryCode 으로 조회
+	LocationLocationIdProjection findByCountryCode(int countryCode);
 	
 }

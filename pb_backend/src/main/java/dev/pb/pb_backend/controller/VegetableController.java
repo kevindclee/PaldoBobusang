@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -35,11 +36,11 @@ public class VegetableController {
 		return Vegetable.Response.toResponseList(vegetableList);
 	}
 	
-	// 'GET' http://localhost:8090/vegetables/:code
+	// 'GET' http://localhost:8090/vegetables/:vegetableCode
 	@GetMapping("/{code}")
-	public Vegetable.Response findVegetableByCode(@PathVariable int code) {
+	public Vegetable.Response findVegetableByCode(@PathVariable int vegetableCode) {
 		System.out.println("GET: findVegetableByCode() of VegetableController called");		
-		Vegetable foundVegetable = vegetableService.findVegetableByCode(code);
+		Vegetable foundVegetable = vegetableService.findVegetableByCode(vegetableCode);
 		return Vegetable.Response.toResponse(foundVegetable);
 	}
 	
@@ -64,13 +65,19 @@ public class VegetableController {
 		return Vegetable.Response.toResponseList(vegetableList);
 	}
 	
-	// 'GET' http://localhost:8090/vegetables/harvest
-	@GetMapping("/harvest")
+	// 'GET' http://localhost:8090/vegetables/list/harvest
+	@GetMapping("/list/harvest")
 	public List<Vegetable.Response> findVegetablesByHarvest() {
 		System.out.println("GET: findVegetablesByHarvest() of VegetableController called");
 		Date curDate = new Date();
 		List<Vegetable> vegetableList = vegetableService.findVegetablesByHarvest(curDate);
 		return Vegetable.Response.toResponseList(vegetableList);
 	}
-	
+
+	// 'PUT' http://localhost:8090/vegetables
+	@PutMapping
+	public Vegetable.Response updateVegetable(@RequestBody Vegetable.Request request) {
+		Vegetable vegetable = vegetableService.updateVegetable(request);
+		return Vegetable.Response.toResponse(vegetable);
+	}
 }
