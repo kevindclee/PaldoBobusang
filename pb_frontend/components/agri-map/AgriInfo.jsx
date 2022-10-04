@@ -5,6 +5,7 @@ import { useAtom } from 'jotai';
 import curLocationAtom from '../../atoms/curLocationAtom';
 import LocationTable from './LocationTable';
 import curProductAtom from '../../atoms/curProductAtom';
+import curCitiesOnProductAtom from '../../atoms/curCitiesOnProductAtom';
 
 const AgriInfo = () => {
   const [curCategory, setCurCategory] = useState(null);
@@ -12,21 +13,26 @@ const AgriInfo = () => {
   const [isFruit, setIsFruit] = useState(false); 
   const [curProduct, setCurProduct] = useAtom(curProductAtom); 
   const [curLocation, setCurLocation] = useAtom(curLocationAtom);
+  const [curCitiesOnProduct, setCurCitiesOnProduct] = useAtom(curCitiesOnProductAtom);
   useEffect(() => {
     if (curCategory === 'vegitable') {
       setIsVegitable(true); setIsFruit(false); 
-    } else if (curCategory === 'fruit') {
-      setIsVegitable(false); setIsFruit(true);
+      fetch(`http://localhost:8090/vegitables/localEngName/${curLocation}`)
+        .then(response => response.json())
+        .then(data => console.log(data))
+        .catch(error => console.log(error));
+      } else if (curCategory === 'fruit') {
+        setIsVegitable(false); setIsFruit(true);
+        fetch(`http://localhost:8090/fruits/localEngName/${curLocation}`)
+          .then(response => response.json())
+          .then(data => console.log(data))
+          .catch(error => console.log(error));
     }
+
   }, [curCategory, isFruit, isVegitable, curProduct]);
   const products = {
     'vegitable': ['양파', '고구마', '쌀', '마늘'],
     'fruit': ['사과', '딸기', '배', '포도'],
-  }
-
-  const citiesOnProduct = {
-    '양파': ['Goseong', 'Samcheok', 'Yangyang', 'Hwacheon', 'Chuncheon'],
-    '고구마': ['Pyeongchang', 'Taebaek', 'Yeongwol', 'Cheorwon', 'Wonju'],
   }
   
   const clickHandler = event => {
@@ -60,11 +66,11 @@ const AgriInfo = () => {
                                                                     <div onClick={selectHandler} 
                                                                         onMouseOver={mouseOverHandler}
                                                                         onMouseOut={mouseOutHandler}
-                                                                        className={`item ${styles.item} ${index}`}
+                                                                        className={`item ${styles.item}`}
                                                                         id={item} key={index}>{item}
                                                                     </div>
                                                                     {curProduct === item? <LocationTable 
-                                                                                            array={citiesOnProduct[item]}
+                                                                                            array={curCitiesOnProduct[item]}
                                                                                             local={curLocation} /> : <></>}
                                                                   </>
                                                                   )}

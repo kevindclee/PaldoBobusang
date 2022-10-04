@@ -74,7 +74,7 @@ public class LocationController {
 	// 'GET' http://localhost:8090/locations/localName/:localName
 	@GetMapping("/localName/{localName}")
 	public List<Location.ResponseCountryCode> findLocationsByLocalName(@PathVariable String localName) {
-		System.out.println("GET: findLocationsByLocalName() of LocationController called");		
+		System.out.println("GET: findLocationsByLocalName() of LocationController called " + localName);		
 		List<LocationCountryCodeProjection> locationList = locationService.findByLocalName(localName);
 		return Location.ResponseCountryCode.toResponseList(locationList);
 	}

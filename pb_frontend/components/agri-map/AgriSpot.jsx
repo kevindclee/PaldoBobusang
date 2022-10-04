@@ -23,7 +23,7 @@ const AgriSpot = (props) => {
     <svg viewBox={properties[curLocation]['viewBox']} xmlns="http://www.w3.org/2000/svg" width="calc(54% - 4rem)"  className={`${styles.position} ${styles[`position-${curLocation}`]}`}>
       <g fill="white" stroke="green" stroke-width="5" transform={properties[curLocation]['transform']}>
         {list.map(item => {
-          return curLocation === 'jeonbuk' ? <circle cx={item[0]} cy={item[1]} r='30' /> : <image href='/images/fruit-illustration-hand-drawn-colorful-red-apple-isolated-on-white-background-clip-art-icon_484720-1855.jpg' x={item[0]} y={item[1]} width='50px' height='50px' />
+          return curLocation === 'jeonbuk' ? <circle cx={item[0]} cy={item[1]} r='30' /> : <image href='/images/사과.png' x={item[0]} y={item[1]} width='50px' height='50px' />
         })}
       </g>
     </svg>
