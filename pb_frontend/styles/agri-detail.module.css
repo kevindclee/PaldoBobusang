@@ -1,0 +1,31 @@
+.detail-body {
+  /* display: flex; */
+  padding: 2.5rem;
+}
+
+.detail-table {
+  width: calc(inherit - 6rem);
+  height: calc(40vh - 6rem);
+  border: solid 1px black;
+}
+
+.detail-inside-table {
+  margin: auto;
+}
+
+.detail-inside-table th, .detail-inside-table td{
+  border: 1px solid black;
+}
+
+.detail-image {
+  width: 150px;
+  height: 150px;
+}
+
+.agri-loc-table {
+  margin: auto;
+}
+
+.agri-loc-table th, .agri-loc-table td {
+  border: 1px solid black;
+}
