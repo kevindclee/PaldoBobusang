@@ -1,37 +1,50 @@
-import React, { isValidElement, useEffect } from 'react'
+import React, { isValidElement, useEffect, useMemo, useRef } from 'react'
 import styles from '../../styles/agri-info.module.css';
 import { useState } from 'react';
 import { useAtom } from 'jotai';
 import curLocationAtom from '../../atoms/curLocationAtom';
 import LocationTable from './LocationTable';
 import curProductAtom from '../../atoms/curProductAtom';
+import curCitiesOnProductAtom from '../../atoms/curCitiesOnProductAtom';
+import curProductListAtom from '../../atoms/curProductList';
+
 
 const AgriInfo = () => {
   const [curCategory, setCurCategory] = useState(null);
-  const [isVegitable, setIsVegitable] = useState(false); 
-  const [isFruit, setIsFruit] = useState(false); 
+  const [isCategory, setIsCategory] = useState([false, false]);
+  const [curList, setCurList] = useState(null);
+  const [curProductList, setCurProductList] = useAtom(curProductListAtom);
   const [curProduct, setCurProduct] = useAtom(curProductAtom); 
   const [curLocation, setCurLocation] = useAtom(curLocationAtom);
-  useEffect(() => {
-    if (curCategory === 'vegitable') {
-      setIsVegitable(true); setIsFruit(false); 
-    } else if (curCategory === 'fruit') {
-      setIsVegitable(false); setIsFruit(true);
-    }
-  }, [curCategory, isFruit, isVegitable, curProduct]);
-  const products = {
-    'vegitable': ['양파', '고구마', '쌀', '마늘'],
-    'fruit': ['사과', '딸기', '배', '포도'],
-  }
+  const [curCitiesOnProduct, setCurCitiesOnProduct] = useAtom(curCitiesOnProductAtom);
 
-  const citiesOnProduct = {
-    '양파': ['Goseong', 'Samcheok', 'Yangyang', 'Hwacheon', 'Chuncheon'],
-    '고구마': ['Pyeongchang', 'Taebaek', 'Yeongwol', 'Cheorwon', 'Wonju'],
-  }
+  useEffect(() => {
+    setCurProductList(null);
+    if (curCategory && !curProductList) {
+      setIsCategory([false, false]);
+      fetch(`http://localhost:8090/${curCategory}s/localEngName/${curLocation}`)
+      .then(response => response.json())
+      .then(data => {
+          const curList = [];
+          data.map(item => curList.push(item.itemName));
+          console.log(data);
+          setCurProductList(curList);
+        })
+        .catch(error => console.log(error));
+      curCategory === 'vegetable' ? setIsCategory([true, false]) : setIsCategory([false, true]);
+    }
+
+    console.log("effect: ", curProductList);
+
+  }, [curCategory, curProduct, curLocation]);
+
+  curProductList? console.log('curLocation:', curLocation,'curCategory:', curCategory, 'curProductList:', curProductList) : <></>;
+  curProductList? console.dir(curProductList) : <></>;
   
   const clickHandler = event => {
                         setCurCategory(event.target.id);
                         setCurProduct(null);
+                        setCurProductList(null);
                       }
   const selectHandler = event => {
     setCurProduct(event.target.textContent);
@@ -52,23 +65,23 @@ const AgriInfo = () => {
   return (
     <div className={styles['agri-info']}>
       <div className={styles.categories}>
-        <div className={styles[`category-${isVegitable}`]} id='vegitable' onClick={clickHandler}>야채</div>
-        <div className={styles[`category-${isFruit}`]} id='fruit' onClick={clickHandler}>과일</div>
+        <div className={styles[`category-${isCategory[0]}`]} id='vegetable' onClick={clickHandler}>야채</div>
+        <div className={styles[`category-${isCategory[1]}`]} id='fruit' onClick={clickHandler}>과일</div>
       </div>
-      {curCategory ? <div className={styles['products-true']} id='products'>
-                      {products[curCategory].map((item, index) => <>
-                                                                    <div onClick={selectHandler} 
-                                                                        onMouseOver={mouseOverHandler}
-                                                                        onMouseOut={mouseOutHandler}
-                                                                        className={`item ${styles.item} ${index}`}
-                                                                        id={item} key={index}>{item}
-                                                                    </div>
-                                                                    {curProduct === item? <LocationTable 
-                                                                                            array={citiesOnProduct[item]}
-                                                                                            local={curLocation} /> : <></>}
-                                                                  </>
-                                                                  )}
-                     </div> : 
+      {curProductList ? <div className={styles['products-true']} id='products'>
+                        {curProductList.map((item, index) => <>
+                                            <div onClick={selectHandler} 
+                                                onMouseOver={mouseOverHandler}
+                                                onMouseOut={mouseOutHandler}
+                                                className={`item ${styles.item}`}
+                                                id={item} key={index}>{item}
+                                            </div>
+                                            {/* {curProduct === item? <LocationTable 
+                                                                    array={curCitiesOnProduct[item]}
+                                                                    local={curLocation} /> : <></>} */}
+                                          </>
+                                          )}
+                        </div> : 
                      <div className={styles['products-false']}></div>}
       
     </div>

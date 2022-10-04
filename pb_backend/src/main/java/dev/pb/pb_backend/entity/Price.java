@@ -10,7 +10,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -48,12 +47,14 @@ public class Price {
 	@ManyToOne
 	@JoinColumn(name = "LOCATION_ID")
 	private Location location;
-	
-	@ManyToMany(mappedBy="prices")
-	private List<Vegetable> vegetables;
 
-	@ManyToMany(mappedBy="prices")
-	private List<Fruit> fruits;
+	@ManyToOne
+	@JoinColumn(name = "VEGETABLE_CODE")
+	private Vegetable vegetable;
+
+	@ManyToOne
+	@JoinColumn(name = "FRUIT_CODE")
+	private Fruit fruit;
 	
 	// 요청 받을 때 사용할 User Entity의 DTO
 	@Setter
@@ -70,12 +71,19 @@ public class Price {
 		
 		@NotNull
 		private Date priceDate;
+		
+		Location location;
+		Vegetable vegetable;
+		Fruit fruit;
 
 		public static Price toEntity(final Price.Request request) {
 			return Price.builder()
 					.priceId(request.getPriceId())
 					.priceValue(request.getPriceValue())
 					.priceDate(request.getPriceDate())
+					.location(request.getLocation())
+					.vegetable(request.getVegetable())
+					.fruit(request.getFruit())
 					.build();
 		}
 		
@@ -92,12 +100,19 @@ public class Price {
 		private int priceId;
 		private int priceValue;
 		private Date priceDate;
+		
+		Location.Response location;
+		Vegetable.Response vegetable;
+		Fruit.Response fruit;
 
 		public static Price.Response toResponse(final Price price) {
 			return Price.Response.builder()
 					.priceId(price.getPriceId())
 					.priceValue(price.getPriceValue())
 					.priceDate(price.getPriceDate())
+					.location(Location.Response.toPriceResponse(price.getLocation()))
+					.vegetable(Vegetable.Response.toPriceResponse(price.getVegetable()))
+					.fruit(Fruit.Response.toPriceResponse(price.getFruit()))
 					.build();
 		}
 
@@ -108,6 +123,68 @@ public class Price {
 			}
 			return resList;
 		}
+		
+		public static Price.Response toLocationFruitResponse(final Price price) {
+			return Price.Response.builder()
+					.priceId(price.getPriceId())
+					.priceValue(price.getPriceValue())
+					.priceDate(price.getPriceDate())
+//					.vegetable(Vegetable.Response.toPriceResponse(price.getVegetable()))
+					// 나중에 가격 연결후 주석해제해서 확인해보기
+//					.fruit(Fruit.Response.toFruitLocationPriceResponse(price.getFruit()))
+					.build();
+		}
+
+		public static List<Price.Response> toLocationFruitResponseList(final List<Price> prices, int fruitCode) {
+			List<Price.Response> resList = new ArrayList<>();
+			for (Price price : prices) {
+				if (price.getFruit() != null && price.getFruit().getFruitCode() == fruitCode) {
+					resList.add(Price.Response.toLocationFruitResponse(price));
+				}
+			}
+			return resList;
+		}
+		
+		public static List<Price.Response> toFruitLocationResponseList(final List<Price> prices, int locationId) {
+			List<Price.Response> resList = new ArrayList<>();
+			for (Price price : prices) {
+				if (price.getLocation() != null && price.getLocation().getLocationId() == locationId) {
+					resList.add(Price.Response.toLocationFruitResponse(price));
+				}
+			}
+			return resList;
+		}
+		
+		public static Price.Response toLocationVegetableResponse(final Price price) {
+			return Price.Response.builder()
+					.priceId(price.getPriceId())
+					.priceValue(price.getPriceValue())
+					.priceDate(price.getPriceDate())
+//					.vegetable(Vegetable.Response.toPriceResponse(price.getVegetable()))
+//					.fruit(Fruit.Response.toPriceResponse(price.getFruit()))
+					.build();
+		}
+
+		public static List<Price.Response> toLocationVegetableResponseList(final List<Price> prices, int vegetableCode) {
+			List<Price.Response> resList = new ArrayList<>();
+			for (Price price : prices) {
+				if (price.getVegetable() != null && price.getVegetable().getVegetableCode() == vegetableCode) {
+					resList.add(Price.Response.toLocationVegetableResponse(price));
+				}
+			}
+			return resList;
+		}
+		
+		public static List<Price.Response> toVegetableLocationResponseList(final List<Price> prices, int locationId) {
+			List<Price.Response> resList = new ArrayList<>();
+			for (Price price : prices) {
+				if (price.getLocation() != null && price.getLocation().getLocationId() == locationId) {
+					resList.add(Price.Response.toLocationVegetableResponse(price));
+				}
+			}
+			return resList;
+		}
+		
 	}
 }
 

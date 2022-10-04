@@ -13,11 +13,18 @@ public interface FruitService {
 	Fruit findFruitByCode(int code);
 	// 레코드 생성
 	Fruit createFruit(Fruit newFruit);
+
+	Fruit updateFruit(Fruit.Request request);
+	
 	
 	// FruitRepository 쿼리 메서드
 	// locationId 으로 조회
 	List<Fruit> findFruitsByLocationId(int locationId);
+	List<Fruit> findFruitsByLocalEngName(String localEngName);
+	List<Fruit> findFruitsByItemNameLocalEngName(String itemName, String localEngName);
 	// harvestDate 으로 조회
 	List<Fruit> findFruitsByHarvest(Date curDate);
+	
+//	List<FruitItemImageProjection> findFruitsByHarvestInList(Date curDate);
 	
 }
