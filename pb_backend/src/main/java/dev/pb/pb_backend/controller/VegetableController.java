@@ -85,8 +85,10 @@ public class VegetableController {
 	// 'GET' http://localhost:8090/vegetables/localEngName/:localEngName
 	@GetMapping("/localEngName/{localEngName}")
 	public List<Vegetable.Response> findVegetablesByLocalEngName(@PathVariable String localEngName) {
-		System.out.println("GET: findVegetablesByLocalEngName() of VegetableController called");		
+		System.out.println("GET: findVegetablesByLocalEngName() of VegetableController called: " + localEngName);		
 		List<Vegetable> vegetableList = vegetableService.findVegetablesByLocalEngName(localEngName);
+//		System.out.println(vegetableList);
+//		System.out.println(Vegetable.Response.toResponseList(vegetableList));
 		return Vegetable.Response.toResponseList(vegetableList);
 	}	
 

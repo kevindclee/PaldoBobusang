@@ -17,7 +17,7 @@ const AgriSpot = (props) => {
       list.push(coordinates[curLocation][city]);
     }
   }
-  console.log(list);
+  // console.log(list);
 
   return (
     <svg viewBox={properties[curLocation]['viewBox']} xmlns="http://www.w3.org/2000/svg" width="calc(54% - 4rem)"  className={`${styles.position} ${styles[`position-${curLocation}`]}`}>
