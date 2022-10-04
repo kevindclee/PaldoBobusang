@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import dev.pb.pb_backend.entity.Fruit;
 import dev.pb.pb_backend.entity.Location;
 import dev.pb.pb_backend.entity.Price;
 import dev.pb.pb_backend.entity.Vegetable;
@@ -76,6 +77,16 @@ public class VegetableServiceImpl implements VegetableService {
 		}
 		Vegetable savedVegetable = vegetableRepository.save(foundVegetable);
 		return savedVegetable;
+	}
+
+	@Override
+	public List<Vegetable> findVegetablesByLocalEngName(String localEngName) {
+		return vegetableRepository.findByLocationsLocalEngName(localEngName);
+	}
+
+	@Override
+	public Vegetable findVegetablesByItemNameLocalEngName(String itemName, String localEngName) {
+		return vegetableRepository.findByItemNameAndLocationsLocalEngName(itemName, localEngName);
 	}
 
 }

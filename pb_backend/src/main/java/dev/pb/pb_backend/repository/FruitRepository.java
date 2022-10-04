@@ -16,9 +16,9 @@ public interface FruitRepository extends JpaRepository<Fruit, Integer> {
 	
 	// locationId 으로 조회
 	List<Fruit> findByLocationsLocationId(int locationId);
+	List<Fruit> findByLocationsLocalEngName(String localEngName);
+	List<Fruit> findByItemNameAndLocationsLocalEngName(String itemName, String localEngName);
 	// harvestDate 으로 조회
 	List<Fruit> findByHarvestStartBeforeAndHarvestEndAfter(Date curDate1, Date curDate2);
-	
-//	List<FruitItemImageProjection> findDistinctByHarvestStartBeforeAndHarvestEndAfter(Date curDate1, Date curDate2);
 	
 }

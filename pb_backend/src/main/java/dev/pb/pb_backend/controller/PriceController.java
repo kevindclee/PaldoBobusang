@@ -20,7 +20,7 @@ import dev.pb.pb_backend.service.PriceService;
 
 @RestController
 @RequestMapping("prices")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = {"http://localhost:3000", "http://localhost:3001", "http://127.0.0.1:5500"})
 public class PriceController {
 	
 	@Autowired

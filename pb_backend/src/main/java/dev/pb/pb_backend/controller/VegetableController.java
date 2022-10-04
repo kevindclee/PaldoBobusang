@@ -17,12 +17,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import dev.pb.pb_backend.entity.Fruit;
 import dev.pb.pb_backend.entity.Vegetable;
 import dev.pb.pb_backend.service.VegetableService;
 
 @RestController
 @RequestMapping("vegetables")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = {"http://localhost:3000", "http://localhost:3001", "http://127.0.0.1:5500"})
 public class VegetableController {
 	
 	@Autowired
@@ -37,7 +38,7 @@ public class VegetableController {
 	}
 	
 	// 'GET' http://localhost:8090/vegetables/:vegetableCode
-	@GetMapping("/{code}")
+	@GetMapping("/{vegetableCode}")
 	public Vegetable.Response findVegetableByCode(@PathVariable int vegetableCode) {
 		System.out.println("GET: findVegetableByCode() of VegetableController called");		
 		Vegetable foundVegetable = vegetableService.findVegetableByCode(vegetableCode);
@@ -80,4 +81,21 @@ public class VegetableController {
 		Vegetable vegetable = vegetableService.updateVegetable(request);
 		return Vegetable.Response.toResponse(vegetable);
 	}
+	
+	// 'GET' http://localhost:8090/vegetables/localEngName/:localEngName
+	@GetMapping("/localEngName/{localEngName}")
+	public List<Vegetable.Response> findVegetablesByLocalEngName(@PathVariable String localEngName) {
+		System.out.println("GET: findVegetablesByLocalEngName() of VegetableController called");		
+		List<Vegetable> vegetableList = vegetableService.findVegetablesByLocalEngName(localEngName);
+		return Vegetable.Response.toResponseList(vegetableList);
+	}	
+
+	// 'GET' http://localhost:8090/vegetables/itemNameAndLocalEngName/:itemName/:localEngName
+	@GetMapping("/itemNameAndLocalEngName/{itemName}/{localEngName}")
+	public Vegetable.Response findVegetablesByItemNameLocalEngName(@PathVariable String itemName, @PathVariable String localEngName) {
+		System.out.println("GET: findVegetablesByItemNameLocalEngName() of VegetableController called");		
+		Vegetable vegetable = vegetableService.findVegetablesByItemNameLocalEngName(itemName, localEngName);
+		return Vegetable.Response.toResponse(vegetable);
+	}	
+	
 }

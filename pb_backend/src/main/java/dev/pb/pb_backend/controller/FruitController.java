@@ -22,7 +22,7 @@ import dev.pb.pb_backend.service.FruitService;
 
 @RestController
 @RequestMapping("fruits")
-@CrossOrigin(origins = {"http://localhost:3000", "http://127.0.0.1:5500"})
+@CrossOrigin(origins = {"http://localhost:3000", "http://localhost:3001", "http://127.0.0.1:5500"})
 public class FruitController {
 	
 	@Autowired
@@ -89,5 +89,21 @@ public class FruitController {
 		Fruit fruit = fruitService.updateFruit(request);
 		return Fruit.Response.toResponse(fruit);
 	}
+	
+	// 'GET' http://localhost:8090/fruits/localEngName/:localEngName
+	@GetMapping("/localEngName/{localEngName}")
+	public List<Fruit.Response> findFruitsByLocalEngName(@PathVariable String localEngName) {
+		System.out.println("GET: findFruitsByLocalEngName() of FruitController called");		
+		List<Fruit> fruitList = fruitService.findFruitsByLocalEngName(localEngName);
+		return Fruit.Response.toResponseList(fruitList);
+	}	
+
+	// 'GET' http://localhost:8090/fruits/itemNameAndLocalEngName/:locationId
+	@GetMapping("/itemNameAndLocalEngName/{itemName}/{localEngName}")
+	public List<Fruit.Response> findFruitsByItemNameLocalEngName(@PathVariable String itemName, @PathVariable String localEngName) {
+		System.out.println("GET: findFruitsByItemNameLocalEngName() of FruitController called");		
+		List<Fruit> fruitList = fruitService.findFruitsByItemNameLocalEngName(itemName, localEngName);
+		return Fruit.Response.toResponseList(fruitList);
+	}	
 	
 }
