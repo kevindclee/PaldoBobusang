@@ -99,12 +99,12 @@ public class FruitServiceImpl implements FruitService {
 
 	@Override
 	public List<Fruit> findFruitsByLocalEngName(String localEngName) {
-		return fruitRepository.findByLocationsLocalEngName(localEngName);
+		return fruitRepository.findDistinctByLocationsLocalEngName(localEngName);
 	}
 
 	@Override
-	public List<Fruit> findFruitsByItemNameLocalEngName(String itemName, String localEngName) {
-		return fruitRepository.findByItemNameAndLocationsLocalEngName(itemName, localEngName);
+	public Fruit findFruitsByItemNameLocalEngName(String itemName, String localEngName) {
+		return fruitRepository.findDistinctByItemNameAndLocationsLocalEngName(itemName, localEngName);
 	}
 
 }

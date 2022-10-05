@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import dev.pb.pb_backend.entity.Price;
+import dev.pb.pb_backend.projection.PriceLocationIdProjection;
 
 @Repository
 public interface PriceRepository extends JpaRepository<Price, Integer> {
@@ -15,5 +16,13 @@ public interface PriceRepository extends JpaRepository<Price, Integer> {
 
 	// location.countryCode 으로 조회
 	List<Price> findByLocationCountryCode(int countryCode);
+	
+	List<PriceLocationIdProjection> findDistinctByFruitFruitCode(int fruitCode);
+	List<PriceLocationIdProjection> findDistinctByVegetableVegetableCode(int vegetableCode);
+	List<Price> findByFruitFruitCodeAndLocationLocationId(int fruitCode, int locationId);
+	List<Price> findByVegetableVegetableCodeAndLocationLocationId(int vegetableCode, int locationId);
+
+	List<Price> findByFruitItemNameAndLocationLocalEngName(String itemName, String localEngName);
+	List<Price> findByVegetableItemNameAndLocationLocalEngName(String itemName, String localEngName);
 	
 }

@@ -6,7 +6,6 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import dev.pb.pb_backend.entity.Fruit;
 import dev.pb.pb_backend.entity.Vegetable;
 
 @Repository
@@ -17,8 +16,8 @@ public interface VegetableRepository extends JpaRepository<Vegetable, Integer> {
 	
 	// locationId 으로 조회
 	List<Vegetable> findByLocationsLocationId(int locationId);
-	List<Vegetable> findByLocationsLocalEngName(String localEngName);
-	Vegetable findByItemNameAndLocationsLocalEngName(String itemName, String localEngName);
+	List<Vegetable> findDistinctByLocationsLocalEngName(String localEngName);
+	Vegetable findDistinctByItemNameAndLocationsLocalEngName(String itemName, String localEngName);
 	// harvestDate 으로 조회
 	List<Vegetable> findByHarvestStartBeforeAndHarvestEndAfter(Date curDate1, Date curDate2);
 	

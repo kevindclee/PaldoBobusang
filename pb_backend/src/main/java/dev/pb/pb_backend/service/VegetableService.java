@@ -3,7 +3,6 @@ package dev.pb.pb_backend.service;
 import java.util.Date;
 import java.util.List;
 
-import dev.pb.pb_backend.entity.Fruit;
 import dev.pb.pb_backend.entity.Vegetable;
 
 public interface VegetableService {

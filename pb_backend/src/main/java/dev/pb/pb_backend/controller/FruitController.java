@@ -100,10 +100,10 @@ public class FruitController {
 
 	// 'GET' http://localhost:8090/fruits/itemNameAndLocalEngName/:locationId
 	@GetMapping("/itemNameAndLocalEngName/{itemName}/{localEngName}")
-	public List<Fruit.Response> findFruitsByItemNameLocalEngName(@PathVariable String itemName, @PathVariable String localEngName) {
+	public Fruit.Response findFruitsByItemNameLocalEngName(@PathVariable String itemName, @PathVariable String localEngName) {
 		System.out.println("GET: findFruitsByItemNameLocalEngName() of FruitController called");		
-		List<Fruit> fruitList = fruitService.findFruitsByItemNameLocalEngName(itemName, localEngName);
-		return Fruit.Response.toResponseList(fruitList);
+		Fruit fruit = fruitService.findFruitsByItemNameLocalEngName(itemName, localEngName);
+		return Fruit.Response.toResponse(fruit);
 	}	
 	
 }
