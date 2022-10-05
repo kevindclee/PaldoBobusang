@@ -88,7 +88,7 @@ public class VegetableController {
 		List<Vegetable> vegetableList = vegetableService.findVegetablesByLocalEngName(localEngName);
 //		System.out.println(vegetableList);
 //		System.out.println(Vegetable.Response.toResponseList(vegetableList));
-		return Vegetable.Response.toResponseList(vegetableList);
+		return Vegetable.Response.toItemNameAndLocalEngNameResponseList(vegetableList, localEngName);
 	}	
 
 	// 'GET' http://localhost:8090/vegetables/itemNameAndLocalEngName/:itemName/:localEngName
@@ -96,7 +96,7 @@ public class VegetableController {
 	public Vegetable.Response findVegetablesByItemNameLocalEngName(@PathVariable String itemName, @PathVariable String localEngName) {
 		System.out.println("GET: findVegetablesByItemNameLocalEngName() of VegetableController called");		
 		Vegetable vegetable = vegetableService.findVegetablesByItemNameLocalEngName(itemName, localEngName);
-		return Vegetable.Response.toResponse(vegetable);
+		return Vegetable.Response.toItemNameAndLocalEngNameResponse(vegetable, localEngName);
 	}	
 	
 }

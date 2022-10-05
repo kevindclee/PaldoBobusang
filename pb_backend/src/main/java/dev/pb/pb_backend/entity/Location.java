@@ -160,6 +160,28 @@ public class Location {
 			return resList;
 		}
 		
+		public static Location.Response toFruitItemNameAndLocalEngNameResponse(final Location location, int fruitCode) {
+			return Location.Response.builder()
+					.locationId(location.getLocationId())
+					.localName(location.getLocalName())
+					.localEngName(location.getLocalEngName())
+					.cityName(location.getCityName())
+					.cityEngName(location.getCityEngName())
+					.countryCode(location.getCountryCode())
+					.prices(Price.Response.toLocationFruitResponseList(location.getPrices(), fruitCode))
+					.build();
+		}
+
+		public static List<Location.Response> toFruitItemNameAndLocalEngNameResponseList(final List<Location> locations, int fruitCode, String localEngName) {
+			List<Location.Response> resList = new ArrayList<>();
+			for (Location location : locations) {
+				if (localEngName.equals(location.getLocalEngName())) {
+					resList.add(Location.Response.toFruitResponse(location, fruitCode));
+				}
+			}
+			return resList;
+		}
+		
 		public static Location.Response toVegetableResponse(final Location location, int vegetableCode) {
 			return Location.Response.builder()
 					.locationId(location.getLocationId())
@@ -176,6 +198,28 @@ public class Location {
 			List<Location.Response> resList = new ArrayList<>();
 			for (Location location : locations) {
 				resList.add(Location.Response.toVegetableResponse(location, vegetableCode));
+			}
+			return resList;
+		}
+		
+		public static Location.Response toVegetableItemNameAndLocalEngNameResponse(final Location location, int vegetableCode) {
+			return Location.Response.builder()
+					.locationId(location.getLocationId())
+					.localName(location.getLocalName())
+					.localEngName(location.getLocalEngName())
+					.cityName(location.getCityName())
+					.cityEngName(location.getCityEngName())
+					.countryCode(location.getCountryCode())
+					.prices(Price.Response.toLocationFruitResponseList(location.getPrices(), vegetableCode))
+					.build();
+		}
+
+		public static List<Location.Response> toVegetableItemNameAndLocalEngNameResponseList(final List<Location> locations, int vegetableCode, String localEngName) {
+			List<Location.Response> resList = new ArrayList<>();
+			for (Location location : locations) {
+				if (localEngName.equals(location.getLocalEngName())) {
+					resList.add(Location.Response.toFruitResponse(location, vegetableCode));
+				}
 			}
 			return resList;
 		}

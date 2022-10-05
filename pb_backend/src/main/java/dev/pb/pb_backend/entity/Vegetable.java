@@ -200,6 +200,30 @@ public class Vegetable {
 			return resList;
 		}
 		
+		public static Vegetable.Response toItemNameAndLocalEngNameResponse(final Vegetable vegetable, String localEngName) {
+			return Vegetable.Response.builder()
+					.vegetableCode(vegetable.getVegetableCode())
+					.itemName(vegetable.getItemName())
+					.unit(vegetable.getUnit())
+					.itemImage(vegetable.getItemImage())
+					.harvestStart(vegetable.getHarvestStart())
+					.harvestEnd(vegetable.getHarvestEnd())
+					.etcDetails(vegetable.getEtcDetails())
+					.locations(Location.Response.toVegetableItemNameAndLocalEngNameResponseList(vegetable.getLocations(), vegetable.getVegetableCode(), localEngName))
+//					.locations(Location.Response.toResponseList(fruit.getLocations()))
+//					.prices(Price.Response.toResponseList(fruit.getPrices()))
+					.build();
+		}
+		
+		public static List<Vegetable.Response> toItemNameAndLocalEngNameResponseList(final List<Vegetable> vegetables, String localEngName) {
+			List<Vegetable.Response> resList = new ArrayList<>();
+			for (Vegetable vegetable : vegetables) {
+				resList.add(Vegetable.Response.toItemNameAndLocalEngNameResponse(vegetable, localEngName));
+			}
+			return resList;
+		}
+		
+		
 	}
 	
 }
