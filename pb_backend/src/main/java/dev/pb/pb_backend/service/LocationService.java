@@ -4,6 +4,7 @@ import java.util.List;
 
 import dev.pb.pb_backend.entity.Location;
 import dev.pb.pb_backend.projection.LocationCountryCodeProjection;
+import dev.pb.pb_backend.projection.LocationLocationIdProjection;
 
 public interface LocationService {
 
@@ -17,5 +18,11 @@ public interface LocationService {
 	// LocationRepository 쿼리 메서드
 	// localName 으로 조회
 	List<LocationCountryCodeProjection> findByLocalName(String localName);
+
+	List<Location> findByLocalEngName(String localEngName);
+	List<Location> findByCityEngName(String cityEngName);
+	
+	// countryCode 으로 조회
+	LocationLocationIdProjection findLocationIdByCountryCode(int countryCode);
 	
 }

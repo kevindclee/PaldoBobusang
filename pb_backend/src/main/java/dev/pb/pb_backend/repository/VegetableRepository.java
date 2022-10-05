@@ -16,6 +16,8 @@ public interface VegetableRepository extends JpaRepository<Vegetable, Integer> {
 	
 	// locationId 으로 조회
 	List<Vegetable> findByLocationsLocationId(int locationId);
+	List<Vegetable> findDistinctByLocationsLocalEngName(String localEngName);
+	Vegetable findDistinctByItemNameAndLocationsLocalEngName(String itemName, String localEngName);
 	// harvestDate 으로 조회
 	List<Vegetable> findByHarvestStartBeforeAndHarvestEndAfter(Date curDate1, Date curDate2);
 	

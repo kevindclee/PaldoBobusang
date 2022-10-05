@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,7 +22,8 @@ import dev.pb.pb_backend.service.VegetableService;
 
 @RestController
 @RequestMapping("vegetables")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = {"http://localhost:3000", "http://localhost:3001", "http://127.0.0.1:5500"})
+
 public class VegetableController {
 	
 	@Autowired
@@ -35,11 +37,11 @@ public class VegetableController {
 		return Vegetable.Response.toResponseList(vegetableList);
 	}
 	
-	// 'GET' http://localhost:8090/vegetables/:code
-	@GetMapping("/{code}")
-	public Vegetable.Response findVegetableByCode(@PathVariable int code) {
+	// 'GET' http://localhost:8090/vegetables/:vegetableCode
+	@GetMapping("/{vegetableCode}")
+	public Vegetable.Response findVegetableByCode(@PathVariable int vegetableCode) {
 		System.out.println("GET: findVegetableByCode() of VegetableController called");		
-		Vegetable foundVegetable = vegetableService.findVegetableByCode(code);
+		Vegetable foundVegetable = vegetableService.findVegetableByCode(vegetableCode);
 		return Vegetable.Response.toResponse(foundVegetable);
 	}
 	
@@ -64,13 +66,38 @@ public class VegetableController {
 		return Vegetable.Response.toResponseList(vegetableList);
 	}
 	
-	// 'GET' http://localhost:8090/vegetables/harvest
-	@GetMapping("/harvest")
+	// 'GET' http://localhost:8090/vegetables/list/harvest
+	@GetMapping("/list/harvest")
 	public List<Vegetable.Response> findVegetablesByHarvest() {
 		System.out.println("GET: findVegetablesByHarvest() of VegetableController called");
 		Date curDate = new Date();
 		List<Vegetable> vegetableList = vegetableService.findVegetablesByHarvest(curDate);
 		return Vegetable.Response.toResponseList(vegetableList);
 	}
+
+	// 'PUT' http://localhost:8090/vegetables
+	@PutMapping
+	public Vegetable.Response updateVegetable(@RequestBody Vegetable.Request request) {
+		Vegetable vegetable = vegetableService.updateVegetable(request);
+		return Vegetable.Response.toResponse(vegetable);
+	}
+	
+	// 'GET' http://localhost:8090/vegetables/localEngName/:localEngName
+	@GetMapping("/localEngName/{localEngName}")
+	public List<Vegetable.Response> findVegetablesByLocalEngName(@PathVariable String localEngName) {
+		System.out.println("GET: findVegetablesByLocalEngName() of VegetableController called: " + localEngName);		
+		List<Vegetable> vegetableList = vegetableService.findVegetablesByLocalEngName(localEngName);
+//		System.out.println(vegetableList);
+//		System.out.println(Vegetable.Response.toResponseList(vegetableList));
+		return Vegetable.Response.toItemNameAndLocalEngNameResponseList(vegetableList, localEngName);
+	}	
+
+	// 'GET' http://localhost:8090/vegetables/itemNameAndLocalEngName/:itemName/:localEngName
+	@GetMapping("/itemNameAndLocalEngName/{itemName}/{localEngName}")
+	public Vegetable.Response findVegetablesByItemNameLocalEngName(@PathVariable String itemName, @PathVariable String localEngName) {
+		System.out.println("GET: findVegetablesByItemNameLocalEngName() of VegetableController called");		
+		Vegetable vegetable = vegetableService.findVegetablesByItemNameLocalEngName(itemName, localEngName);
+		return Vegetable.Response.toItemNameAndLocalEngNameResponse(vegetable, localEngName);
+	}	
 	
 }

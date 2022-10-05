@@ -16,11 +16,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import dev.pb.pb_backend.entity.Price;
+import dev.pb.pb_backend.entity.Price.ResponseLocationId;
+import dev.pb.pb_backend.projection.PriceLocationIdProjection;
 import dev.pb.pb_backend.service.PriceService;
 
 @RestController
 @RequestMapping("prices")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = {"http://localhost:3000", "http://localhost:3001", "http://127.0.0.1:5500"})
+
 public class PriceController {
 	
 	@Autowired
@@ -62,5 +65,54 @@ public class PriceController {
 		List<Price> priceList = priceService.findByLocationCountryCode(countryCode);
 		return Price.Response.toResponseList(priceList);
 	}
+
+	// 'GET' http://localhost:8090/prices/list/fruitCode/:fruitCode
+	@GetMapping("/list/fruitCode/{fruitCode}")
+	public List<ResponseLocationId> findByFruitCode(@PathVariable int fruitCode) {
+		System.out.println("GET: findByFruitCode() of PriceController called");		
+		List<PriceLocationIdProjection> priceList = priceService.findByFruitCode(fruitCode);
+		return Price.ResponseLocationId.toResponseList(priceList);
+	}
+
+	// 'GET' http://localhost:8090/prices/list/vegetableCode/:vegetableCode
+	@GetMapping("/list/vegetableCode/{vegetableCode}")
+	public List<ResponseLocationId> findByVegetableCode(@PathVariable int vegetableCode) {
+		System.out.println("GET: findByFruitCode() of PriceController called");		
+		List<PriceLocationIdProjection> priceList = priceService.findByVegetableCode(vegetableCode);
+		return Price.ResponseLocationId.toResponseList(priceList);
+	}
+
+	// 'GET' http://localhost:8090/prices/list/fruitCodeAndLocationId/:fruitCode/:locationId
+	@GetMapping("/list/fruitCodeAndLocationId/{fruitCode}/{locationId}")
+	public List<Price.Response> findByFruitCodeAndLocationId(@PathVariable int fruitCode, @PathVariable int locationId) {
+		System.out.println("GET: findByFruitCodeAndLocationId() of PriceController called");		
+		List<Price> priceList = priceService.findByFruitCodeAndLocationId(fruitCode, locationId);
+		return Price.Response.toResponseList(priceList);
+	}
+
+	// 'GET' http://localhost:8090/prices/list/vegetableCodeAndLocationId/:vegetableCode/:locationId
+	@GetMapping("/list/vegetableCodeAndLocationId/{vegetableCode}/{locationId}")
+	public List<Price.Response> findByVegetableCodeAndLocationId(@PathVariable int vegetableCode, @PathVariable int locationId) {
+		System.out.println("GET: findByVegetableCodeAndLocationId() of PriceController called");		
+		List<Price> priceList = priceService.findByVegetableCodeAndLocationId(vegetableCode, locationId);
+		return Price.Response.toResponseList(priceList);
+	}
+
+	// 'GET' http://localhost:8090/prices/map/fruitItemNameAndLocalEngName/:itemName/:localEngName
+	@GetMapping("/map/fruitItemNameAndLocalEngName/{itemName}/{localEngName}")
+	public List<Price.Response> findByFruitItemNameAndLocalEngName(@PathVariable String itemName, @PathVariable String localEngName) {
+		System.out.println("GET: findByFruitItemNameAndLocalEngName() of PriceController called");		
+		List<Price> priceList = priceService.findByFruitItemNameAndLocalEngName(itemName, localEngName);
+		return Price.Response.toResponseList(priceList);
+	}
+
+	// 'GET' http://localhost:8090/prices/map/vegetableItemNameAndLocalEngName/:itemName/:localEngName
+	@GetMapping("/map/vegetableItemNameAndLocalEngName/{itemName}/{localEngName}")
+	public List<Price.Response> findByVegetableItemNameAndLocalEngName(@PathVariable String itemName, @PathVariable String localEngName) {
+		System.out.println("GET: findByFruitItemNameAndLocalEngName() of PriceController called");		
+		List<Price> priceList = priceService.findByVegetableItemNameAndLocalEngName(itemName, localEngName);
+		return Price.Response.toResponseList(priceList);
+	}
+	
 	
 }
