@@ -7,7 +7,7 @@ const AgriList = (props) => {
     const [agriList, setAgriList] = useState([]);
 
     useEffect(() => {
-      fetch('http://localhost:8090/vegetables/list/harvest')
+      fetch('http://localhost:8090/fruits/list/harvest')
       .then(response => response.json())
       .then(data => setAgriList(data))
     },[]);

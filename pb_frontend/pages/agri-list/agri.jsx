@@ -7,6 +7,8 @@ const Agri = (props) => {
 
     const agri = props.object;
 
+    console.log(agri);
+
     const img_url = '/images/ex1.png';
 
     const [modalVisible, setModalVisible] = useState(false);
@@ -20,7 +22,7 @@ const Agri = (props) => {
             <div className={styles['agri']} onClick={modalChange}>
                 <div >
                     <div className={styles['agri-frame']}>
-                        <img className={styles['picture']} id="modalImage" src={img_url} />
+                        <img className={styles['picture']} id="modalImage" src={agri.itemImage} />
                     </div>
                     <div className={styles['title']}>{agri.itemName}</div>
                 </div>

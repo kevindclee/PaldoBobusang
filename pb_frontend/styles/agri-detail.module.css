@@ -29,3 +29,10 @@
 .agri-loc-table th, .agri-loc-table td {
   border: 1px solid black;
 }
+
+.agri-loc-frame {
+  padding: 0.8rem;
+  height: 100%;
+  overflow: scroll;
+}
+
