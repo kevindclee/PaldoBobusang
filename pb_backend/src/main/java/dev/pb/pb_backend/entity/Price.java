@@ -15,6 +15,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
+import dev.pb.pb_backend.projection.PriceLocationIdProjection;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -186,6 +187,32 @@ public class Price {
 		}
 		
 	}
+	
+	// PriceLocationIdProjection Projection 을 이용한 Response DTO
+	@Setter
+	@Getter
+	@Builder
+	@NoArgsConstructor
+	@AllArgsConstructor
+	public static class ResponseLocationId {
+
+		private int locationId;
+
+		public static Price.ResponseLocationId toResponse(final PriceLocationIdProjection price) {
+			return Price.ResponseLocationId.builder()
+					.locationId(price.getLocation().getLocationId())
+					.build();
+		}
+
+		public static List<Price.ResponseLocationId> toResponseList(final List<PriceLocationIdProjection> prices) {
+			List<Price.ResponseLocationId> resList = new ArrayList<>();
+			for (PriceLocationIdProjection price : prices) {
+				resList.add(Price.ResponseLocationId.toResponse(price));
+			}
+			return resList;
+		}
+	}
+	
 }
 
 
