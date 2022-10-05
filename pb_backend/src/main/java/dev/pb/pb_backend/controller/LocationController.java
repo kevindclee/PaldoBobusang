@@ -26,11 +26,8 @@ import dev.pb.pb_backend.service.LocationService;
 
 @RestController
 @RequestMapping("locations")
-<<<<<<< HEAD
 @CrossOrigin(origins = {"http://localhost:3000", "http://localhost:3001", "http://127.0.0.1:5500"})
-=======
-@CrossOrigin(origins = {"http://localhost:3000", "http://localhost:3001"})
->>>>>>> 19b5815 (fetch postman)
+
 public class LocationController {
 
 	private final Long MILLI_SECONDS_IN_DAY = (long) 86400000;

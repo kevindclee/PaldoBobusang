@@ -22,11 +22,8 @@ import dev.pb.pb_backend.service.VegetableService;
 
 @RestController
 @RequestMapping("vegetables")
-<<<<<<< HEAD
 @CrossOrigin(origins = {"http://localhost:3000", "http://localhost:3001", "http://127.0.0.1:5500"})
-=======
-@CrossOrigin(origins = {"http://localhost:3000", "http://localhost:3001"})
->>>>>>> 19b5815 (fetch postman)
+
 public class VegetableController {
 	
 	@Autowired

@@ -22,15 +22,8 @@ import dev.pb.pb_backend.service.FruitService;
 
 @RestController
 @RequestMapping("fruits")
-<<<<<<< HEAD
 @CrossOrigin(origins = {"http://localhost:3000", "http://localhost:3001", "http://127.0.0.1:5500"})
-=======
-<<<<<<< Updated upstream
-@CrossOrigin(origins = "http://localhost:3000")
-=======
-@CrossOrigin(origins = {"http://localhost:3000", "http://127.0.0.1:5500", "http://localhost:3001"})
->>>>>>> Stashed changes
->>>>>>> 19b5815 (fetch postman)
+
 public class FruitController {
 	
 	@Autowired
