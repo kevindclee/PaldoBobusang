@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import dev.pb.pb_backend.entity.Price;
+import dev.pb.pb_backend.projection.PriceLocationIdProjection;
 import dev.pb.pb_backend.repository.PriceRepository;
 
 @Service
@@ -32,6 +33,36 @@ public class PriceServiceImpl implements PriceService {
 	@Override
 	public List<Price> findByLocationCountryCode(int countryCode) {
 		return priceRepository.findByLocationCountryCode(countryCode);
+	}
+
+	@Override
+	public List<PriceLocationIdProjection> findByFruitCode(int fruitCode) {
+		return priceRepository.findDistinctByFruitFruitCode(fruitCode);
+	}
+
+	@Override
+	public List<PriceLocationIdProjection> findByVegetableCode(int vegetableCode) {
+		return priceRepository.findDistinctByVegetableVegetableCode(vegetableCode);
+	}
+
+	@Override
+	public List<Price> findByFruitCodeAndLocationId(int fruitCode, int locationId) {
+		return priceRepository.findByFruitFruitCodeAndLocationLocationId(fruitCode, locationId);
+	}
+
+	@Override
+	public List<Price> findByVegetableCodeAndLocationId(int vegetableCode, int locationId) {
+		return priceRepository.findByVegetableVegetableCodeAndLocationLocationId(vegetableCode, locationId);
+	}
+
+	@Override
+	public List<Price> findByFruitItemNameAndLocalEngName(String itemName, String localEngName) {
+		return priceRepository.findByFruitItemNameAndLocationLocalEngName(itemName, localEngName);
+	}
+
+	@Override
+	public List<Price> findByVegetableItemNameAndLocalEngName(String itemName, String localEngName) {
+		return priceRepository.findByVegetableItemNameAndLocationLocalEngName(itemName, localEngName);
 	}
 
 }

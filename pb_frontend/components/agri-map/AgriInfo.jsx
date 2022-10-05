@@ -19,37 +19,50 @@ const AgriInfo = () => {
   const [curCitiesOnProduct, setCurCitiesOnProduct] = useAtom(curCitiesOnProductAtom);
 
   useEffect(() => {
-    setCurProductList(null);
+    // setCurProductList(null);
     if (curCategory && !curProductList) {
       setIsCategory([false, false]);
       fetch(`http://localhost:8090/${curCategory}s/localEngName/${curLocation}`)
       .then(response => response.json())
       .then(data => {
           const curList = [];
-          data.map(item => curList.push(item.itemName));
-          console.log(data);
+          data.map(item => curList.push({'name': item.itemName, 'img': item.itemImage}));
           setCurProductList(curList);
         })
-        .catch(error => console.log(error));
-      curCategory === 'vegetable' ? setIsCategory([true, false]) : setIsCategory([false, true]);
+        .catch(error => console.error(error));
+        curCategory === 'vegetable' ? setIsCategory([true, false]) : setIsCategory([false, true]);
+      }
+      
+      if (curProduct && !curCitiesOnProduct) {
+        fetch(`http://localhost:8090/${curCategory}s/itemNameAndLocalEngName/${curProduct}/${curLocation}`)
+        .then(response => response.json())
+        .then(data => {
+            const curList = [];
+            console.log("data:", data);
+            console.log('location:', data.locations);
+            data.locations.map(item => curList.push(item));
+            console.log(curList);
+            setCurCitiesOnProduct(curList);
+          })
+          .catch(error => console.error(error));
     }
 
-    console.log("effect: ", curProductList);
+  }, [curCategory, curProduct]);
 
-  }, [curCategory, curProduct, curLocation]);
-
-  curProductList? console.log('curLocation:', curLocation,'curCategory:', curCategory, 'curProductList:', curProductList) : <></>;
-  curProductList? console.dir(curProductList) : <></>;
+  curProductList? console.log('curLocation:', curLocation,'curCategory:', curCategory, 'curProductList:', curProductList, 'curCitiesOnProduct:', curCitiesOnProduct, 'curProduct:', curProduct) : <></>;
+  // curProductList? console.dir(curProductList) : <></>;
   
   const clickHandler = event => {
                         setCurCategory(event.target.id);
                         setCurProduct(null);
                         setCurProductList(null);
+                        setCurCitiesOnProduct(null);
                       }
   const selectHandler = event => {
     setCurProduct(event.target.textContent);
+    setCurCitiesOnProduct(null);
     const items = document.getElementsByClassName('item');
-    for (let item of items) item.style = 'background-color: rgba(255, 234, 167, 1);';
+    for (let item of items) item.style = 'background-color: rgba(255, 234, 167, 0.5);';
     event.target.style = 'border-radius: 1rem 1rem 0 0; background-color: rgba(211, 214, 218, 0.5);'
   }
   const mouseOverHandler = event => event.target.style
@@ -58,7 +71,7 @@ const AgriInfo = () => {
    if (event.target.id === curProduct){
      event.target.style = 'border-radius: 1rem 1rem 0 0; background-color: rgba(211, 214, 218, 0.5);';
    } else {
-     event.target.style = 'background-color: rgba(255, 234, 167, 1);';
+     event.target.style = 'border: 1px solid rgba(255, 234, 167, 1);';
    }
   }
 
@@ -74,11 +87,11 @@ const AgriInfo = () => {
                                                 onMouseOver={mouseOverHandler}
                                                 onMouseOut={mouseOutHandler}
                                                 className={`item ${styles.item}`}
-                                                id={item} key={index}>{item}
+                                                id={item.name} key={index}>{item.name}
                                             </div>
-                                            {/* {curProduct === item? <LocationTable 
-                                                                    array={curCitiesOnProduct[item]}
-                                                                    local={curLocation} /> : <></>} */}
+                                            {curProduct === item.name? <LocationTable 
+                                                                    array={curCitiesOnProduct}
+                                                                    local={curLocation} /> : <></>}
                                           </>
                                           )}
                         </div> : 

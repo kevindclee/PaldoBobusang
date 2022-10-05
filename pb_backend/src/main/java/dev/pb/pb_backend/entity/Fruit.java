@@ -211,6 +211,31 @@ public class Fruit {
 			return resList;
 		}
 		
+		
+		public static Fruit.Response toItemNameAndLocalEngNameResponse(final Fruit fruit, String localEngName) {
+			return Fruit.Response.builder()
+					.fruitCode(fruit.getFruitCode())
+					.itemName(fruit.getItemName())
+					.unit(fruit.getUnit())
+					.itemImage(fruit.getItemImage())
+					.harvestStart(fruit.getHarvestStart())
+					.harvestEnd(fruit.getHarvestEnd())
+					.etcDetails(fruit.getEtcDetails())
+					.brix(fruit.getBrix())
+					.locations(Location.Response.toFruitItemNameAndLocalEngNameResponseList(fruit.getLocations(), fruit.getFruitCode(), localEngName))
+//					.locations(Location.Response.toResponseList(fruit.getLocations()))
+//					.prices(Price.Response.toResponseList(fruit.getPrices()))
+					.build();
+		}
+		
+		public static List<Fruit.Response> toItemNameAndLocalEngNameResponseList(final List<Fruit> fruits, String localEngName) {
+			List<Fruit.Response> resList = new ArrayList<>();
+			for (Fruit fruit : fruits) {
+				resList.add(Fruit.Response.toItemNameAndLocalEngNameResponse(fruit, localEngName));
+			}
+			return resList;
+		}
+		
 	}
 	
 	// FruitItemImageProjection 을 이용한 Response DTO
