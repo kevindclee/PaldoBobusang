@@ -3,9 +3,11 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router'
 import curAppAtom from '../atoms/curAppAtom';
 import styles from '../styles/main.module.css';
+import curLocationAtom from '../atoms/curLocationAtom';
 
 export default function Home() {
   const [curApp, setCurApp] = useAtom(curAppAtom);
+  const [curLocation, setCurLocation] = useAtom(curLocationAtom);
   const [curView, setCurView] = useState('');
   const router = useRouter();
   useEffect(() => setCurApp(''), []);
@@ -21,6 +23,7 @@ export default function Home() {
 
   const mapClickHandler = event => {
     router.push(`/${curView}`);
+    setCurLocation('');
   };
 
   return (

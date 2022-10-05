@@ -6,9 +6,13 @@ import curAppAtom from '../../atoms/curAppAtom'
 import curLocationAtom from '../../atoms/curLocationAtom'
 import styles from '../../styles/agri-map.module.css'
 import AgriSpot from './AgriSpot';
+import curCitiesOnProductAtom from '../../atoms/curCitiesOnProductAtom';
+// import curCategoryAtom from '../../atoms/curCategoryAtom';
 
 const AgriMap = () => {
   const [curLocation, setCurLocation] = useAtom(curLocationAtom);
+  // const [curCategory, setCurCategory] = useAtom(curCategoryAtom);
+  const [curCitiesOnProduct, setCurCitiesOnProduct] = useAtom(curCitiesOnProductAtom);
   const [curApp, setCurApp] = useAtom(curAppAtom);
   useEffect(() => {
     setCurApp('agri-map')
@@ -23,7 +27,10 @@ const AgriMap = () => {
   }, [curLocation]);
   
   const clickHandler = location => {
-    location ? setCurLocation(location.replace('overall_classified_svg__', '')) : '';
+    if (location) {
+      setCurLocation(location.replace('overall_classified_svg__', ''));
+      setCurCitiesOnProduct(null);
+    };
   }
 
   return (

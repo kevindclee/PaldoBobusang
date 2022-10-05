@@ -14,15 +14,15 @@ const LocationTable = (props) => {
           <th>도</th>
           <th>시(군)</th>
         </tr>
-        {array.map((city, index) => {
-          return index === 0 ? <tr>
-                                 <td rowSpan={array.length}>{local}</td>
-                                 <td>{city}</td>
-                               </tr> :
-                               <tr>
-                                 <td>{city}</td>
-                               </tr>
-        })}
+        {array? array.map((city, index) => {
+                  return index === 0 ? <tr>
+                                        <td rowSpan={array.length}>{city.localName}</td>
+                                        <td>{city.cityName}</td>
+                                      </tr> :
+                                      <tr>
+                                        <td>{city.cityName}</td>
+                                      </tr>
+                }) : <></>}
       </table>
     </div>
   )
