@@ -33,7 +33,7 @@
 
 [https://documenter.getpostman.com/view/23095082/2s7ZLhnWb8](https://documenter.getpostman.com/view/23095082/2s7ZLhnWb8)
 
-## 9. 컨벤션 or 진행 간 규칙!g
+## 9. 컨벤션 or 진행 간 규칙
 # 
 - git을 기능별로 나누고, 구현한 사람을 기준으로 branch를 생성
 - git에 pull 할 시에 --rebase 옵션 사용
