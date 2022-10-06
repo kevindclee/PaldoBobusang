@@ -1,8 +1,8 @@
 import React, {useEffect} from 'react'
 import styles from '/styles/agriList.module.css';
-import AgriDetail from '../../components/agri-details/agri-detail';
-import AgriLocation from '../../components/agri-details/agri-location';
-import AgriChart from '../../components/agri-details/agri-chart';
+import AgriDetail from './agri-detail';
+import AgriLocation from './agri-location';
+import AgriChart from './agri-chart';
 
 const AgriListDetail = (props) => {
   const agriDetail = props.object;

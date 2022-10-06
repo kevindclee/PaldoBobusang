@@ -43,8 +43,8 @@ export default function Home() {
             </div>
             <div className={`${styles['attention-arrow']} ${styles.right}`}></div>
           </div>
-          <div className={curView === 'agri-list' ? `${styles.button} ${styles[curView]}` : styles.button} id='agri-list' onMouseOver={mouseOverHandler} onClick={listClickHandler} >농산물 목록</div>
-          <div className={curView === 'agri-map' ? `${styles.button} ${styles[curView]}` : styles.button} id='agri-map' onMouseOver={mouseOverHandler} onClick={mapClickHandler} >농산물 지도</div>
+          <div className={curView === 'agri-list' ? `${styles.button} ${styles[curView]}` : styles.button} id='agri-list' onMouseOver={mouseOverHandler} onClick={listClickHandler} >보부상 봇짐</div>
+          <div className={curView === 'agri-map' ? `${styles.button} ${styles[curView]}` : styles.button} id='agri-map' onMouseOver={mouseOverHandler} onClick={mapClickHandler} >보부상 지도</div>
         </div>
         { curView !== '' && <div className={`${styles["service-video"]}`}>{curView}</div>}
       </div>

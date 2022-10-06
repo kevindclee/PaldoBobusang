@@ -1,39 +1,32 @@
 .position{
   position: absolute;
   margin: 17vh 0 0 1.5vw; 
-  border: solid black 1px;
   /* height: 70%; */
 }
 
 .position-capital {
   position: absolute;
   margin: 17vh 0 0 1vw; 
-  border: solid black 1px
 }
 
 .position-jeonbuk {
   position: absolute;
   margin: 11% 0 0 3.5vw; 
-  border: solid black 1px
 }  
 
 @media (min-width: 1900px) {
   .position{
     position: absolute;
     margin: 17vh 0 0 1.5vw; 
-    border: solid black 1px;
-    /* height: 70%; */
   }
   
   .position-capital {
     position: absolute;
     margin: 17vh 0 0 1vw; 
-    border: solid black 1px
   }
   
   .position-jeonbuk {
     position: absolute;
     margin: 11% 0 0 3.5vw; 
-    border: solid black 1px
   }  
 }

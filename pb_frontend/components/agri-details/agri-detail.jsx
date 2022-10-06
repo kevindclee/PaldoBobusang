@@ -8,20 +8,17 @@ const AgriDetail = (props) => {
   return (
     <div className={`${props.className} ${styles['detail-body']}`}>
       <div className={styles['detail-table']}>
-        <table className={styles['detail-inside-table']}>
-          <thead>
-            <tr><th>이미지</th><th>품종</th><th>수확 시작철</th><th>수확 마무리철</th><th>상세 정보</th></tr>
-          </thead>
-          <tr>
-            <td>
-              <img className={styles['detail-image']} src={detail.itemImage} />
-            </td> 
-            <td>{detail.itemName}</td> 
-            <td>{detail.harvestStart}</td> 
-            <td>{detail.harvestEnd}</td> 
-            <td>{detail.etcDetails}</td>
-          </tr>
-        </table>
+        <div className={styles['table-item1']}>
+          <img src={detail.itemImage} alt={detail.itemName} className={styles['detail-image']} />
+        </div>
+        <div className={styles['table-item2']}>품목</div>
+        <div className={styles['table-item3']}>수확 시작일</div>
+        <div className={styles['table-item4']}>수확 종료일</div>
+        <div className={styles['table-item5']}>{detail.itemName}</div>
+        <div className={styles['table-item6']}>{detail.harvestStart}</div>
+        <div className={styles['table-item7']}>{detail.harvestEnd}</div>
+        <div className={styles['table-item8']}>상세정보</div>
+        <div className={styles['table-item9']}>{detail.etcDetails}</div>
       </div>
     </div>
   )
