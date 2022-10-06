@@ -34,7 +34,7 @@
 [https://documenter.getpostman.com/view/23095082/2s7ZLhnWb8](https://documenter.getpostman.com/view/23095082/2s7ZLhnWb8)
 
 ## 9. 컨벤션 or 진행 간 규칙
-# Git
+  Git
 - git을 기능별로 나누고, 구현한 사람을 기준으로 branch를 생성
 - git에 pull 할 시에 --rebase 옵션 사용
 - 각자 개인 branch에 push 하고 pull request를 통해 상위 branch에 동기화한다.
