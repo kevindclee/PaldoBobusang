@@ -33,7 +33,13 @@
 
 [https://documenter.getpostman.com/view/23095082/2s7ZLhnWb8](https://documenter.getpostman.com/view/23095082/2s7ZLhnWb8)
 
-## 9. 컨벤션 or 진행 간 규칙
-![ESLint](/readme/eslint.png "ESLint")
-![Github Branches](/readme/github_branches.png "Github Branches")
+## 9. 컨벤션 or 진행 간 규칙!g
+![Git]
+- git을 기능별로 나누고, 구현한 사람을 기준으로 branch를 생성
+- git에 pull 할 시에 --rebase 옵션 사용
+- 각자 개인 branch에 push 하고 pull request를 통해 상위 branch에 동기화한다.
 
+## 10. 느낀점
+- 김현수 : 초반에 팀원들이 기본 틀을 닦아주어 빠르게 적응할 수 있어서 팀원들한테 감사했습니다. 또 여러 문제들을 서로 도와가며 해결하는 과정이 어려웠지만 그만큼 느낀 점도 많은 프로젝트였습니다. 넘나 어려운 것...
+- 이동찬 : 
+- 이종수 : 
