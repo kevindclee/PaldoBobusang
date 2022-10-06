@@ -15,7 +15,7 @@
 }
 
 .agri-details {
-  width: 65%;
+  width: 80%;
   height: 90%;
   margin-top: 2vh;
   border: 3px solid black;
@@ -80,6 +80,7 @@
   height: 80vh;
   margin-top: 15vh;
   padding: 3%;
+  overflow-y: scroll;
 }
 
 .container {
