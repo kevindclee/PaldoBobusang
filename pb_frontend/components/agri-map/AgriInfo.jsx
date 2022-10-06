@@ -27,7 +27,7 @@ const AgriInfo = () => {
       .then(data => {
           const curList = [];
           console.log(data);
-          data.map(item => curList.push({...item, locations: null}));
+          data.map(item => curList.push({...item}));
           setCurProductList(curList);
         })
         .catch(error => console.error(error));
