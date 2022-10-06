@@ -1,5 +1,5 @@
 .agri-body {
-  width: 90vw;
+  width: 100vw;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -7,8 +7,8 @@
 }
 
 .agri-details {
-  width: 60%;
-  height: 80%;
+  width: 65%;
+  height: 90%;
   margin-top: 2vh;
   border: 3px solid black;
   display: grid;
@@ -24,6 +24,7 @@
   transform: translate(-50%, -50%);
   z-index: 1011;
   position: fixed;
+  overflow: scroll;
 }
 
 .agri-detail {
@@ -49,9 +50,10 @@
   grid-area: agri-chart;
   border: 3px solid black;
   width: 100%;
-  height: 35vh;
+  height: 45vh;
   border-radius: 1rem 1rem 0 0;
   background-color: rgba(255, 255, 255, 0.7);
+  padding: 1;
 }
 
 .blackout-style{
@@ -72,4 +74,17 @@
   margin-top: 5%;
   border: 7px double black;
   background-color: hsla(73, 5%, 70%, 0.3);
+}
+
+.container {
+  height: 65%;
+  width: 95%;
+  max-height: 50px;
+  align-items: center;
+  justify-content: center;
+}
+
+.chart {
+  height: 40%;
+  align-content: center;
 }

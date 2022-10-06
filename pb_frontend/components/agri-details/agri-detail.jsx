@@ -3,10 +3,7 @@ import styles from '../../styles/agri-detail.module.css';
 import { useState } from 'react';
 
 const AgriDetail = (props) => {
-  const [kind, setKind] = useState(false);
   const detail = props.object;
-  const mouseOverHandler = event => setKind(true);
-  const list = ['아오리', '홍로', '부사']
 
   return (
     <div className={`${props.className} ${styles['detail-body']}`}>
