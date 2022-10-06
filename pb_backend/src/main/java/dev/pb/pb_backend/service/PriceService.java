@@ -1,5 +1,6 @@
 package dev.pb.pb_backend.service;
 
+import java.util.Date;
 import java.util.List;
 
 import dev.pb.pb_backend.entity.Price;
@@ -25,6 +26,9 @@ public interface PriceService {
 	List<PriceLocationIdProjection> findByVegetableCode(int vegetableCode);
 	List<Price> findByFruitCodeAndLocationId(int fruitCode, int locationId);
 	List<Price> findByVegetableCodeAndLocationId(int vegetableCode, int locationId);
+	
+	Price findByFruitCodeAndLocationIdAndPriceDate(int fruitCode, int locationId, Date priceDate);
+	Price findByVegetableCodeAndLocationIdAndPriceDate(int vegetableCode, int locationId, Date priceDate);
 
 	List<Price> findByFruitItemNameAndLocalEngName(String itemName, String localEngName);
 	List<Price> findByVegetableItemNameAndLocalEngName(String itemName, String localEngName);

@@ -55,11 +55,11 @@
 }
 
 .item {
-  width: 5rem;
+  width: 8rem;
   height: 3rem;
   padding: 1rem;
   border-radius: 1rem;
-  background-color: rgba(255, 234, 167, 1);
+  background-color: rgba(255, 234, 167, 0.5);
   display: flex;
   justify-content: center;
   align-items: center;

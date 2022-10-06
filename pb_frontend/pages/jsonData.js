@@ -3,7 +3,7 @@ export default [
         "fruitCode": 221,
         "itemName": "수박",
         "unit": "1개",
-        "itemImage": "/images/ex1.jpg",
+        "itemImage": "/images/ex1.png",
         "harvestStart": "2022-10-01",
         "harvestEnd": "2022-10-10",
         "etcDetails": null,

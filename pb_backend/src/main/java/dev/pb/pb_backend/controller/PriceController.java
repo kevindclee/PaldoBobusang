@@ -1,5 +1,7 @@
 package dev.pb.pb_backend.controller;
 
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -23,6 +25,7 @@ import dev.pb.pb_backend.service.PriceService;
 @RestController
 @RequestMapping("prices")
 @CrossOrigin(origins = {"http://localhost:3000", "http://localhost:3001", "http://127.0.0.1:5500"})
+
 public class PriceController {
 	
 	@Autowired
@@ -111,6 +114,33 @@ public class PriceController {
 		System.out.println("GET: findByFruitItemNameAndLocalEngName() of PriceController called");		
 		List<Price> priceList = priceService.findByVegetableItemNameAndLocalEngName(itemName, localEngName);
 		return Price.Response.toResponseList(priceList);
+	}
+
+	// 'GET' http://localhost:8090/prices/fruitDateCheck/:fruitCode/:locationId/:priceDate
+	@GetMapping("/fruitDateCheck/{fruitCode}/{locationId}/{priceDate}")
+	public Price.Response findByFruitCodeAndLocationIdAndPriceDate(@PathVariable int fruitCode, @PathVariable int locationId, @PathVariable String priceDate) {
+		System.out.println("GET: findByFruitCodeAndLocationIdAndPriceDate() of PriceController called");
+//		LocalDate localDate = LocalDate.parse(priceDate);
+		Date date = java.sql.Date.valueOf(priceDate);
+		Price price = priceService.findByFruitCodeAndLocationIdAndPriceDate(fruitCode, locationId, date);
+		if (price == null) {
+			return new Price.Response();
+		} else {
+			return Price.Response.toResponse(price);
+		}
+	}
+
+	// 'GET' http://localhost:8090/prices/vegetableDateCheck/:vegetableCode/:locationId/:priceDate
+	@GetMapping("/vegetableDateCheck/{vegetableCode}/{locationId}/{priceDate}")
+	public Price.Response findByVegetableCodeAndLocationIdAndPriceDate(@PathVariable int vegetableCode, @PathVariable int locationId, @PathVariable String priceDate) {
+		System.out.println("GET: findByVegetableCodeAndLocationIdAndPriceDate() of PriceController called");
+		Date date = java.sql.Date.valueOf(priceDate);		
+		Price price = priceService.findByVegetableCodeAndLocationIdAndPriceDate(vegetableCode, locationId, date);
+		if (price == null) {
+			return new Price.Response();
+		} else {
+			return Price.Response.toResponse(price);
+		}
 	}
 	
 	

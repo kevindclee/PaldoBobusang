@@ -23,6 +23,7 @@ import dev.pb.pb_backend.service.FruitService;
 @RestController
 @RequestMapping("fruits")
 @CrossOrigin(origins = {"http://localhost:3000", "http://localhost:3001", "http://127.0.0.1:5500"})
+
 public class FruitController {
 	
 	@Autowired
