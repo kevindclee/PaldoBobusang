@@ -26,7 +26,8 @@ const AgriInfo = () => {
       .then(response => response.json())
       .then(data => {
           const curList = [];
-          data.map(item => curList.push({'name': item.itemName, 'img': item.itemImage}));
+          console.log(data);
+          data.map(item => curList.push({...item}));
           setCurProductList(curList);
         })
         .catch(error => console.error(error));
@@ -87,9 +88,9 @@ const AgriInfo = () => {
                                                 onMouseOver={mouseOverHandler}
                                                 onMouseOut={mouseOutHandler}
                                                 className={`item ${styles.item}`}
-                                                id={item.name} key={index}>{item.name}
+                                                id={item.itemName} key={index}>{item.itemName}
                                             </div>
-                                            {curProduct === item.name? <LocationTable 
+                                            {curProduct === item.itemName? <LocationTable 
                                                                     array={curCitiesOnProduct}
                                                                     local={curLocation} /> : <></>}
                                           </>

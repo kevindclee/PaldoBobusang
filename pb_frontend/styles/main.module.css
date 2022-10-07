@@ -78,10 +78,9 @@
   justify-content: space-evenly;
 }
 
-.apps .button {
+.button {
   padding: 0 2rem;
   height: 5rem;
-  /* border: 5px solid black; */
   border-radius: 3rem;
   display: flex;
   flex-wrap: wrap;
@@ -89,56 +88,73 @@
   align-items: center;
   font-size: 3rem;
   font-weight: bold;
-  /* font-family: 'Gugi', cursive; */
   background-color: beige;
   color: rgba(0, 0, 0, 0.8);
 }
 
-.attention {
-  position: absolute;
+.button:hover {
+  background-color: rgba(253, 203, 110, 1);
+  cursor: pointer;
+}
+
+.practice-video-frame {
+  width: 90%;
+  height: 60%;
+  margin: 5% auto;
+  background-color: rgba(245, 245, 220, 0.5);
+  border-radius: 1rem 1rem 0 0;
+  position: relative;
   display: flex;
   align-items: center;
-  font-size: 1.8rem;
-  font-weight: bold;
-  color: black;
-  top: 400px;
+  justify-content: space-evenly;
 }
 
-.attention .attention-arrow {
-  margin: 0 1rem;
-  font-size: 2rem;
-  color: brown;
+.frontier {
+  height: 60%;
+  width: 0.6%;
+  background-color: rgba(245, 245, 220, 0.7);
+  top: 20%;
+  left: 49.5%;
+  position: absolute;
+  border-radius: 1rem;
 }
 
-.attention .left:empty:before {
-  content: '↑';
+.video-frame {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.attention .right:empty:before {
-  content: '↑';
+
+.video {
+  width: 36rem;
+  height: 20rem;
 }
 
-.apps .agri-list {
-  background-color: rgba(245, 223, 78, 0.8);
-  border-radius: 3rem 2rem 0 0;
-  cursor: pointer;
+
+.question-mark {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 8rem;
+  font-family: 'Jua', sans-serif;
+  animation: bounce 1s infinite;
 }
 
-.apps .agri-map {
-  background-color: rgba(245, 223, 78, 0.8);
-  border-radius: 2rem 3rem 0 0;
-  cursor: pointer;
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(-15%);
+    animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+  }
+  50% {
+    transform: translateY(15%);
+    animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+  }
 }
-
-.service-video {
-  width: 80%;
-  height: 65%;
-  margin: 0 auto;
-  background-color: rgba(245, 223, 78, 0.8);
-  border-radius: 1rem 1rem 0 0;
-  /* border: 5px solid black; */
-}
-
 
 @media (min-width: 1490px) {
   .attention .left {

@@ -1,7 +1,12 @@
+import { useAtom } from 'jotai';
 import React from 'react'
+import curAppAtom from '../../atoms/curAppAtom';
+import curCitiesOnProductAtom from '../../atoms/curCitiesOnProductAtom';
 import styles from '../../styles/agri-detail.module.css';
 
 const AgriLocation = (props) => {
+  const [curApp, setCurApp] = useAtom(curAppAtom);
+  const [curCitiesOnProduct, setCurCitiesOnProduct] = useAtom(curCitiesOnProductAtom);
   const agriLoc = props.object.locations;
   const localList = {'수도권': [],
                      '강원도': [],
@@ -13,24 +18,27 @@ const AgriLocation = (props) => {
                      '경상남도': [],
                      '제주도': [],
                     }
-  agriLoc.map(item => localList[item.localName].push(item.cityName));
+  curApp === 'agri-list' ? agriLoc.map(item => localList[item.localName].push(item.cityName)) : curCitiesOnProduct.map(item => localList[item.localName].push(item.cityName));
 
   const localKey = Object.keys(localList);
 
   return (
     <div className={`${props.className} ${styles['agri-loc-frame']}`}>
       <table className={styles['agri-loc-table']}>
-        <tr><th>도이름</th><th>시이름</th></tr> 
+        <tr>
+          <th className={styles['th-left']}>도</th>
+          <th className={styles['th-right']}>시(군)</th>
+        </tr> 
           {
             localKey.map(key => {
               return (
                 localList[key].map((city, index) => {
                   return index === 0 ? <tr>
-                                          <td rowSpan={localList[key].length}>{key}</td>
-                                          <td>{city}</td>
+                                          <td className={styles['local-name']} rowSpan={localList[key].length}>{key}</td>
+                                          <td className={styles['city-name']}>{city}</td>
                                        </tr>:
                                        <tr>
-                                          <td>{city}</td>
+                                          <td className={styles['city-name']}>{city}</td>
                                        </tr>
                 })  
               )

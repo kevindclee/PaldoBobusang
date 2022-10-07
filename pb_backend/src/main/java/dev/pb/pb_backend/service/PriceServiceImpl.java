@@ -1,5 +1,6 @@
 package dev.pb.pb_backend.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,6 +64,16 @@ public class PriceServiceImpl implements PriceService {
 	@Override
 	public List<Price> findByVegetableItemNameAndLocalEngName(String itemName, String localEngName) {
 		return priceRepository.findByVegetableItemNameAndLocationLocalEngName(itemName, localEngName);
+	}
+
+	@Override
+	public Price findByFruitCodeAndLocationIdAndPriceDate(int fruitCode, int locationId, Date priceDate) {
+		return priceRepository.findByFruitFruitCodeAndLocationLocationIdAndPriceDate(fruitCode, locationId, priceDate);
+	}
+
+	@Override
+	public Price findByVegetableCodeAndLocationIdAndPriceDate(int vegetableCode, int locationId, Date priceDate) {
+		return priceRepository.findByVegetableVegetableCodeAndLocationLocationIdAndPriceDate(vegetableCode, locationId, priceDate);
 	}
 
 }

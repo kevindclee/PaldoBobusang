@@ -1,5 +1,6 @@
 package dev.pb.pb_backend.repository;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -21,6 +22,8 @@ public interface PriceRepository extends JpaRepository<Price, Integer> {
 	List<PriceLocationIdProjection> findDistinctByVegetableVegetableCode(int vegetableCode);
 	List<Price> findByFruitFruitCodeAndLocationLocationId(int fruitCode, int locationId);
 	List<Price> findByVegetableVegetableCodeAndLocationLocationId(int vegetableCode, int locationId);
+	Price findByFruitFruitCodeAndLocationLocationIdAndPriceDate(int fruitCode, int locationId, Date priceDate);
+	Price findByVegetableVegetableCodeAndLocationLocationIdAndPriceDate(int vegetableCode, int locationId, Date priceDate);
 
 	List<Price> findByFruitItemNameAndLocationLocalEngName(String itemName, String localEngName);
 	List<Price> findByVegetableItemNameAndLocationLocalEngName(String itemName, String localEngName);
