@@ -42,23 +42,17 @@ const AgriSpot = (props) => {
 
   return (
     <>
-      <svg viewBox={properties[curLocation]['viewBox']} xmlns="http://www.w3.org/2000/svg" width="calc(54% - 4rem)"  className={`${styles.position} ${styles[`position-${curLocation}`]}`}>
+      <svg viewBox={properties[curLocation]['viewBox']} xmlns="http://www.w3.org/2000/svg" width="80%"  className={`${styles.position} ${styles[`position-${curLocation}`]}`}>
         <g fill="white" stroke="green" stroke-width="5" transform={properties[curLocation]['transform']} onClick={modalChange}>
           {curCitiesOnProduct? list.map(item => {
             return curLocation === 'jeonbuk' ? 
-            <>
-              <image href={productImage} x={item[0]} y={item[1]} width='10rem' height='10rem' onClick={modalChange}/>
-              {modalVisible && <AgriListBlackout setIsModal={modalChange}/>}
-              {modalVisible && <AgriListDetail object={modalProduct}/>}
-            </> :
-            <>
-              <image href={productImage} x={item[0]} y={item[1]} width='2.5rem' height='2.5rem' onClick={modalChange}/>
-              {modalVisible && <AgriListBlackout setIsModal={modalChange}/>}
-              {modalVisible && <AgriListDetail object={modalProduct}/>}
-            </>
+              <image href={productImage} x={item[0]} y={item[1]} width='10rem' height='10rem' onClick={modalChange} className={styles['image']}/>:
+              <image href={productImage} x={item[0]} y={item[1]} width='2.5rem' height='2.5rem' onClick={modalChange} className={styles['image']}/>
           }) : <></>}
         </g>
       </svg>
+          {modalVisible && <AgriListBlackout setIsModal={modalChange}/>}
+          {modalVisible && <AgriListDetail object={modalProduct}/>}
     </>
   )
 }

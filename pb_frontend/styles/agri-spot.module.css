@@ -1,18 +1,24 @@
 .position{
   position: absolute;
-  margin: 17vh 0 0 1.5vw; 
-  /* height: 70%; */
+  top: 7vh;
+  left: 4.5vw;
 }
 
 .position-capital {
   position: absolute;
-  margin: 17vh 0 0 1vw; 
+  top: 7vh;
+  left: 3.2vw;
 }
 
 .position-jeonbuk {
   position: absolute;
-  margin: 11% 0 0 3.5vw; 
-}  
+  top: 10vh;
+  left: 2vw;
+} 
+
+.image {
+  cursor: pointer;
+}
 
 @media (min-width: 1900px) {
   .position{
