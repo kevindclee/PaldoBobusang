@@ -1,87 +1,101 @@
 import React, { useEffect, useState } from 'react'
 import styles from '../../styles/agriList.module.css';
 import { Line } from 'react-chartjs-2';
-import Chart from 'chart.js/auto'
-import { useAtom } from 'jotai';
-import curAppAtom from '../../atoms/curAppAtom';
-import curLocationAtom from '../../atoms/curLocationAtom';
+import Chart from 'chart.js/auto';
 
 const AgriChart = (props) => {
+
+  // const [AgriData, setAgriData] = useState({});
+  // setAgriData(props.object);
+
+  // const [productCondition, setProductCondition] = useState(true);
+  // const [productCode, setProductCode] = useState(0);
+
+  // if(typeof AgriData.fruitCode !== 'undefined'){
+  //   setProductCode(AgriData.fruitCode);
+  //   console.log('과일', productCondition, productCode);
+  // } else{
+  //   setProductCode(AgriData.vegetableCode);
+  //   setProductCondition(false);
+  //   console.log('야채', productCondition, productCode);
+  // }
 
   const AgriData = props.object;
   const [curApp, setCurApp] = useAtom(curAppAtom);
   const [curLocation, setCurLocation] = useAtom(curLocationAtom);
   let productCondition = true;
-
   let productCode = 0;
+
   if(typeof AgriData.fruitCode !== 'undefined'){
     productCode = AgriData.fruitCode;
+    console.log('과일', productCondition, productCode);
   } else{
     productCode = AgriData.vegetableCode;
     productCondition = false;
+    console.log('야채', productCondition, productCode);
   }
 
   const [locationId, setLocationId] = useState(0);
   const [priceData, setPriceData] = useState([]);
 
   useEffect(() => {
-    if (productCondition) {
-      fetch(`http://localhost:8090/prices/list/fruitCode/${productCode}`)
-      .then(response => response.json())
-      .then(data =>  {
+      const fetchData = async () => {
+        let data = {};
+        if (productCondition) {
+          const rawRes = await fetch(`http://localhost:8090/prices/list/fruitCode/${productCode}`)
+          data = await rawRes.json();
+        } else {
+          const rawRes = await fetch(`http://localhost:8090/prices/list/vegetableCode/${productCode}`)
+          data = await rawRes.json();
+        }
+
         if(data.length !== 0){
           setLocationId(data[0].locationId);
         } else {
           setLocationId(0);
         }
-      });
-    } else {
-      fetch(`http://localhost:8090/prices/list/vegetableCode/${productCode}`)
-      .then(response => response.json())
-      .then(data =>  setLocationId(data[0].locationId));     
-    }
-    
-  },[]);
-  console.log(curApp)
-  if (curApp === 'agri-list') {
-    if (locationId !== 0) { 
-      if(productCondition){
-        fetch(`http://localhost:8090/prices/list/fruitCodeAndLocationId/${productCode}/${locationId}`)
-        .then(response => response.json())
-        .then(data => setPriceData(data));
-      } else {
-        fetch(`http://localhost:8090/prices/list/vegetableCodeAndLocationId/${productCode}/${locationId}`)
-        .then(response => response.json())
-        .then(data => setPriceData(data));
-      }
-    }
-  } else {
-    if(productCondition){
-      fetch(`http://localhost:8090/prices/map/fruitItemNameAndLocalEngName/${AgriData.itemName}/${curLocation}`)
-      .then(response => response.json())
-      .then(data => setPriceData(data));
-    } else {
-      fetch(`http://localhost:8090/prices/map/vegetableItemNameAndLocalEngName/${AgriData.itemName}/${curLocation}`)
-      .then(response => response.json())
-      .then(data => setPriceData(data));
-    }
-  }
-  console.log('priceData:', priceData);
+
+        if (locationId !== 0) { 
+          if(productCondition){
+            const rawRes2 = await fetch(`http://localhost:8090/prices/list/fruitCodeAndLocationId/${productCode}/${locationId}`)
+            const data = await rawRes2.json();
+            setPriceData(data);
+          } else {
+            const rawRes2 = await fetch(`http://localhost:8090/prices/list/vegetableCodeAndLocationId/${productCode}/${locationId}`)
+            const data = await rawRes2.json();
+            setPriceData(data);
+          }
+        }
+
+      };
+      
+      setTimeout(() => {
+        fetchData(); 
+      }, 500);
+      
+  },[locationId]);
+
   const dataLength = priceData.length;
 
   const priceDate = ['2021-10-07', '2022-09-06', '2022-09-29', '2022-10-05'];
   const priceKey = ['1년전', '1달전', '1주일전', '당일'];
   const arrPrice = {};
 
+  let listCityName = '';
   for (let index = 0; index < dataLength; index++) {
-    if(priceDate[index] === priceData[index].priceDate){
-      if(priceData[index].priceValue) {
-        console.log("inPriceData:", priceData);
-        arrPrice[priceKey[index]] = priceData[index].priceValue;
-      } else
-        arrPrice[priceKey[index]] = 0;
-      
+    for (let j = 0; j < priceDate.length; j++) {
+      if (priceData[index].priceDate === priceDate[j]) {
+        arrPrice[priceKey[j]] = priceData[index].priceValue;
+        listCityName = priceData[index].location.cityName;
+      }
     }
+    // if(priceDate[index] === priceData[index].priceDate){
+    //   if(priceData[index].priceValue) {
+    //     arrPrice[priceKey[index]] = priceData[index].priceValue;
+    //   } else {
+    //     arrPrice[priceKey[index]] = 0;
+    //   }
+    // }
   }
   console.log('AgriData:', AgriData)
   const data = {
@@ -89,7 +103,7 @@ const AgriChart = (props) => {
     datasets: [
       {
         type: 'line',
-        label: AgriData.itemName + ' - ' + AgriData.locations[0].cityName,
+        label: AgriData.itemName + ' - ' + listCityName,
         borderColor: 'rgb(54, 162, 235)',
         borderWidth: 2,
         data: Object.values(arrPrice),

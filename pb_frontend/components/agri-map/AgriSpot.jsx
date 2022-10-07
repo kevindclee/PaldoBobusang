@@ -43,10 +43,11 @@ const AgriSpot = (props) => {
   return (
     <>
       <svg viewBox={properties[curLocation]['viewBox']} xmlns="http://www.w3.org/2000/svg" width="calc(54% - 4rem)"  className={`${styles.position} ${styles[`position-${curLocation}`]}`}>
-        <g fill="white" stroke="green" stroke-width="5" transform={properties[curLocation]['transform']}>
+        <g fill="white" stroke="green" stroke-width="5" transform={properties[curLocation]['transform']} onClick={modalChange}>
           {curCitiesOnProduct? list.map(item => {
-            return curLocation === 'jeonbuk' ? <>
-              <image href={productImage} x={item[0]} y={item[1]} width='10rem' height='10rem' onClick={modalChange}/>  
+            return curLocation === 'jeonbuk' ? 
+            <>
+              <image href={productImage} x={item[0]} y={item[1]} width='10rem' height='10rem' onClick={modalChange}/>
               {modalVisible && <AgriListBlackout setIsModal={modalChange}/>}
               {modalVisible && <AgriListDetail object={modalProduct}/>}
             </> :
