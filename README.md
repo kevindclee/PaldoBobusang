@@ -25,6 +25,10 @@
 ## 5. 테이블 구조도
 ![Table Architecture](/readme/table_architecture.png "Table Architecture")
 
+[DB insert 쿼리문 작업 시트](https://docs.google.com/spreadsheets/d/1u5HhRLfmrG2ChYXGZXxlrg7YifOa5R4jUWCMqOSI3w8/edit?usp=sharing)
+
+[지역별 대표 농산물 작업 시트](https://docs.google.com/spreadsheets/d/1bLq68LJuqe4RVTJ63avBkxnJwv4Ko3sdniyR3etab3s/edit?usp=sharing)
+
 ## 6. 서비스 아키텍처
 ![Service Architecture](/readme/service_architecture.png "Service Architecture")
 
@@ -48,9 +52,4 @@
 ## 10. 느낀점
 - 김현수 : 초반에 팀원들이 기본 틀을 닦아주어 빠르게 적응할 수 있어서 팀원들한테 감사했습니다. 또 여러 문제들을 서로 도와가며 해결하는 과정이 어려웠지만 그만큼 느낀 점도 많은 프로젝트였습니다. 넘나 어려운 것...
 - 이동찬 : 의견이 엇갈려도 서로 이해해주는 팀원들과 작업할수 있어서 너무 좋았습니다. 코딩한시간이랑 DB에 저장할 데이터 조사하는 시간이랑 비슷하게 쓴거같습니다...:sob: 그래도 프로젝트 하면서 많이 배웠고 뜻깊은 시간이었습니다.
-
-| ![db query](/readme/db_query.png "db query") | 
-|:--:| 
-| *엑셀 (구글 스프레드시트) 수식과 씨름했던 흔적...* |
-
 - 이종수 : 팀원들에게 정확한 DB와 비전을 갖고있다는 말로 팀원들을 모았지만, 사실 중간에 DB가 틀어지면서 팀원들이 많은 발품을 팔게 되었습니다;;; 세상일이 뜻하는 대로 되지 않더라구요;;; 프로젝트 시작하기 2주전부터 잠을 줄여가면서 하얗게 불태웠더니, 속이 후련합니다;;; 대부분의 기능들을 완성했지만, 아직 부족한 부분들이 많이 남아서 프로젝트 발표가 끝난 이후에도 지속적으로 개발하도록 하겠습니다. 팀원분들께 다시 한번 고맙고 죄송하다고 전하고 싶습니다ㅠㅠ
