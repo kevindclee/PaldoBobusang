@@ -50,8 +50,6 @@
   font-size: 3em;
   height: 1em;
   color: rgba(0, 0, 0, 0.8);
-  /* border-radius: 0.5em;
-  background-color: aquamarine; */
   font-family: 'Gugi', cursive;
   
 }
@@ -62,9 +60,6 @@
   margin-left: 2.2em;
   color: rgba(0, 0, 0, 0.8);
   font-weight: bold;
-  /* font-family: 'Lobster', cursive; */
-  /* font-family: 'Molle', cursive; */
-  /* font-family: 'Pacifico', cursive; */
   font-family: 'Sonsie One', cursive;
 }
 
@@ -72,7 +67,6 @@
   width: 80%;
   height: 15%;
   margin: 0 auto;
-  /* border: 5px solid black; */
   display: flex;
   align-items: flex-end;
   justify-content: space-evenly;
@@ -166,40 +160,6 @@
   }
 }
 
-/* @media (min-width: 1900px) {
-  .attention {
-    position: absolute;
-    display: flex;
-    align-items: center;
-    font-size: 2rem;
-    font-weight: bold;
-    color: black;
-    top: 300px;
-  }
-  
-  .attention .attention-arrow {
-    margin: 0 1rem;
-    font-size: 2rem;
-    color: brown;
-  }
-  
-  .attention .left:empty:before {
-    content: '◀';
-  }
-  
-  .attention .left {
-    transform: rotate(0);
-  }
-  
-  .attention .right:empty:before {
-    content: '▶';
-  }
-  
-  .attention .right {
-    transform: rotate(0);
-  }
-} */
-
 @media (max-width: 500px) {
   .logo .back {
     width: 35rem;
@@ -224,8 +184,6 @@
     font-size: 2.8em;
     height: 1em;
     color: rgba(0, 0, 0, 0.8);
-    /* border-radius: 0.5em;
-    background-color: aquamarine; */
     font-family: 'Gugi', cursive;
     
   }
@@ -236,17 +194,10 @@
     margin-left: 2.2em;
     color: rgba(0, 0, 0, 0.8);
     font-weight: bold;
-    /* font-family: 'Lobster', cursive; */
-    /* font-family: 'Molle', cursive; */
-    /* font-family: 'Pacifico', cursive; */
     font-family: 'Sonsie One', cursive;
   }
 
   .service-video {
-    /* width: 80%;
-    height: 65%;
-    margin: 0 auto;
-    background-color: rgba(245, 223, 78, 0.8); */
     border-radius: 0;
   }
 }

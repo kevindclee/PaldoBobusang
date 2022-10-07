@@ -10,7 +10,6 @@ const Nav = () => {
   
   const clickHandler = event => {
     const id = event.target.id;
-    console.log(id);
     id === 'home' ? router.push('/') : router.push(`/${id}`);
     setCurLocation('');
   }

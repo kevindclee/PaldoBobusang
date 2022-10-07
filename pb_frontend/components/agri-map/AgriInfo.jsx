@@ -19,14 +19,12 @@ const AgriInfo = () => {
   const [curCitiesOnProduct, setCurCitiesOnProduct] = useAtom(curCitiesOnProductAtom);
 
   useEffect(() => {
-    // setCurProductList(null);
     if (curCategory && !curProductList) {
       setIsCategory([false, false]);
       fetch(`http://localhost:8090/${curCategory}s/localEngName/${curLocation}`)
       .then(response => response.json())
       .then(data => {
           const curList = [];
-          console.log(data);
           data.map(item => curList.push({...item}));
           setCurProductList(curList);
         })
@@ -39,19 +37,13 @@ const AgriInfo = () => {
         .then(response => response.json())
         .then(data => {
             const curList = [];
-            console.log("data:", data);
-            console.log('location:', data.locations);
             data.locations.map(item => curList.push(item));
-            console.log(curList);
             setCurCitiesOnProduct(curList);
           })
           .catch(error => console.error(error));
     }
 
   }, [curCategory, curProduct]);
-
-  curProductList? console.log('curLocation:', curLocation,'curCategory:', curCategory, 'curProductList:', curProductList, 'curCitiesOnProduct:', curCitiesOnProduct, 'curProduct:', curProduct) : <></>;
-  // curProductList? console.dir(curProductList) : <></>;
   
   const clickHandler = event => {
                         setCurCategory(event.target.id);

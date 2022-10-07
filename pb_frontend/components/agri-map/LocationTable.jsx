@@ -3,9 +3,7 @@ import styles from '../../styles/location-table.module.css';
 
 const LocationTable = (props) => {
   const array = props.array;
-  console.log(array);
   const local = props.local
-  console.log(local);
 
   return (
     <div className={`cities-frame ${styles['cities-frame']}`}>

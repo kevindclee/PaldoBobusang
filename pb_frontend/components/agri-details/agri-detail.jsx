@@ -1,6 +1,5 @@
 import React from 'react';
 import styles from '../../styles/agri-detail.module.css';
-import { useState } from 'react';
 
 const AgriDetail = (props) => {
   const detail = props.object;

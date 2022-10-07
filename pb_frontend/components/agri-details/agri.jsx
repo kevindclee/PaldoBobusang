@@ -7,10 +7,6 @@ const Agri = (props) => {
 
     const agri = props.object;
 
-    console.log(agri);
-
-
-
     const [modalVisible, setModalVisible] = useState(false);
 
     const modalChange = () => {

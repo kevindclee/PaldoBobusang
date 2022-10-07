@@ -5,32 +5,16 @@ import Chart from 'chart.js/auto';
 
 const AgriChart = (props) => {
 
-  // const [AgriData, setAgriData] = useState({});
-  // setAgriData(props.object);
-
-  // const [productCondition, setProductCondition] = useState(true);
-  // const [productCode, setProductCode] = useState(0);
-
-  // if(typeof AgriData.fruitCode !== 'undefined'){
-  //   setProductCode(AgriData.fruitCode);
-  //   console.log('과일', productCondition, productCode);
-  // } else{
-  //   setProductCode(AgriData.vegetableCode);
-  //   setProductCondition(false);
-  //   console.log('야채', productCondition, productCode);
-  // }
-
   const AgriData = props.object;
   let productCondition = true;
   let productCode = 0;
 
   if(typeof AgriData.fruitCode !== 'undefined'){
     productCode = AgriData.fruitCode;
-    console.log('과일', productCondition, productCode);
   } else{
     productCode = AgriData.vegetableCode;
     productCondition = false;
-    console.log('야채', productCondition, productCode);
+
   }
 
   const [locationId, setLocationId] = useState(0);
@@ -87,13 +71,6 @@ const AgriChart = (props) => {
         listCityName = priceData[index].location.cityName;
       }
     }
-    // if(priceDate[index] === priceData[index].priceDate){
-    //   if(priceData[index].priceValue) {
-    //     arrPrice[priceKey[index]] = priceData[index].priceValue;
-    //   } else {
-    //     arrPrice[priceKey[index]] = 0;
-    //   }
-    // }
   }
   console.log('AgriData:', AgriData)
   const data = {
@@ -108,8 +85,6 @@ const AgriChart = (props) => {
       }
     ]
   }
-
-  console.log('data:', data);
 
   return (
     <>
