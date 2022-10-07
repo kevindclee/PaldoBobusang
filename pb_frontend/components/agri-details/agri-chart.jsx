@@ -3,10 +3,13 @@ import styles from '../../styles/agriList.module.css';
 import { Line } from 'react-chartjs-2';
 import { useAtom } from 'jotai';
 import curLocationAtom from '../../atoms/curLocationAtom';
+import curAppAtom from '../../atoms/curAppAtom'
 import Chart from 'chart.js/auto';
 
 const AgriChart = (props) => {
   const [curLocation, setCurLocation] = useAtom(curLocationAtom);
+  const [curApp, setCurApp] = useAtom(curAppAtom);
+
   const AgriData = props.object;
   let productCondition = true;
   let productCode = 0;
@@ -26,15 +29,25 @@ const AgriChart = (props) => {
       const fetchData = async () => {
         let data = {};
         if (productCondition) {
-          const rawRes = await fetch(`http://localhost:8090/prices/list/fruitCodeAndLocalEngName/${productCode}/${curLocation}`)
+          let rawRes;
+          if(curApp === 'agri-map'){
+            rawRes = await fetch(`http://localhost:8090/prices/list/fruitCodeAndLocalEngName/${productCode}/${curLocation}`);
+          } else {
+            rawRes = await fetch(`http://localhost:8090/prices/list/fruitCode/${productCode}`)
+          }
           data = await rawRes.json();
         } else {
-          const rawRes = await fetch(`http://localhost:8090/prices/list/vegetableCodeAndLocalEngName/${productCode}/${curLocation}`)
+          let rawRes;
+          if(curApp === 'agri-map'){
+            rawRes = await fetch(`http://localhost:8090/prices/list/vegetableCodeAndLocalEngName/${productCode}/${curLocation}`);
+          } else {
+            rawRes = await fetch(`http://localhost:8090/prices/list/vegetableCode/${productCode}`)
+          }
           data = await rawRes.json();
         }
 
         if(data.length !== 0){
-          setLocationId(data[0].location.locationId);
+          curApp === 'agri-map' ? setLocationId(data[0].location.locationId) : setLocationId(data[0].locationId);
         } else {
           setLocationId(0);
         }
@@ -84,6 +97,7 @@ const AgriChart = (props) => {
         borderColor: 'rgb(54, 162, 235)',
         borderWidth: 2,
         data: Object.values(arrPrice),
+        fill: false
       }
     ]
   }
