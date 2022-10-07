@@ -21,8 +21,6 @@ const AgriChart = (props) => {
   // }
 
   const AgriData = props.object;
-  const [curApp, setCurApp] = useAtom(curAppAtom);
-  const [curLocation, setCurLocation] = useAtom(curLocationAtom);
   let productCondition = true;
   let productCode = 0;
 
