@@ -28,4 +28,7 @@ public interface PriceRepository extends JpaRepository<Price, Integer> {
 	List<Price> findByFruitItemNameAndLocationLocalEngName(String itemName, String localEngName);
 	List<Price> findByVegetableItemNameAndLocationLocalEngName(String itemName, String localEngName);
 	
+	List<Price> findByFruitFruitCodeAndLocationLocalEngName(int fruitCode, String localEngName);
+	List<Price> findByVegetableVegetableCodeAndLocationLocalEngName(int vegetableCode, String localEngName);
+	
 }

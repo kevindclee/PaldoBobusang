@@ -143,5 +143,21 @@ public class PriceController {
 		}
 	}
 	
+	// 'GET' http://localhost:8090/prices/map/fruitItemNameAndLocalEngName/:itemName/:localEngName
+		@GetMapping("/list/fruitCodeAndLocalEngName/{fruitCode}/{localEngName}")
+		public List<Price.Response> findByFruitCodeAndLocalEngName(@PathVariable int fruitCode, @PathVariable String localEngName) {
+			System.out.println("GET: findByFruitItemNameAndLocalEngName() of PriceController called");		
+			List<Price> priceList = priceService.findByFruitCodeAndLocalEngName(fruitCode, localEngName);
+			return Price.Response.toResponseList(priceList);
+		}
+
+		// 'GET' http://localhost:8090/prices/map/vegetableItemNameAndLocalEngName/:itemName/:localEngName
+		@GetMapping("/list/vegetableCodeAndLocalEngName/{vegetableCode}/{localEngName}")
+		public List<Price.Response> findByVegetableCodeAndLocalEngName(@PathVariable int vegetableCode, @PathVariable String localEngName) {
+			System.out.println("GET: findByFruitItemNameAndLocalEngName() of PriceController called");		
+			List<Price> priceList = priceService.findByVegetableCodeAndLocalEngName(vegetableCode, localEngName);
+			return Price.Response.toResponseList(priceList);
+		}
+	
 	
 }

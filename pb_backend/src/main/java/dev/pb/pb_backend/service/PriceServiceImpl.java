@@ -75,6 +75,16 @@ public class PriceServiceImpl implements PriceService {
 	public Price findByVegetableCodeAndLocationIdAndPriceDate(int vegetableCode, int locationId, Date priceDate) {
 		return priceRepository.findByVegetableVegetableCodeAndLocationLocationIdAndPriceDate(vegetableCode, locationId, priceDate);
 	}
+	
+	@Override
+	public List<Price> findByFruitCodeAndLocalEngName(int fruitCode, String localEngName) {
+		return priceRepository.findByFruitFruitCodeAndLocationLocalEngName(fruitCode, localEngName);
+	}
+
+	@Override
+	public List<Price> findByVegetableCodeAndLocalEngName(int vegetableCode, String localEngName) {
+		return priceRepository.findByVegetableVegetableCodeAndLocationLocalEngName(vegetableCode, localEngName);
+	}
 
 }
 

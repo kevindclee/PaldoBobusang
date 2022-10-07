@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import styles from '../../styles/agriList.module.css';
 import { Line } from 'react-chartjs-2';
+import { useAtom } from 'jotai';
+import curLocationAtom from '../../atoms/curLocationAtom';
 import Chart from 'chart.js/auto';
 
 const AgriChart = (props) => {
-
+  const [curLocation, setCurLocation] = useAtom(curLocationAtom);
   const AgriData = props.object;
   let productCondition = true;
   let productCode = 0;
@@ -24,15 +26,15 @@ const AgriChart = (props) => {
       const fetchData = async () => {
         let data = {};
         if (productCondition) {
-          const rawRes = await fetch(`http://localhost:8090/prices/list/fruitCode/${productCode}`)
+          const rawRes = await fetch(`http://localhost:8090/prices/list/fruitCodeAndLocalEngName/${productCode}/${curLocation}`)
           data = await rawRes.json();
         } else {
-          const rawRes = await fetch(`http://localhost:8090/prices/list/vegetableCode/${productCode}`)
+          const rawRes = await fetch(`http://localhost:8090/prices/list/vegetableCodeAndLocalEngName/${productCode}/${curLocation}`)
           data = await rawRes.json();
         }
 
         if(data.length !== 0){
-          setLocationId(data[0].locationId);
+          setLocationId(data[0].location.locationId);
         } else {
           setLocationId(0);
         }
@@ -68,7 +70,7 @@ const AgriChart = (props) => {
     for (let j = 0; j < priceDate.length; j++) {
       if (priceData[index].priceDate === priceDate[j]) {
         arrPrice[priceKey[j]] = priceData[index].priceValue;
-        listCityName = priceData[index].location.cityName;
+        listCityName = priceData[index].location.localName;
       }
     }
   }
