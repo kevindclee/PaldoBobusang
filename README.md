@@ -8,7 +8,7 @@
 제철 농산물 및 최근 가격 동향 정보 제공 플랫폼
 
 ## 2. 팀원 소개 및 담당 역할 or 기능
-- 이종수 : :earth_asia: Map 페이지에서 .svg 파일을 이용한 지도 및 :art: CSS 구현
+- 이종수 : :cop: PM(프로젝트 도메인 및 관계형 DB 설계), :earth_asia: Map 페이지에서 .svg 파일을 이용한 지도 및 :art: CSS 구현
 - 이동찬 : :leaves: Spring JPA 백엔드 및 MySQL DB 구현
 - 김현수 : :bookmark_tabs: List 페이지 및 Modal 기능과 Details 페이지 구현 (상세정보, :chart_with_upwards_trend: 가격 차트)
 
