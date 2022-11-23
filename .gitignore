@@ -1,3 +1,39 @@
 /.metadata/
 pb_backend/.metadata/
 pb_backend/src/main/resources/sql/
+
+
+# dependencies
+pb_frontend/node_modules
+pb_frontend/.pnp
+pb_frontend/.pnp.js
+
+# testing
+pb_frontend/coverage
+
+# next.js
+pb_frontend/.next/
+pb_frontend/out/
+
+# production
+pb_frontend/build
+
+# misc
+pb_frontend/.DS_Store
+pb_frontend/*.pem
+
+# debug
+pb_frontend/npm-debug.log*
+pb_frontend/yarn-debug.log*
+pb_frontend/yarn-error.log*
+pb_frontend/.pnpm-debug.log*
+
+# local env files
+.env*.local
+
+# vercel
+.vercel
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
