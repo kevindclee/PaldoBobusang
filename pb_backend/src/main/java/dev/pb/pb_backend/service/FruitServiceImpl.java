@@ -1,7 +1,12 @@
 package dev.pb.pb_backend.service;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,7 +15,9 @@ import dev.pb.pb_backend.entity.Fruit;
 import dev.pb.pb_backend.entity.Fruit.Request;
 import dev.pb.pb_backend.entity.Location;
 import dev.pb.pb_backend.entity.Price;
+import dev.pb.pb_backend.projection.ItemProjection;
 import dev.pb.pb_backend.repository.FruitRepository;
+import dev.pb.pb_backend.repository.LocationRepository;
 
 @Service
 public class FruitServiceImpl implements FruitService {
@@ -19,6 +26,12 @@ public class FruitServiceImpl implements FruitService {
 
 	@Autowired
 	private FruitRepository fruitRepository;
+	
+	@Autowired
+	private LocationRepository locationRepository;
+	
+	@Autowired
+	private PriceService priceService;
 	
 	@Override
 	public List<Fruit> findAllFruits() {
@@ -70,7 +83,7 @@ public class FruitServiceImpl implements FruitService {
 	
 	@Override
 	public Fruit updateFruit(Request request) {
-		final Fruit foundFruit = findFruitByCode(request.getFruitCode());
+		final Fruit foundFruit = findFruitByCode(request.getItemCode());
 		List<Location> locationList = foundFruit.getLocations();
 		boolean test = false;
 		int index = 0;
@@ -98,8 +111,27 @@ public class FruitServiceImpl implements FruitService {
 	}
 
 	@Override
-	public List<Fruit> findFruitsByLocalEngName(String localEngName) {
-		return fruitRepository.findDistinctByLocationsLocalEngName(localEngName);
+	public List<Object> findFruitsByLocalEngName(String localEngName) {
+		List<Location> locations = locationRepository.findByLocalEngName(localEngName);
+		Map<String, List<Location>> locationsForFruit = new HashMap<String, List<Location>>();
+		Map<String, List<Price>> pricesForFruit = new HashMap<String, List<Price>>();
+		Set<ItemProjection> fruits = new HashSet<ItemProjection>();
+		
+		for (Location location : locations) {
+			List<ItemProjection> fruit = fruitRepository.findByLocationsCityName(location.getCityName());
+			for (ItemProjection item : fruit) {
+				String fruitName = item.getItemName();
+				if (locationsForFruit.containsKey(fruitName)) locationsForFruit.get(fruitName).add(location);
+				else {
+					locationsForFruit.put(fruitName, new ArrayList<Location>());
+					locationsForFruit.get(fruitName).add(location);
+					pricesForFruit.put(fruitName, priceService.findByFruitItemNameAndLocalEngName(fruitName, localEngName));
+					fruits.add(item);
+				}
+			}
+		}
+		
+		return Fruit.Response.toResponseList(fruits, locationsForFruit, pricesForFruit);
 	}
 
 	@Override

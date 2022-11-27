@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import React from 'react'
 import styles from '../styles/nav.module.css';
-import curLocationAtom from '../atoms/curLocationAtom';
+import curLocationAtom from '../atoms/CurLocationAtom';
 import { useAtom } from 'jotai';
 
 const Nav = () => {

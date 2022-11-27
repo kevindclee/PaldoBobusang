@@ -5,8 +5,12 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+    "start": "next start -p $PORT",
+    "heroku-postbuild": "npm run build"
+  },
+  "engines": {
+    "node": "16.17.0",
+    "npm": "8.15.0"
   },
   "dependencies": {
     "@svgr/webpack": "^6.3.1",
@@ -20,9 +24,5 @@
     "react-dom": "18.2.0",
     "react-svg": "^15.1.9",
     "styled-components": "^5.3.6"
-  },
-  "devDependencies": {
-    "eslint": "8.23.1",
-    "eslint-config-next": "12.3.1"
   }
 }

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import dev.pb.pb_backend.entity.Price;
 import dev.pb.pb_backend.projection.PriceLocationIdProjection;
+import dev.pb.pb_backend.projection.PriceProjection;
 
 @Repository
 public interface PriceRepository extends JpaRepository<Price, Integer> {
@@ -18,17 +19,20 @@ public interface PriceRepository extends JpaRepository<Price, Integer> {
 	// location.countryCode 으로 조회
 	List<Price> findByLocationCountryCode(int countryCode);
 	
-	List<PriceLocationIdProjection> findDistinctByFruitFruitCode(int fruitCode);
-	List<PriceLocationIdProjection> findDistinctByVegetableVegetableCode(int vegetableCode);
-	List<Price> findByFruitFruitCodeAndLocationLocationId(int fruitCode, int locationId);
-	List<Price> findByVegetableVegetableCodeAndLocationLocationId(int vegetableCode, int locationId);
-	Price findByFruitFruitCodeAndLocationLocationIdAndPriceDate(int fruitCode, int locationId, Date priceDate);
-	Price findByVegetableVegetableCodeAndLocationLocationIdAndPriceDate(int vegetableCode, int locationId, Date priceDate);
+	List<PriceLocationIdProjection> findDistinctByFruitItemCode(int itemCode);
+	List<PriceLocationIdProjection> findDistinctByVegetableItemCode(int itemCode);
+	List<PriceProjection> findByFruitItemCodeAndLocationLocationId(int itemCode, int locationId);
+	List<PriceProjection> findByVegetableItemCodeAndLocationLocationId(int itemCode, int locationId);
+	Price findByFruitItemCodeAndLocationLocationIdAndPriceDate(int itemCode, int locationId, Date priceDate);
+	Price findByVegetableItemCodeAndLocationLocationIdAndPriceDate(int itemCode, int locationId, Date priceDate);
 
 	List<Price> findByFruitItemNameAndLocationLocalEngName(String itemName, String localEngName);
 	List<Price> findByVegetableItemNameAndLocationLocalEngName(String itemName, String localEngName);
 	
+<<<<<<< Updated upstream
 	List<Price> findByFruitFruitCodeAndLocationLocalEngName(int fruitCode, String localEngName);
 	List<Price> findByVegetableVegetableCodeAndLocationLocalEngName(int vegetableCode, String localEngName);
+=======
+>>>>>>> Stashed changes
 	
 }

@@ -22,13 +22,13 @@ public interface PriceService {
 	// location.countryCode 으로 조회
 	List<Price> findByLocationCountryCode(int countryCode);
 	
-	List<PriceLocationIdProjection> findByFruitCode(int fruitCode);
-	List<PriceLocationIdProjection> findByVegetableCode(int vegetableCode);
-	List<Price> findByFruitCodeAndLocationId(int fruitCode, int locationId);
-	List<Price> findByVegetableCodeAndLocationId(int vegetableCode, int locationId);
+	List<PriceLocationIdProjection> findByFruitItemCode(int itemCode);
+	List<PriceLocationIdProjection> findByVegetableitemCode(int itemCode);
+	List<Price.Response> findByFruitItemCodeAndLocalEngName(int itemCode, String localEngName);
+	List<Price.Response> findByVegetableItemCodeAndLocalEngName(int itemCode, String localEngName);
 	
-	Price findByFruitCodeAndLocationIdAndPriceDate(int fruitCode, int locationId, Date priceDate);
-	Price findByVegetableCodeAndLocationIdAndPriceDate(int vegetableCode, int locationId, Date priceDate);
+	Price findByFruitItemCodeAndLocationIdAndPriceDate(int itemCode, int locationId, Date priceDate);
+	Price findByVegetableitemCodeAndLocationIdAndPriceDate(int itemCode, int locationId, Date priceDate);
 
 	List<Price> findByFruitItemNameAndLocalEngName(String itemName, String localEngName);
 	List<Price> findByVegetableItemNameAndLocalEngName(String itemName, String localEngName);

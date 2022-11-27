@@ -2,17 +2,17 @@ import React, { useEffect, useState } from 'react'
 import properties from '../../public/classifiedSVG/overall_svg_settings.json'
 import coordinates from '../../public/classifiedSVG/overall_coordinate.json';
 import { useAtom } from 'jotai';
-import curLocationAtom from '../../atoms/curLocationAtom';
-import curCitiesOnProductAtom from '../../atoms/curCitiesOnProductAtom';
+import curLocationAtom from '../../atoms/CurLocationAtom';
+import curCitiesOnProductAtom from '../../atoms/CurCitiesOnProductAtom';
 import styles from '../../styles/agri-spot.module.css';
-import curProductAtom from '../../atoms/curProductAtom';
-import curProductListAtom from '../../atoms/curProductList';
+import curProductAtom from '../../atoms/CurProductAtom';
+import curProductListAtom from '../../atoms/CurProductList';
 import AgriListBlackout from '../agri-details/agriListBlackout';
 import AgriListDetail from '../agri-details/agri-list-detail';
 
 const AgriSpot = (props) => {
   const list = [];
-  const [curLocation, setCurLocation] = useAtom(curLocationAtom)
+  const [curLocation, setCurLocation] = useAtom(curLocationAtom);
   const [curProduct, setCurProduct] = useAtom(curProductAtom);
   const [curProductList, setCurProductList] = useAtom(curProductListAtom);
   const [curCitiesOnProduct, setCurCitiesOnProduct] = useAtom(curCitiesOnProductAtom);
@@ -43,7 +43,7 @@ const AgriSpot = (props) => {
   return (
     <>
       <svg viewBox={properties[curLocation]['viewBox']} xmlns="http://www.w3.org/2000/svg" width="80%"  className={`${styles.position} ${styles[`position-${curLocation}`]}`}>
-        <g fill="white" stroke="green" stroke-width="5" transform={properties[curLocation]['transform']} onClick={modalChange}>
+        <g transform={properties[curLocation]['transform']} onClick={modalChange}>
           {curCitiesOnProduct? list.map(item => {
             return curLocation === 'jeonbuk' ? 
               <image href={productImage} x={item[0]} y={item[1]} width='10rem' height='10rem' onClick={modalChange} className={styles['image']}/>:

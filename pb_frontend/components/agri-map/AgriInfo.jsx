@@ -1,12 +1,13 @@
-import React, { isValidElement, useEffect, useMemo, useRef } from 'react'
+import React, { useEffect } from 'react'
 import styles from '../../styles/agri-info.module.css';
 import { useState } from 'react';
 import { useAtom } from 'jotai';
-import curLocationAtom from '../../atoms/curLocationAtom';
+import curLocationAtom from '../../atoms/CurLocationAtom';
 import LocationTable from './LocationTable';
-import curProductAtom from '../../atoms/curProductAtom';
-import curCitiesOnProductAtom from '../../atoms/curCitiesOnProductAtom';
-import curProductListAtom from '../../atoms/curProductList';
+import curProductAtom from '../../atoms/CurProductAtom';
+import curCitiesOnProductAtom from '../../atoms/CurCitiesOnProductAtom';
+import curProductListAtom from '../../atoms/CurProductList';
+import constant from '../../public/constant.json'
 
 
 const AgriInfo = () => {
@@ -21,7 +22,7 @@ const AgriInfo = () => {
   useEffect(() => {
     if (curCategory && !curProductList) {
       setIsCategory([false, false]);
-      fetch(`http://localhost:8090/${curCategory}s/localEngName/${curLocation}`)
+      fetch(`${constant.backend_url}/${curCategory}s/localEngName/${curLocation}`)
       .then(response => response.json())
       .then(data => {
           const curList = [];
@@ -33,7 +34,7 @@ const AgriInfo = () => {
       }
       
       if (curProduct && !curCitiesOnProduct) {
-        fetch(`http://localhost:8090/${curCategory}s/itemNameAndLocalEngName/${curProduct}/${curLocation}`)
+        fetch(`${constant.backend_url}/${curCategory}s/itemNameAndLocalEngName/${curProduct}/${curLocation}`)
         .then(response => response.json())
         .then(data => {
             const curList = [];
@@ -44,6 +45,8 @@ const AgriInfo = () => {
     }
 
   }, [curCategory, curProduct]);
+
+  curProductList? console.log('curLocation:', curLocation,'curCategory:', curCategory, 'curProductList:', curProductList, 'curCitiesOnProduct:', curCitiesOnProduct, 'curProduct:', curProduct) : <></>;
   
   const clickHandler = event => {
                         setCurCategory(event.target.id);

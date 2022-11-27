@@ -4,6 +4,7 @@ import { Line } from 'react-chartjs-2';
 import { useAtom } from 'jotai';
 import curLocationAtom from '../../atoms/curLocationAtom';
 import curAppAtom from '../../atoms/curAppAtom'
+import constant from '../../public/constant.json'
 import Chart from 'chart.js/auto';
 
 const AgriChart = (props) => {
@@ -19,7 +20,6 @@ const AgriChart = (props) => {
   } else{
     productCode = AgriData.vegetableCode;
     productCondition = false;
-
   }
 
   const [locationId, setLocationId] = useState(0);
@@ -29,20 +29,10 @@ const AgriChart = (props) => {
       const fetchData = async () => {
         let data = {};
         if (productCondition) {
-          let rawRes;
-          if(curApp === 'agri-map'){
-            rawRes = await fetch(`http://localhost:8090/prices/list/fruitCodeAndLocalEngName/${productCode}/${curLocation}`);
-          } else {
-            rawRes = await fetch(`http://localhost:8090/prices/list/fruitCode/${productCode}`)
-          }
+          const rawRes = await fetch(`${constant.backend_url}/prices/list/fruitCode/${productCode}`)
           data = await rawRes.json();
         } else {
-          let rawRes;
-          if(curApp === 'agri-map'){
-            rawRes = await fetch(`http://localhost:8090/prices/list/vegetableCodeAndLocalEngName/${productCode}/${curLocation}`);
-          } else {
-            rawRes = await fetch(`http://localhost:8090/prices/list/vegetableCode/${productCode}`)
-          }
+          const rawRes = await fetch(`${constant.backend_url}/prices/list/vegetableCode/${productCode}`)
           data = await rawRes.json();
         }
 
@@ -54,11 +44,11 @@ const AgriChart = (props) => {
 
         if (locationId !== 0) { 
           if(productCondition){
-            const rawRes2 = await fetch(`http://localhost:8090/prices/list/fruitCodeAndLocationId/${productCode}/${locationId}`)
+            const rawRes2 = await fetch(`${constant.backend_url}/prices/list/fruitCodeAndLocationId/${productCode}/${locationId}`)
             const data = await rawRes2.json();
             setPriceData(data);
           } else {
-            const rawRes2 = await fetch(`http://localhost:8090/prices/list/vegetableCodeAndLocationId/${productCode}/${locationId}`)
+            const rawRes2 = await fetch(`${constant.backend_url}/prices/list/vegetableCodeAndLocationId/${productCode}/${locationId}`)
             const data = await rawRes2.json();
             setPriceData(data);
           }
@@ -87,7 +77,6 @@ const AgriChart = (props) => {
       }
     }
   }
-  console.log('AgriData:', AgriData)
   const data = {
     labels: Object.keys(arrPrice),
     datasets: [

@@ -1,7 +1,7 @@
 import { useAtom } from 'jotai'
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router'
-import curAppAtom from '../atoms/curAppAtom';
+import curAppAtom from '../atoms/CurAppAtom';
 import styles from '../styles/main.module.css';
 
 export default function Home() {

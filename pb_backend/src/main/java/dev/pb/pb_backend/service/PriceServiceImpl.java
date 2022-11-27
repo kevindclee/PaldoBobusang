@@ -1,13 +1,17 @@
 package dev.pb.pb_backend.service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import dev.pb.pb_backend.entity.Location;
 import dev.pb.pb_backend.entity.Price;
 import dev.pb.pb_backend.projection.PriceLocationIdProjection;
+import dev.pb.pb_backend.projection.PriceProjection;
+import dev.pb.pb_backend.repository.LocationRepository;
 import dev.pb.pb_backend.repository.PriceRepository;
 
 @Service
@@ -16,6 +20,9 @@ public class PriceServiceImpl implements PriceService {
 	@Autowired
 	private PriceRepository priceRepository;
 
+	@Autowired
+	private LocationRepository locationRepository;
+	
 	@Override
 	public List<Price> findAllPrices() {
 		return priceRepository.findAll();
@@ -37,23 +44,52 @@ public class PriceServiceImpl implements PriceService {
 	}
 
 	@Override
-	public List<PriceLocationIdProjection> findByFruitCode(int fruitCode) {
-		return priceRepository.findDistinctByFruitFruitCode(fruitCode);
+	public List<PriceLocationIdProjection> findByVegetableitemCode(int itemCode) {
+		return priceRepository.findDistinctByVegetableItemCode(itemCode);
 	}
 
 	@Override
-	public List<PriceLocationIdProjection> findByVegetableCode(int vegetableCode) {
-		return priceRepository.findDistinctByVegetableVegetableCode(vegetableCode);
+	public List<PriceLocationIdProjection> findByFruitItemCode(int itemCode) {
+		return priceRepository.findDistinctByFruitItemCode(itemCode);
 	}
 
 	@Override
-	public List<Price> findByFruitCodeAndLocationId(int fruitCode, int locationId) {
-		return priceRepository.findByFruitFruitCodeAndLocationLocationId(fruitCode, locationId);
+	public List<Price.Response> findByVegetableItemCodeAndLocalEngName(int itemCode, String localEngName) {
+		List<Location> locations = locationRepository.findByLocalEngName(localEngName);
+		List<Integer> markets = new ArrayList<Integer>();
+		
+		for (Location location : locations) {
+			if (location.getCountryCode() != null) markets.add(location.getLocationId());
+		}
+		
+		List<PriceProjection> prices = new ArrayList<PriceProjection>();
+//		System.out.println(markets);
+		
+		for (Integer locationId : markets) {
+			prices = priceRepository.findByVegetableItemCodeAndLocationLocationId(itemCode, locationId);
+//			System.out.println(prices);
+		}
+		
+		return Price.Response.toResponseList(prices);
 	}
 
 	@Override
-	public List<Price> findByVegetableCodeAndLocationId(int vegetableCode, int locationId) {
-		return priceRepository.findByVegetableVegetableCodeAndLocationLocationId(vegetableCode, locationId);
+	public List<Price.Response> findByFruitItemCodeAndLocalEngName(int itemCode, String localEngName) {
+		List<Location> locations = locationRepository.findByLocalEngName(localEngName);
+		List<Integer> markets = new ArrayList<Integer>();
+		
+		for (Location location : locations) {
+			if (location.getCountryCode() != null) markets.add(location.getLocationId());
+		}
+		
+		List<PriceProjection> prices = new ArrayList<PriceProjection>();
+		
+		for (Integer locationId : markets) {
+			prices = priceRepository.findByFruitItemCodeAndLocationLocationId(itemCode, locationId);
+		}
+		
+		
+		return Price.Response.toResponseList(prices); 
 	}
 
 	@Override
@@ -67,13 +103,13 @@ public class PriceServiceImpl implements PriceService {
 	}
 
 	@Override
-	public Price findByFruitCodeAndLocationIdAndPriceDate(int fruitCode, int locationId, Date priceDate) {
-		return priceRepository.findByFruitFruitCodeAndLocationLocationIdAndPriceDate(fruitCode, locationId, priceDate);
+	public Price findByFruitItemCodeAndLocationIdAndPriceDate(int itemCode, int locationId, Date priceDate) {
+		return priceRepository.findByFruitItemCodeAndLocationLocationIdAndPriceDate(itemCode, locationId, priceDate);
 	}
 
 	@Override
-	public Price findByVegetableCodeAndLocationIdAndPriceDate(int vegetableCode, int locationId, Date priceDate) {
-		return priceRepository.findByVegetableVegetableCodeAndLocationLocationIdAndPriceDate(vegetableCode, locationId, priceDate);
+	public Price findByVegetableitemCodeAndLocationIdAndPriceDate(int itemCode, int locationId, Date priceDate) {
+		return priceRepository.findByVegetableItemCodeAndLocationLocationIdAndPriceDate(itemCode, locationId, priceDate);
 	}
 	
 	@Override

@@ -24,7 +24,6 @@ import dev.pb.pb_backend.service.PriceService;
 
 @RestController
 @RequestMapping("prices")
-@CrossOrigin(origins = {"http://localhost:3000", "http://localhost:3001", "http://127.0.0.1:5500"})
 
 public class PriceController {
 	
@@ -70,33 +69,33 @@ public class PriceController {
 
 	// 'GET' http://localhost:8090/prices/list/fruitCode/:fruitCode
 	@GetMapping("/list/fruitCode/{fruitCode}")
-	public List<ResponseLocationId> findByFruitCode(@PathVariable int fruitCode) {
+	public List<ResponseLocationId> findByFruitCode(@PathVariable int itemCode) {
 		System.out.println("GET: findByFruitCode() of PriceController called");		
-		List<PriceLocationIdProjection> priceList = priceService.findByFruitCode(fruitCode);
+		List<PriceLocationIdProjection> priceList = priceService.findByFruitItemCode(itemCode);
 		return Price.ResponseLocationId.toResponseList(priceList);
 	}
 
 	// 'GET' http://localhost:8090/prices/list/vegetableCode/:vegetableCode
 	@GetMapping("/list/vegetableCode/{vegetableCode}")
-	public List<ResponseLocationId> findByVegetableCode(@PathVariable int vegetableCode) {
+	public List<ResponseLocationId> findByVegetableCode(@PathVariable int itemCode) {
 		System.out.println("GET: findByFruitCode() of PriceController called");		
-		List<PriceLocationIdProjection> priceList = priceService.findByVegetableCode(vegetableCode);
+		List<PriceLocationIdProjection> priceList = priceService.findByVegetableitemCode(itemCode);
 		return Price.ResponseLocationId.toResponseList(priceList);
 	}
 
 	// 'GET' http://localhost:8090/prices/list/fruitCodeAndLocationId/:fruitCode/:locationId
 	@GetMapping("/list/fruitCodeAndLocationId/{fruitCode}/{locationId}")
-	public List<Price.Response> findByFruitCodeAndLocationId(@PathVariable int fruitCode, @PathVariable int locationId) {
+	public List<Price.Response> findByFruitCodeAndLocationId(@PathVariable int itemCode, @PathVariable int locationId) {
 		System.out.println("GET: findByFruitCodeAndLocationId() of PriceController called");		
-		List<Price> priceList = priceService.findByFruitCodeAndLocationId(fruitCode, locationId);
+		List<Price> priceList = priceService.findByFruititemCodeAndLocationId(itemCode, locationId);
 		return Price.Response.toResponseList(priceList);
 	}
 
 	// 'GET' http://localhost:8090/prices/list/vegetableCodeAndLocationId/:vegetableCode/:locationId
 	@GetMapping("/list/vegetableCodeAndLocationId/{vegetableCode}/{locationId}")
-	public List<Price.Response> findByVegetableCodeAndLocationId(@PathVariable int vegetableCode, @PathVariable int locationId) {
+	public List<Price.Response> findByVegetableCodeAndLocationId(@PathVariable int itemCode, @PathVariable int locationId) {
 		System.out.println("GET: findByVegetableCodeAndLocationId() of PriceController called");		
-		List<Price> priceList = priceService.findByVegetableCodeAndLocationId(vegetableCode, locationId);
+		List<Price> priceList = priceService.findByVegetableitemCodeAndLocationId(itemCode, locationId);
 		return Price.Response.toResponseList(priceList);
 	}
 
@@ -118,11 +117,11 @@ public class PriceController {
 
 	// 'GET' http://localhost:8090/prices/fruitDateCheck/:fruitCode/:locationId/:priceDate
 	@GetMapping("/fruitDateCheck/{fruitCode}/{locationId}/{priceDate}")
-	public Price.Response findByFruitCodeAndLocationIdAndPriceDate(@PathVariable int fruitCode, @PathVariable int locationId, @PathVariable String priceDate) {
+	public Price.Response findByFruitCodeAndLocationIdAndPriceDate(@PathVariable int itemCode, @PathVariable int locationId, @PathVariable String priceDate) {
 		System.out.println("GET: findByFruitCodeAndLocationIdAndPriceDate() of PriceController called");
 //		LocalDate localDate = LocalDate.parse(priceDate);
 		Date date = java.sql.Date.valueOf(priceDate);
-		Price price = priceService.findByFruitCodeAndLocationIdAndPriceDate(fruitCode, locationId, date);
+		Price price = priceService.findByFruitItemCodeAndLocationIdAndPriceDate(itemCode, locationId, date);
 		if (price == null) {
 			return new Price.Response();
 		} else {
@@ -132,10 +131,10 @@ public class PriceController {
 
 	// 'GET' http://localhost:8090/prices/vegetableDateCheck/:vegetableCode/:locationId/:priceDate
 	@GetMapping("/vegetableDateCheck/{vegetableCode}/{locationId}/{priceDate}")
-	public Price.Response findByVegetableCodeAndLocationIdAndPriceDate(@PathVariable int vegetableCode, @PathVariable int locationId, @PathVariable String priceDate) {
+	public Price.Response findByVegetableCodeAndLocationIdAndPriceDate(@PathVariable int itemCode, @PathVariable int locationId, @PathVariable String priceDate) {
 		System.out.println("GET: findByVegetableCodeAndLocationIdAndPriceDate() of PriceController called");
 		Date date = java.sql.Date.valueOf(priceDate);		
-		Price price = priceService.findByVegetableCodeAndLocationIdAndPriceDate(vegetableCode, locationId, date);
+		Price price = priceService.findByVegetableitemCodeAndLocationIdAndPriceDate(itemCode, locationId, date);
 		if (price == null) {
 			return new Price.Response();
 		} else {

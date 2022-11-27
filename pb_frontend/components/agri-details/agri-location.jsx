@@ -1,7 +1,7 @@
 import { useAtom } from 'jotai';
 import React from 'react'
-import curAppAtom from '../../atoms/curAppAtom';
-import curCitiesOnProductAtom from '../../atoms/curCitiesOnProductAtom';
+import curAppAtom from '../../atoms/CurAppAtom';
+import curCitiesOnProductAtom from '../../atoms/CurCitiesOnProductAtom';
 import styles from '../../styles/agri-detail.module.css';
 
 const AgriLocation = (props) => {

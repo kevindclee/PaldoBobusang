@@ -2,7 +2,8 @@ import React, {useState, useEffect} from 'react'
 import Agri from '../../components/agri-details/agri';
 import styles from '/styles/agriList.module.css';
 import { useAtom } from 'jotai';
-import curAppAtom from '../../atoms/curAppAtom';
+import curAppAtom from '../../atoms/CurAppAtom';
+import constant from '../../public/constant.json'
 
 const AgriList = (props) => {
   const [fruitList, setFruitgriList] = useState([]);
@@ -11,11 +12,11 @@ const AgriList = (props) => {
 
   useEffect(() => {
     setCurApp('agri-list');
-    fetch('http://localhost:8090/fruits/list/harvest')
+    fetch(`${constant.backend_url}/fruits/list/harvest`)
     .then(response => response.json())
     .then(data => setFruitgriList(data))
 
-    fetch('http://localhost:8090/vegetables/list/harvest')
+    fetch(`${constant.backend_url}/vegetables/list/harvest`)
     .then(response => response.json())
     .then(data => setVegetableList(data))
   },[]);
@@ -43,7 +44,7 @@ const AgriList = (props) => {
       <div className={styles['agri-list']}>
           {agriList.map(agri => {
             return(
-              <Agri  object={agri} onClickHandler={onClickHandler}/>
+              <Agri object={agri} onClickHandler={onClickHandler} id={agri.key}/>
             )
           })}
       </div>

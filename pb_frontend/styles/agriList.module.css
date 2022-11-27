@@ -8,15 +8,15 @@
 
 .agri-body {
   width: 100vw;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: -3%;
 }
 
 .agri-details {
   width: 80%;
-  height: 90%;
+  height: 110%;
   margin-top: 2vh;
   border: 3px solid black;
   display: grid;
@@ -29,7 +29,6 @@
   transform: translate(-50%, -50%);
   z-index: 1011;
   position: fixed;
-  overflow: scroll;
 }
 
 .agri-detail {

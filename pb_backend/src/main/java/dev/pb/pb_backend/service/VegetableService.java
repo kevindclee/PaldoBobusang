@@ -19,7 +19,7 @@ public interface VegetableService {
 	// VegetableRepository 쿼리 메서드
 	// locationId 으로 조회
 	List<Vegetable> findVegetablesByLocationId(int locationId);
-	List<Vegetable> findVegetablesByLocalEngName(String localEngName);
+	List<Object> findVegetablesByLocalEngName(String localEngName);
 	Vegetable findVegetablesByItemNameLocalEngName(String itemName, String localEngName);
 	// harvestDate 으로 조회
 	List<Vegetable> findVegetablesByHarvest(Date curDate);

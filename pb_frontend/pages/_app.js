@@ -2,7 +2,7 @@ import Head from 'next/head';
 import {useAtom} from 'jotai';
 import '../styles/globals.css'
 import Nav from '../components/Nav';
-import curAppAtom from '../atoms/curAppAtom';
+import curAppAtom from '../atoms/CurAppAtom';
 
 function MyApp({ Component, pageProps }) {
   const [curApp, setCurApp] = useAtom(curAppAtom);

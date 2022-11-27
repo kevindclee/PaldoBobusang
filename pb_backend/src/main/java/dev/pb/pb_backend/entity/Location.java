@@ -11,6 +11,8 @@ import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import dev.pb.pb_backend.projection.LocationCountryCodeProjection;
 import dev.pb.pb_backend.projection.LocationLocationIdProjection;
 import lombok.AllArgsConstructor;
@@ -28,7 +30,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter @Setter
-@ToString
+@ToString(exclude= {"fruits", "vegetables", "prices"})
 public class Location {
 
 	@Id
@@ -51,11 +53,14 @@ public class Location {
 	private Integer countryCode;
 
 	@OneToMany(mappedBy = "location")
+	@JsonIgnore
 	private List<Price> prices;
 
+	@JsonIgnore
 	@ManyToMany(mappedBy="locations")
 	private List<Vegetable> vegetables;
 
+	@JsonIgnore
 	@ManyToMany(mappedBy="locations")
 	private List<Fruit> fruits;
 	
