@@ -33,7 +33,4 @@ public interface PriceService {
 	List<Price> findByFruitItemNameAndLocalEngName(String itemName, String localEngName);
 	List<Price> findByVegetableItemNameAndLocalEngName(String itemName, String localEngName);
 	
-	List<Price> findByFruitCodeAndLocalEngName(int fruitCode, String localEngName);
-	List<Price> findByVegetableCodeAndLocalEngName(int vegetableCode, String localEngName);
-	
 }

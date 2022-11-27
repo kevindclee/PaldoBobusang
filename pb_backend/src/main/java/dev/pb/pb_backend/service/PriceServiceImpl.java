@@ -63,11 +63,9 @@ public class PriceServiceImpl implements PriceService {
 		}
 		
 		List<PriceProjection> prices = new ArrayList<PriceProjection>();
-//		System.out.println(markets);
 		
 		for (Integer locationId : markets) {
 			prices = priceRepository.findByVegetableItemCodeAndLocationLocationId(itemCode, locationId);
-//			System.out.println(prices);
 		}
 		
 		return Price.Response.toResponseList(prices);
@@ -110,16 +108,6 @@ public class PriceServiceImpl implements PriceService {
 	@Override
 	public Price findByVegetableitemCodeAndLocationIdAndPriceDate(int itemCode, int locationId, Date priceDate) {
 		return priceRepository.findByVegetableItemCodeAndLocationLocationIdAndPriceDate(itemCode, locationId, priceDate);
-	}
-	
-	@Override
-	public List<Price> findByFruitCodeAndLocalEngName(int fruitCode, String localEngName) {
-		return priceRepository.findByFruitFruitCodeAndLocationLocalEngName(fruitCode, localEngName);
-	}
-
-	@Override
-	public List<Price> findByVegetableCodeAndLocalEngName(int vegetableCode, String localEngName) {
-		return priceRepository.findByVegetableVegetableCodeAndLocationLocalEngName(vegetableCode, localEngName);
 	}
 
 }
