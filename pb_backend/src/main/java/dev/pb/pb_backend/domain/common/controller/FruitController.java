@@ -1,4 +1,4 @@
-package dev.pb.pb_backend.controller;
+package dev.pb.pb_backend.domain.common.controller;
 
 import java.util.Date;
 import java.util.List;
@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import dev.pb.pb_backend.entity.Fruit;
-import dev.pb.pb_backend.service.FruitService;
+import dev.pb.pb_backend.domain.common.entity.Fruit;
+import dev.pb.pb_backend.domain.common.service.FruitService;
 
 @RestController
 @RequestMapping("fruits")
@@ -45,17 +45,12 @@ public class FruitController {
 //	}
 	
 	// 'POST' http://localhost:8090/fruits
-//	@PostMapping
-//	public ResponseEntity<Fruit.Response> createFruit(@RequestBody @Valid Fruit.Request request) {
-//		System.out.println("POST: createFruit() of FruitController called");		
-//		Fruit newFruit = Fruit.Request.toEntity(request);
-//		//Address address = request.getAddress();
-//		Fruit savedFruit = fruitService.createFruit(newFruit);
-//		//address.setUser(savedUser);
-//		//addressRepository.save(address);
-//		Fruit.Response response = Fruit.Response.toResponse(savedFruit);
-//		return ResponseEntity.status(HttpStatus.CREATED).body(response);
-//	}
+	@PostMapping
+	public Fruit.Response createFruit(@RequestBody @Valid Fruit.Request request) {
+		System.out.println("POST: createFruit() of FruitController called");
+		
+		return fruitService.createFruit(request);
+	}
 
 	// 'GET' http://localhost:8090/fruits/location/:locationId
 //	@GetMapping("/location/{locationId}")

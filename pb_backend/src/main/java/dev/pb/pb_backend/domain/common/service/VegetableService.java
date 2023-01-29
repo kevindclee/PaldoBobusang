@@ -1,9 +1,9 @@
-package dev.pb.pb_backend.service;
+package dev.pb.pb_backend.domain.common.service;
 
 import java.util.Date;
 import java.util.List;
 
-import dev.pb.pb_backend.entity.Vegetable;
+import dev.pb.pb_backend.domain.common.entity.Vegetable;
 
 public interface VegetableService {
 
@@ -12,7 +12,7 @@ public interface VegetableService {
 	// 레코드(record) 조회
 	Vegetable findVegetableByCode(int code);
 	// 레코드 생성
-	Vegetable createVegetable(Vegetable newFruit);
+	Vegetable.Response createVegetable(Vegetable.Request request);
 
 	Vegetable updateVegetable(Vegetable.Request request);
 	

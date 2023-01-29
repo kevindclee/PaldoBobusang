@@ -1,9 +1,9 @@
-package dev.pb.pb_backend.service;
+package dev.pb.pb_backend.domain.common.service;
 
 import java.util.Date;
 import java.util.List;
 
-import dev.pb.pb_backend.entity.Price;
+import dev.pb.pb_backend.domain.common.entity.Price;
 import dev.pb.pb_backend.projection.PriceLocationIdProjection;
 
 public interface PriceService {
@@ -13,7 +13,7 @@ public interface PriceService {
 	// 레코드(record) 조회
 	Price findPriceByPriceId(int priceId);
 	// 레코드 생성
-	Price createPrice(Price newPrice);
+	Price.Response createPrice(Price.Request request);
 	
 	// ??
 //	List<Price>

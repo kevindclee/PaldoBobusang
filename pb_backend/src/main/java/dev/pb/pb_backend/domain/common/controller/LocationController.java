@@ -1,4 +1,4 @@
-package dev.pb.pb_backend.controller;
+package dev.pb.pb_backend.domain.common.controller;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -17,12 +17,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import dev.pb.pb_backend.entity.Fruit;
-import dev.pb.pb_backend.entity.Location;
-import dev.pb.pb_backend.entity.Vegetable;
+import dev.pb.pb_backend.domain.common.entity.Fruit;
+import dev.pb.pb_backend.domain.common.entity.Location;
+import dev.pb.pb_backend.domain.common.entity.Vegetable;
+import dev.pb.pb_backend.domain.common.service.LocationService;
 import dev.pb.pb_backend.projection.LocationCountryCodeProjection;
 import dev.pb.pb_backend.projection.LocationLocationIdProjection;
-import dev.pb.pb_backend.service.LocationService;
 
 @RestController
 @RequestMapping("locations")

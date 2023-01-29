@@ -1,4 +1,4 @@
-package dev.pb.pb_backend.service;
+package dev.pb.pb_backend.domain.common.service;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -11,13 +11,14 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import dev.pb.pb_backend.entity.Fruit;
-import dev.pb.pb_backend.entity.Fruit.Request;
-import dev.pb.pb_backend.entity.Location;
-import dev.pb.pb_backend.entity.Price;
+import dev.pb.pb_backend.domain.common.entity.Fruit;
+import dev.pb.pb_backend.domain.common.entity.Location;
+import dev.pb.pb_backend.domain.common.entity.Price;
+import dev.pb.pb_backend.domain.common.entity.Fruit.Request;
+import dev.pb.pb_backend.domain.common.entity.Fruit.Response;
+import dev.pb.pb_backend.domain.common.repository.FruitRepository;
+import dev.pb.pb_backend.domain.common.repository.LocationRepository;
 import dev.pb.pb_backend.projection.ItemProjection;
-import dev.pb.pb_backend.repository.FruitRepository;
-import dev.pb.pb_backend.repository.LocationRepository;
 
 @Service
 public class FruitServiceImpl implements FruitService {
@@ -43,9 +44,17 @@ public class FruitServiceImpl implements FruitService {
 		return fruitRepository.findById(code).orElseThrow(() -> new RuntimeException(String.format("%d 코드에 해당하는 Fruit가 존재하지 않습니다.", code)));
 	}
 
+
 	@Override
-	public Fruit createFruit(Fruit newFruit) {
-		return fruitRepository.save(newFruit);
+	public Response createFruit(Request request) {
+		List<Location> locations = null;
+		request.getLocationIds().stream().forEach(locationId -> locations.add(locationRepository.findById(locationId).get()));
+		Fruit toSave = Fruit.Request.toEntity(request, locations);
+		fruitRepository.save(toSave);
+		toSave.setLocations(locations);
+		locations.stream().forEach(location -> locationRepository.save(location));
+
+		return Fruit.Response.toResponse(toSave, locations, null);
 	}
 
 	@Override

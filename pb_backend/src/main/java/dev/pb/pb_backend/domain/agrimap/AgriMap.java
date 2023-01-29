@@ -1,4 +1,4 @@
-package dev.pb.pb_backend.controller;
+package dev.pb.pb_backend.domain.agrimap;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,10 +9,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import dev.pb.pb_backend.entity.Fruit;
-import dev.pb.pb_backend.repository.LocationRepository;
-import dev.pb.pb_backend.service.FruitService;
-import dev.pb.pb_backend.service.VegetableService;
+import dev.pb.pb_backend.domain.common.entity.Fruit;
+import dev.pb.pb_backend.domain.common.repository.LocationRepository;
+import dev.pb.pb_backend.domain.common.service.FruitService;
+import dev.pb.pb_backend.domain.common.service.VegetableService;
 
 @RestController
 @RequestMapping("/AgriMap")

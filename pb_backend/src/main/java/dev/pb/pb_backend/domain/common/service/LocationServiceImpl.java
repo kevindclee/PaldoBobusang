@@ -1,14 +1,14 @@
-package dev.pb.pb_backend.service;
+package dev.pb.pb_backend.domain.common.service;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import dev.pb.pb_backend.entity.Location;
+import dev.pb.pb_backend.domain.common.entity.Location;
+import dev.pb.pb_backend.domain.common.repository.LocationRepository;
 import dev.pb.pb_backend.projection.LocationCountryCodeProjection;
 import dev.pb.pb_backend.projection.LocationLocationIdProjection;
-import dev.pb.pb_backend.repository.LocationRepository;
 
 @Service
 public class LocationServiceImpl implements LocationService {

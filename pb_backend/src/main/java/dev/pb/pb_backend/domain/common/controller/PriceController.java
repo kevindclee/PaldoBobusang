@@ -1,34 +1,31 @@
-//package dev.pb.pb_backend.controller;
-//
-//import java.time.LocalDate;
-//import java.util.Date;
-//import java.util.List;
-//
-//import javax.validation.Valid;
-//
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.http.HttpStatus;
-//import org.springframework.http.ResponseEntity;
-//import org.springframework.web.bind.annotation.CrossOrigin;
-//import org.springframework.web.bind.annotation.GetMapping;
-//import org.springframework.web.bind.annotation.PathVariable;
-//import org.springframework.web.bind.annotation.PostMapping;
-//import org.springframework.web.bind.annotation.RequestBody;
-//import org.springframework.web.bind.annotation.RequestMapping;
-//import org.springframework.web.bind.annotation.RestController;
-//
-//import dev.pb.pb_backend.entity.Price;
-//import dev.pb.pb_backend.entity.Price.ResponseLocationId;
-//import dev.pb.pb_backend.projection.PriceLocationIdProjection;
-//import dev.pb.pb_backend.service.PriceService;
-//
-//@RestController
-//@RequestMapping("prices")
-//
-//public class PriceController {
-//	
-//	@Autowired
-//	private PriceService priceService;
+package dev.pb.pb_backend.domain.common.controller;
+import java.time.LocalDate;
+import java.util.Date;
+import java.util.List;
+
+import javax.validation.Valid;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import dev.pb.pb_backend.domain.common.entity.Price;
+import dev.pb.pb_backend.domain.common.service.PriceService;
+
+@RestController
+@RequestMapping("prices")
+
+public class PriceController {
+	
+	@Autowired
+	private PriceService priceService;
 //	
 //	// 'GET' http://localhost:8090/prices
 //	@GetMapping
@@ -46,18 +43,13 @@
 //		return Price.Response.toResponse(foundPrice);
 //	}
 //	
-//	// 'POST' http://localhost:8090/prices
-//	@PostMapping
-//	public ResponseEntity<Price.Response> createPrice(@RequestBody @Valid Price.Request request) {
-//		System.out.println("POST: createPrice() of PriceController called");		
-//		Price newPrice = Price.Request.toEntity(request);
-//		//Address address = request.getAddress();
-//		Price savedPrice = priceService.createPrice(newPrice);
-//		//address.setUser(savedUser);
-//		//addressRepository.save(address);
-//		Price.Response response = Price.Response.toResponse(savedPrice);
-//		return ResponseEntity.status(HttpStatus.CREATED).body(response);
-//	}
+	// 'POST' http://localhost:8090/prices
+	@PostMapping
+	public Price.Response createPrice(@RequestBody @Valid Price.Request request) {
+		System.out.println("POST: createPrice() of PriceController called");		
+		
+		return priceService.createPrice(request);
+	}
 //
 //	// 'GET' http://localhost:8090/prices/location/countryCode/:countryCode
 //	@GetMapping("/location/countryCode/{countryCode}")
@@ -159,4 +151,4 @@
 //		}
 //	
 //	
-//}
+}

@@ -1,4 +1,4 @@
-package dev.pb.pb_backend.entity;
+package dev.pb.pb_backend.domain.common.entity;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -18,6 +18,8 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+import dev.pb.pb_backend.domain.common.entity.Fruit.OnlyFruit;
+import dev.pb.pb_backend.domain.common.entity.Fruit.Response;
 import dev.pb.pb_backend.projection.ItemProjection;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -73,6 +75,10 @@ public class Vegetable {
 	@OneToMany(mappedBy = "vegetable")
 	private List<Price> prices;
 	
+	public void setLocations(List<Location> locations) {
+		locations.stream().forEach(location -> location.getVegetables().add(this));
+	}
+	
 	// 요청 받을 때 사용할 User Entity의 DTO
 	@Setter
 	@Getter
@@ -98,10 +104,9 @@ public class Vegetable {
 //		@NotBlank(message = "etcDetails는 공백('', ' ')이나 Null 지정 불가")
 		private String etcDetails;
 		
-		private List<Location> locations;
-		private List<Price> prices;
+		private List<Integer> locationIds;
 
-		public static Vegetable toEntity(final Vegetable.Request request) {
+		public static Vegetable toEntity(final Vegetable.Request request, List<Location> locations) {
 			return Vegetable.builder()
 					.itemCode(request.getItemCode())
 					.itemName(request.getItemName())
@@ -110,12 +115,42 @@ public class Vegetable {
 					.harvestStart(request.getHarvestStart())
 					.harvestEnd(request.getHarvestEnd())
 					.etcDetails(request.getEtcDetails())
-					.locations(request.getLocations())
-					.prices(request.getPrices())
+					.locations(locations)
+					.prices(new ArrayList<Price>())
 					.build();
 		}
 		
 	}
+	
+	// 서버가 응답할 때 사용할 User Entity의 DTO
+		@Setter
+		@Getter
+		@Builder
+		@NoArgsConstructor
+		@AllArgsConstructor
+		public static class OnlyVegetable {
+			
+			private int itemCode;
+			private String itemName;
+			private String unit;
+			private String itemImage;
+			private Date harvestStart;
+			private Date harvestEnd;
+			private String etcDetails;
+			
+			public static OnlyVegetable toOnlyVegetable(Vegetable vegetable) {
+				
+				return OnlyVegetable.builder()
+						.itemCode(vegetable.getItemCode())
+						.itemName(vegetable.getItemName())
+						.unit(vegetable.getUnit())
+						.itemImage(vegetable.getItemImage())
+						.harvestStart(vegetable.getHarvestStart())
+						.harvestEnd(vegetable.getHarvestEnd())
+						.etcDetails(vegetable.getEtcDetails())
+						.build();
+			}
+		}
 
 	// 서버가 응답할 때 사용할 User Entity의 DTO
 	@Setter
@@ -133,26 +168,34 @@ public class Vegetable {
 		private Date harvestEnd;
 		private String etcDetails;
 		
-		private List<Location> locations;
-		private List<Price.Response> prices;
+		private List<Location.OnlyLocation> locations;
+		private List<Price.OnlyPrice> prices;
 
-		public static Vegetable.Response toResponse(final ItemProjection item, final List<Location> locations, final List<Price.Response> prices) {
+		public static Vegetable.Response toResponse(final Vegetable vegetable, final List<Location> locations, final List<Price> prices) {
 			return Vegetable.Response.builder()
-					.itemCode(item.getItemCode())
-					.itemName(item.getItemName())
-					.itemImage(item.getItemImage())
-					.harvestStart(item.getHarvestStart())
-					.harvestEnd(item.getHarvestEnd())
-					.etcDetails(item.getEtcDetails())
-					.locations(locations)
-					.prices(prices).build();
+					.itemCode(vegetable.getItemCode())
+					.itemName(vegetable.getItemName())
+					.itemImage(vegetable.getItemImage())
+					.harvestStart(vegetable.getHarvestStart())
+					.harvestEnd(vegetable.getHarvestEnd())
+					.etcDetails(vegetable.getEtcDetails())
+					.locations(Location.OnlyLocation.toOnlyLocations(locations))
+					.prices(Price.OnlyPrice.toOnlyPrices(prices)).build();
+		}
+		
+		public static List<Response> toResponse(final List<Vegetable> vegetables, final Location location, final Map<String, List<Price>> prices) {
+			List<Response> resList = new ArrayList<Vegetable.Response>();
+			List<Location> locations = new ArrayList<Location>();
+			locations.add(location);
+			vegetables.stream().forEach(vegetable -> resList.add(toResponse(vegetable, locations, prices.get(vegetable.getItemName()))));
+			
+			return resList;
 		}
 
-		public static List<Object> toResponseList(final Set<ItemProjection> vegetables, final Map<String, List<Location>> locationsForFruit, final Map<String, List<Price.Response>> pricesForFruit) {
-			List<Object> resList = new ArrayList<>();
-			for (ItemProjection vegetable : vegetables) {
-				resList.add(Vegetable.Response.toResponse(vegetable, locationsForFruit.get(vegetable.getItemName()), pricesForFruit.get(vegetable.getItemName())));
-			}
+		public static List<Response> toResponseList(final Set<Vegetable> vegetables, final Map<String, List<Location>> locationsForFruit, final Map<String, List<Price>> pricesForFruit) {
+			List<Response> resList = new ArrayList<>();
+			vegetables.stream().forEach(vegetable -> resList.add(Response.toResponse(vegetable, locationsForFruit.get(vegetable.getItemName()), pricesForFruit.get(vegetable.getItemName()))));
+			
 			return resList;
 		}
 		

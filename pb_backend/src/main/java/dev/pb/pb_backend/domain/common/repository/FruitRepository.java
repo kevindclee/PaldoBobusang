@@ -1,4 +1,4 @@
-package dev.pb.pb_backend.repository;
+package dev.pb.pb_backend.domain.common.repository;
 
 import java.util.Date;
 import java.util.List;
@@ -6,7 +6,7 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import dev.pb.pb_backend.entity.Fruit;
+import dev.pb.pb_backend.domain.common.entity.Fruit;
 import dev.pb.pb_backend.projection.ItemProjection;
 
 @Repository

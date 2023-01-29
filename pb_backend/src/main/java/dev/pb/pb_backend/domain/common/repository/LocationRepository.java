@@ -1,11 +1,11 @@
-package dev.pb.pb_backend.repository;
+package dev.pb.pb_backend.domain.common.repository;
 
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import dev.pb.pb_backend.entity.Location;
+import dev.pb.pb_backend.domain.common.entity.Location;
 import dev.pb.pb_backend.projection.LocationCountryCodeProjection;
 import dev.pb.pb_backend.projection.LocationLocationIdProjection;
 

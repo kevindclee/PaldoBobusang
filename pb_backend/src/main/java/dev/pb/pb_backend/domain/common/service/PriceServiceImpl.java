@@ -1,4 +1,4 @@
-package dev.pb.pb_backend.service;
+package dev.pb.pb_backend.domain.common.service;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -7,12 +7,18 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import dev.pb.pb_backend.entity.Location;
-import dev.pb.pb_backend.entity.Price;
+import dev.pb.pb_backend.domain.common.entity.Fruit;
+import dev.pb.pb_backend.domain.common.entity.Location;
+import dev.pb.pb_backend.domain.common.entity.Price;
+import dev.pb.pb_backend.domain.common.entity.Price.Request;
+import dev.pb.pb_backend.domain.common.entity.Price.Response;
+import dev.pb.pb_backend.domain.common.entity.Vegetable;
+import dev.pb.pb_backend.domain.common.repository.FruitRepository;
+import dev.pb.pb_backend.domain.common.repository.LocationRepository;
+import dev.pb.pb_backend.domain.common.repository.PriceRepository;
+import dev.pb.pb_backend.domain.common.repository.VegetableRepository;
 import dev.pb.pb_backend.projection.PriceLocationIdProjection;
 import dev.pb.pb_backend.projection.PriceProjection;
-import dev.pb.pb_backend.repository.LocationRepository;
-import dev.pb.pb_backend.repository.PriceRepository;
 
 @Service
 public class PriceServiceImpl implements PriceService {
@@ -22,6 +28,12 @@ public class PriceServiceImpl implements PriceService {
 
 	@Autowired
 	private LocationRepository locationRepository;
+	
+	@Autowired
+	private FruitRepository fruitRepository;
+	
+	@Autowired
+	private VegetableRepository vegetableRepository;
 	
 	@Override
 	public List<Price> findAllPrices() {
@@ -34,8 +46,28 @@ public class PriceServiceImpl implements PriceService {
 	}
 
 	@Override
-	public Price createPrice(Price newPrice) {
-		return priceRepository.save(newPrice);
+	public Response createPrice(Request request) {
+		Fruit fruit = fruitRepository.findById(request.getItemCode()).orElseThrow(() -> null);
+		Vegetable vegetable = vegetableRepository.findById(request.getItemCode()).orElseThrow(() -> null);
+		Location location = locationRepository.findById(request.getLocationId()).get();
+		
+		if (fruit != null) {
+			Price toSave = Price.Request.toEntity(request, location, fruit);
+			priceRepository.save(toSave);
+			toSave.setFruit(fruit);
+			toSave.setLocation(location);
+			fruitRepository.save(fruit);
+			locationRepository.save(location);
+		} else {
+			Price toSave = Price.Request.toEntity(request, location, vegetable);
+			priceRepository.save(toSave);
+			toSave.setVegetable(vegetable);
+			toSave.setLocation(location);
+			vegetableRepository.save(vegetable);
+			locationRepository.save(location);
+		}
+
+		return Price.Response.;
 	}
 
 	@Override

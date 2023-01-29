@@ -1,4 +1,4 @@
-package dev.pb.pb_backend.entity;
+package dev.pb.pb_backend.domain.common.entity;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -36,7 +36,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @Getter
 @Setter
-@ToString(exclude= {"locations"})
+@ToString
 public class Fruit {
 
 	@Id
@@ -63,7 +63,7 @@ public class Fruit {
 	@Column(name = "ETC_DETAILS", columnDefinition = "TEXT")
 	private String etcDetails;
 
-	private Integer brix;
+	private int brix;
 
 	@ManyToMany
 	@JoinTable(
@@ -74,6 +74,10 @@ public class Fruit {
 
 	@OneToMany(mappedBy = "fruit")
 	private List<Price> prices;
+	
+	public void setLocations(List<Location> locations) {
+		locations.stream().forEach(location -> location.getFruits().add(this));
+	}
 
 	// 요청 받을 때 사용할 User Entity의 DTO
 	@Setter
@@ -86,8 +90,8 @@ public class Fruit {
 		private int itemCode;
 
 		@NotBlank(message = "itemName는 공백('', ' ')이나 Null 지정 불가")
-		private String itemName;
-
+		private String itemName; 
+		
 		private String unit;
 		
 		private String itemImage;
@@ -103,10 +107,9 @@ public class Fruit {
 
 		private Integer brix;
 		
-		private List<Location> locations;
-		private List<Price> prices;
+		private List<Integer> locationIds;
 
-		public static Fruit toEntity(final Fruit.Request request) {
+		public static Fruit toEntity(final Fruit.Request request, List<Location> locations) {
 			return Fruit.builder()
 					.itemCode(request.getItemCode())
 					.itemName(request.getItemName())
@@ -116,13 +119,45 @@ public class Fruit {
 					.harvestEnd(request.getHarvestEnd())
 					.etcDetails(request.getEtcDetails())
 					.brix(request.getBrix())
-					.locations(request.getLocations())
-					.prices(request.getPrices())
+					.locations(locations)
+					.prices(new ArrayList<Price>())
 					.build();
 		}
 		
 	}
 
+	// 서버가 응답할 때 사용할 User Entity의 DTO
+	@Setter
+	@Getter
+	@Builder
+	@NoArgsConstructor
+	@AllArgsConstructor
+	public static class OnlyFruit {
+		
+		private int itemCode;
+		private String itemName;
+		private String unit;
+		private String itemImage;
+		private Date harvestStart;
+		private Date harvestEnd;
+		private String etcDetails;
+		private Integer brix;
+		
+		public static OnlyFruit toOnlyFruit(Fruit fruit) {
+			
+			return OnlyFruit.builder()
+					.itemCode(fruit.getItemCode())
+					.itemName(fruit.getItemName())
+					.unit(fruit.getUnit())
+					.itemImage(fruit.getItemImage())
+					.harvestStart(fruit.getHarvestStart())
+					.harvestEnd(fruit.getHarvestEnd())
+					.etcDetails(fruit.getEtcDetails())
+					.brix(fruit.getBrix())
+					.build();
+		}
+	}
+		
 	// 서버가 응답할 때 사용할 User Entity의 DTO
 	@Setter
 	@Getter
@@ -140,26 +175,35 @@ public class Fruit {
 		private String etcDetails;
 		private Integer brix;
 		
-		private List<Location> locations;
-		private List<Price> prices;
+		private List<Location.OnlyLocation> locations;
+		private List<Price.OnlyPrice> prices;
 
-		public static Fruit.Response toResponse(final ItemProjection item, final List<Location> locations, final List<Price> prices) {
+		public static Fruit.Response toResponse(final Fruit fruit, final List<Location> locations, final List<Price> prices) {
+			
 			return Fruit.Response.builder()
-						.itemCode(item.getItemCode())
-						.itemName(item.getItemName())
-						.itemImage(item.getItemImage())
-						.harvestStart(item.getHarvestStart())
-						.harvestEnd(item.getHarvestEnd())
-						.etcDetails(item.getEtcDetails())
-						.locations(locations)
-						.prices(prices).build();
+						.itemCode(fruit.getItemCode())
+						.itemName(fruit.getItemName())
+						.itemImage(fruit.getItemImage())
+						.harvestStart(fruit.getHarvestStart())
+						.harvestEnd(fruit.getHarvestEnd())
+						.etcDetails(fruit.getEtcDetails())
+						.locations(Location.OnlyLocation.toOnlyLocations(locations))
+						.prices(Price.OnlyPrice.toOnlyPrices(prices)).build();
 		}
 
-		public static List<Object> toResponseList(final Set<ItemProjection> fruits, final Map<String, List<Location>> locationsForFruit, final Map<String, List<Price>> pricesForFruit) {
-			List<Object> resList = new ArrayList<Object>();
-			for (ItemProjection fruit : fruits) {
-				resList.add(toResponse(fruit, locationsForFruit.get(fruit.getItemName()), pricesForFruit.get(fruit.getItemName())));
-			}
+		public static List<Response> toResponse(final List<Fruit> fruits, final Location location, final Map<String, List<Price>> prices) {
+			List<Response> resList = new ArrayList<Fruit.Response>();
+			List<Location> locations = new ArrayList<Location>();
+			locations.add(location);
+			fruits.stream().forEach(fruit -> resList.add(toResponse(fruit, locations, prices.get(fruit.getItemName()))));
+			
+			return resList;
+		}
+		
+		public static List<Fruit.Response> toResponseList(final Set<Fruit> fruits, final Map<String, List<Location>> locationsForFruit, final Map<String, List<Price>> pricesForFruit) {
+			List<Fruit.Response> resList = new ArrayList<Fruit.Response>();
+			fruits.stream().forEach(fruit -> resList.add(toResponse(fruit, locationsForFruit.get(fruit.getItemName()), pricesForFruit.get(fruit.getItemName()))));
+			
 			return resList;
 		}
 		

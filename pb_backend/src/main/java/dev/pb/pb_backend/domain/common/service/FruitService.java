@@ -1,9 +1,9 @@
-package dev.pb.pb_backend.service;
+package dev.pb.pb_backend.domain.common.service;
 
 import java.util.Date;
 import java.util.List;
 
-import dev.pb.pb_backend.entity.Fruit;
+import dev.pb.pb_backend.domain.common.entity.Fruit;
 
 public interface FruitService {
 
@@ -12,7 +12,7 @@ public interface FruitService {
 	// 레코드(record) 조회
 	Fruit findFruitByCode(int code);
 	// 레코드 생성
-	Fruit createFruit(Fruit newFruit);
+	Fruit.Response createFruit(Fruit.Request request);
 
 	Fruit updateFruit(Fruit.Request request);
 	

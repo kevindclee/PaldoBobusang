@@ -1,7 +1,8 @@
-package dev.pb.pb_backend.entity;
+package dev.pb.pb_backend.domain.common.entity;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -30,7 +31,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter @Setter
-@ToString(exclude= {"fruits", "vegetables", "prices"})
+@ToString
 public class Location {
 
 	@Id
@@ -67,7 +68,6 @@ public class Location {
 	// 요청 받을 때 사용할 User Entity의 DTO
 	@Setter
 	@Getter
-	@Builder
 	@ToString
 	public static class Request {
 
@@ -83,10 +83,6 @@ public class Location {
 		private String cityEngName;
 		
 		private Integer countryCode;
-		
-		private List<Price> prices;
-		private List<Vegetable> vegetables;
-		private List<Fruit> fruits;
 
 		public static Location toEntity(final Location.Request request) {
 			return Location.builder()
@@ -96,14 +92,48 @@ public class Location {
 					.cityName(request.getCityName())
 					.cityEngName(request.getCityEngName())
 					.countryCode(request.getCountryCode())
-					.prices(request.getPrices())
-					.vegetables(request.getVegetables())
-					.fruits(request.getFruits())
+					.prices(new ArrayList<Price>())
+					.vegetables(new ArrayList<Vegetable>())
+					.fruits(new ArrayList<Fruit>())
 					.build();
 		}
 		
 	}
 
+	// 서버가 응답할 때 사용할 User Entity의 DTO
+	@Setter
+	@Getter
+	@Builder
+	@NoArgsConstructor
+	@AllArgsConstructor
+	public static class OnlyLocation {
+		
+		private int locationId;
+		private String localName;
+		private String localEngName;
+		private String cityName;
+		private String cityEngName;
+		private Integer countryCode;
+		
+		public static OnlyLocation toOnlyLocation(Location location) {
+			
+			return OnlyLocation.builder()
+					.locationId(location.getLocationId())
+					.localName(location.getLocalName())
+					.localEngName(location.getLocalEngName())
+					.cityName(location.getCityName())
+					.cityEngName(location.getCityEngName())
+					.countryCode(location.getCountryCode())
+					.build();
+		}
+		
+		public static List<OnlyLocation> toOnlyLocations(List<Location> locations) {
+			List<Location.OnlyLocation> onlyLocations = null;
+			locations.stream().forEach(location -> onlyLocations.add(Location.OnlyLocation.toOnlyLocation(location)));
+			
+			return onlyLocations; 
+		}
+	}
 	// 서버가 응답할 때 사용할 User Entity의 DTO
 	@Setter
 	@Getter
@@ -118,12 +148,10 @@ public class Location {
 		private String cityName;
 		private String cityEngName;
 		private Integer countryCode;
-		
-		private List<Price.Response> prices;
 		private List<Vegetable.Response> vegetables;
 		private List<Fruit.Response> fruits;
 
-		public static Location.Response toResponse(final Location location) {
+		public static Location.Response toResponse(final Location location, List<Fruit> fruits, List<Vegetable> vegetables, Map<String, List<Price>> prices) {
 			return Location.Response.builder()
 					.locationId(location.getLocationId())
 					.localName(location.getLocalName())
@@ -131,17 +159,14 @@ public class Location {
 					.cityName(location.getCityName())
 					.cityEngName(location.getCityEngName())
 					.countryCode(location.getCountryCode())
-//					.prices(Price.Response.toResponseList(location.getPrices()))
-					.vegetables(Vegetable.Response.toLocationResponseList(location.getVegetables(), location.getLocationId()))
-					.fruits(Fruit.Response.toLocationResponseList(location.getFruits(), location.getLocationId()))
+					.vegetables(Vegetable.Response.toResponse(vegetables, location, prices))
+					.fruits(Fruit.Response.toResponse(fruits, location, prices))
 					.build();
 		}
 
-		public static List<Location.Response> toResponseList(final List<Location> locations) {
+		public static List<Location.Response> toResponseList(final List<Location> locations, Map<Integer, List<Fruit>> fruits, Map<Integer, List<Vegetable>> vegetables, Map<Integer, Map<String, List<Price>>> prices) {
 			List<Location.Response> resList = new ArrayList<>();
-			for (Location location : locations) {
-				resList.add(Location.Response.toResponse(location));
-			}
+			locations.stream().forEach(location -> resList.add(toResponse(location, fruits.get(location.getLocationId()), vegetables.get(location.getLocationId()), prices.get(location.getLocationId()))));
 			return resList;
 		}
 		

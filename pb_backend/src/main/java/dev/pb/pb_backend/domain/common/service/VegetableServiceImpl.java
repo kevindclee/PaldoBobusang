@@ -1,4 +1,4 @@
-package dev.pb.pb_backend.service;
+package dev.pb.pb_backend.domain.common.service;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -11,13 +11,15 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import dev.pb.pb_backend.entity.Fruit;
-import dev.pb.pb_backend.entity.Location;
-import dev.pb.pb_backend.entity.Price;
-import dev.pb.pb_backend.entity.Vegetable;
+import dev.pb.pb_backend.domain.common.entity.Fruit;
+import dev.pb.pb_backend.domain.common.entity.Location;
+import dev.pb.pb_backend.domain.common.entity.Price;
+import dev.pb.pb_backend.domain.common.entity.Vegetable;
+import dev.pb.pb_backend.domain.common.entity.Vegetable.Request;
+import dev.pb.pb_backend.domain.common.entity.Vegetable.Response;
+import dev.pb.pb_backend.domain.common.repository.LocationRepository;
+import dev.pb.pb_backend.domain.common.repository.VegetableRepository;
 import dev.pb.pb_backend.projection.ItemProjection;
-import dev.pb.pb_backend.repository.LocationRepository;
-import dev.pb.pb_backend.repository.VegetableRepository;
 
 @Service
 public class VegetableServiceImpl implements VegetableService {
@@ -44,8 +46,15 @@ public class VegetableServiceImpl implements VegetableService {
 	}
 
 	@Override
-	public Vegetable createVegetable(Vegetable newVegetable) {
-		return vegetableRepository.save(newVegetable);
+	public Response createVegetable(Request request) {
+		List<Location> locations = null;
+		request.getLocationIds().stream().forEach(locationid -> locations.add(locationRepository.findById(locationid).get()));
+		Vegetable toSave = Vegetable.Request.toEntity(request, locations);
+		vegetableRepository.save(toSave);
+		toSave.setLocations(locations);
+		locations.stream().forEach(location -> locationRepository.save(location));
+
+		return null;
 	}
 
 	@Override

@@ -1,4 +1,4 @@
-package dev.pb.pb_backend.controller;
+package dev.pb.pb_backend.domain.common.controller;
 
 import java.util.Date;
 import java.util.List;
@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import dev.pb.pb_backend.entity.Vegetable;
-import dev.pb.pb_backend.service.VegetableService;
+import dev.pb.pb_backend.domain.common.entity.Vegetable;
+import dev.pb.pb_backend.domain.common.service.VegetableService;
 
 @RestController
 @RequestMapping("vegetables")
@@ -45,17 +45,12 @@ public class VegetableController {
 //	}
 	
 	// 'POST' http://localhost:8090/vegetables
-//	@PostMapping
-//	public ResponseEntity<Vegetable.Response> createVegetable(@RequestBody @Valid Vegetable.Request request) {
-//		System.out.println("POST: createVegetable() of VegetableController called");		
-//		Vegetable newVegetable = Vegetable.Request.toEntity(request);
-//		//Address address = request.getAddress();
-//		Vegetable savedVegetable = vegetableService.createVegetable(newVegetable);
-//		//address.setUser(savedUser);
-//		//addressRepository.save(address);
-//		Vegetable.Response response = Vegetable.Response.toResponse(savedVegetable);
-//		return ResponseEntity.status(HttpStatus.CREATED).body(response);
-//	}
+	@PostMapping
+	public Vegetable.Response createVegetable(@RequestBody @Valid Vegetable.Request request) {
+		System.out.println("POST: createVegetable() of VegetableController called");		
+
+		return vegetableService.createVegetable(request);
+	}
 
 	// 'GET' http://localhost:8090/vegetables/location/:locationId
 //	@GetMapping("/location/{locationId}")
