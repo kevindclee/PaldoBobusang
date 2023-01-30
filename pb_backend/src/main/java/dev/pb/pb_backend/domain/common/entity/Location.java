@@ -12,10 +12,6 @@ import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import dev.pb.pb_backend.projection.LocationCountryCodeProjection;
-import dev.pb.pb_backend.projection.LocationLocationIdProjection;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -54,14 +50,11 @@ public class Location {
 	private Integer countryCode;
 
 	@OneToMany(mappedBy = "location")
-	@JsonIgnore
 	private List<Price> prices;
 
-	@JsonIgnore
 	@ManyToMany(mappedBy="locations")
 	private List<Vegetable> vegetables;
 
-	@JsonIgnore
 	@ManyToMany(mappedBy="locations")
 	private List<Fruit> fruits;
 	
@@ -169,161 +162,9 @@ public class Location {
 			locations.stream().forEach(location -> resList.add(toResponse(location, fruits.get(location.getLocationId()), vegetables.get(location.getLocationId()), prices.get(location.getLocationId()))));
 			return resList;
 		}
-		
-		public static Location.Response toFruitResponse(final Location location, int fruitCode) {
-			return Location.Response.builder()
-					.locationId(location.getLocationId())
-					.localName(location.getLocalName())
-					.localEngName(location.getLocalEngName())
-					.cityName(location.getCityName())
-					.cityEngName(location.getCityEngName())
-					.countryCode(location.getCountryCode())
-					.prices(Price.Response.toLocationFruitResponseList(location.getPrices(), fruitCode))
-					.build();
-		}
 
-		public static List<Location.Response> toFruitResponseList(final List<Location> locations, int fruitCode) {
-			List<Location.Response> resList = new ArrayList<>();
-			for (Location location : locations) {
-				resList.add(Location.Response.toFruitResponse(location, fruitCode));
-			}
-			return resList;
-		}
-		
-		public static Location.Response toFruitItemNameAndLocalEngNameResponse(final Location location, int fruitCode) {
-			return Location.Response.builder()
-					.locationId(location.getLocationId())
-					.localName(location.getLocalName())
-					.localEngName(location.getLocalEngName())
-					.cityName(location.getCityName())
-					.cityEngName(location.getCityEngName())
-					.countryCode(location.getCountryCode())
-					.prices(Price.Response.toLocationFruitResponseList(location.getPrices(), fruitCode))
-					.build();
-		}
-
-		public static List<Location.Response> toFruitItemNameAndLocalEngNameResponseList(final List<Location> locations, int fruitCode, String localEngName) {
-			List<Location.Response> resList = new ArrayList<>();
-			for (Location location : locations) {
-				if (localEngName.equals(location.getLocalEngName())) {
-					resList.add(Location.Response.toFruitResponse(location, fruitCode));
-				}
-			}
-			return resList;
-		}
-		
-		public static Location.Response toVegetableResponse(final Location location, int vegetableCode) {
-			return Location.Response.builder()
-					.locationId(location.getLocationId())
-					.localName(location.getLocalName())
-					.localEngName(location.getLocalEngName())
-					.cityName(location.getCityName())
-					.cityEngName(location.getCityEngName())
-					.countryCode(location.getCountryCode())
-					.prices(Price.Response.toLocationVegetableResponseList(location.getPrices(), vegetableCode))
-					.build();
-		}
-
-		public static List<Location.Response> toVegetableResponseList(final List<Location> locations, int vegetableCode) {
-			List<Location.Response> resList = new ArrayList<>();
-			for (Location location : locations) {
-				resList.add(Location.Response.toVegetableResponse(location, vegetableCode));
-			}
-			return resList;
-		}
-		
-		public static Location.Response toVegetableItemNameAndLocalEngNameResponse(final Location location, int vegetableCode) {
-			return Location.Response.builder()
-					.locationId(location.getLocationId())
-					.localName(location.getLocalName())
-					.localEngName(location.getLocalEngName())
-					.cityName(location.getCityName())
-					.cityEngName(location.getCityEngName())
-					.countryCode(location.getCountryCode())
-					.prices(Price.Response.toLocationFruitResponseList(location.getPrices(), vegetableCode))
-					.build();
-		}
-
-		public static List<Location.Response> toVegetableItemNameAndLocalEngNameResponseList(final List<Location> locations, int vegetableCode, String localEngName) {
-			List<Location.Response> resList = new ArrayList<>();
-			for (Location location : locations) {
-				if (localEngName.equals(location.getLocalEngName())) {
-					resList.add(Location.Response.toFruitResponse(location, vegetableCode));
-				}
-			}
-			return resList;
-		}
-		
-		public static Location.Response toPriceResponse(final Location location) {
-			return Location.Response.builder()
-					.locationId(location.getLocationId())
-					.localName(location.getLocalName())
-					.localEngName(location.getLocalEngName())
-					.cityName(location.getCityName())
-					.cityEngName(location.getCityEngName())
-					.countryCode(location.getCountryCode())
-					.build();
-		}
-
-		public static List<Location.Response> toPriceResponseList(final List<Location> locations) {
-			List<Location.Response> resList = new ArrayList<>();
-			for (Location location : locations) {
-				resList.add(Location.Response.toPriceResponse(location));
-			}
-			return resList;
-		}
 	}
 	
-	// LocaionCountryCode Projection 을 이용한 Response DTO
-	@Setter
-	@Getter
-	@Builder
-	@NoArgsConstructor
-	@AllArgsConstructor
-	public static class ResponseCountryCode {
-
-		private Integer countryCode;
-
-		public static Location.ResponseCountryCode toResponse(final LocationCountryCodeProjection location) {
-			return Location.ResponseCountryCode.builder()
-					.countryCode(location.getCountryCode())
-					.build();
-		}
-
-		public static List<Location.ResponseCountryCode> toResponseList(final List<LocationCountryCodeProjection> locations) {
-			List<Location.ResponseCountryCode> resList = new ArrayList<>();
-			for (LocationCountryCodeProjection location : locations) {
-				resList.add(Location.ResponseCountryCode.toResponse(location));
-			}
-			return resList;
-		}
-	}
-	
-	// LocaionCountryCode Projection 을 이용한 Response DTO
-	@Setter
-	@Getter
-	@Builder
-	@NoArgsConstructor
-	@AllArgsConstructor
-	public static class ResponseLocationId {
-
-		private int locationId;
-
-		public static Location.ResponseLocationId toResponse(final LocationLocationIdProjection location) {
-			return Location.ResponseLocationId.builder()
-					.locationId(location.getLocationId())
-					.build();
-		}
-
-		public static List<Location.ResponseLocationId> toResponseList(final List<LocationLocationIdProjection> locations) {
-			List<Location.ResponseLocationId> resList = new ArrayList<>();
-			for (LocationLocationIdProjection location : locations) {
-				resList.add(Location.ResponseLocationId.toResponse(location));
-			}
-			return resList;
-		}
-	}
-		
 }
 
 

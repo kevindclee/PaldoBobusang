@@ -1,6 +1,5 @@
 package dev.pb.pb_backend.domain.common.service;
 
-import java.util.Date;
 import java.util.List;
 
 import dev.pb.pb_backend.domain.common.entity.Fruit;
@@ -8,23 +7,22 @@ import dev.pb.pb_backend.domain.common.entity.Fruit;
 public interface FruitService {
 
 	// 전체 테이블 조회
-	List<Fruit> findAllFruits();
+	List<Fruit.Response> findAllFruits();
 	// 레코드(record) 조회
-	Fruit findFruitByCode(int code);
+	Fruit.Response findFruitByCode(int code);
 	// 레코드 생성
 	Fruit.Response createFruit(Fruit.Request request);
 
-	Fruit updateFruit(Fruit.Request request);
+	Fruit.Response updateFruit(Fruit.Request request);
 	
 	
 	// FruitRepository 쿼리 메서드
 	// locationId 으로 조회
-	List<Fruit> findFruitsByLocationId(int locationId);
-	List<Object> findFruitsByLocalEngName(String localEngName);
-	Fruit findFruitsByItemNameLocalEngName(String itemName, String localEngName);
-	// harvestDate 으로 조회
-	List<Fruit> findFruitsByHarvest(Date curDate);
+	List<Fruit.Response> findFruitsByLocationId(int locationId);
+	List<Fruit.Response> findFruitsByLocalEngName(String localEngName);
+	Fruit.Response findFruitsByItemNameLocalEngName(String itemName, String localEngName);
 	
-//	List<FruitItemImageProjection> findFruitsByHarvestInList(Date curDate);
+	// harvestDate 으로 조회
+	List<Fruit.Response> findFruitsByHarvest();
 	
 }

@@ -6,22 +6,22 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import dev.pb.pb_backend.domain.common.entity.Location;
-import dev.pb.pb_backend.projection.LocationCountryCodeProjection;
-import dev.pb.pb_backend.projection.LocationLocationIdProjection;
 
 @Repository
 public interface LocationRepository extends JpaRepository<Location, Integer> {
 
-	// 쿼리 메서드
-	// https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#jpa.query-methods
-
 	// localName 으로 조회
-	List<LocationCountryCodeProjection> findByLocalName(String localName);
+	List<Location> findByLocalName(String localName);
 	
+	// localEngName 으로 조회
 	List<Location> findByLocalEngName(String localEngName);
+
+	// cityEngName 으로 조회
 	List<Location> findByCityEngName(String cityEngName);
 	
-	// countryCode 으로 조회
-	LocationLocationIdProjection findByCountryCode(int countryCode);
-	
+	// fruit 으로 조회
+	List<Location> findByFruitsItemName(String fruitName);
+
+	// vegetable 로 조회
+	List<Location> findByVegetablesItemName(String fruitName);
 }

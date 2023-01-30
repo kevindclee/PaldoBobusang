@@ -1,6 +1,5 @@
 package dev.pb.pb_backend.domain.agrimap;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,13 +9,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import dev.pb.pb_backend.domain.common.entity.Fruit;
-import dev.pb.pb_backend.domain.common.repository.LocationRepository;
+import dev.pb.pb_backend.domain.common.entity.Vegetable;
 import dev.pb.pb_backend.domain.common.service.FruitService;
 import dev.pb.pb_backend.domain.common.service.VegetableService;
 
 @RestController
 @RequestMapping("/AgriMap")
-public class AgriMap<E> {
+public class AgriMap {
 	
 	@Autowired
 	FruitService fruitService;
@@ -24,14 +23,16 @@ public class AgriMap<E> {
 	@Autowired
 	VegetableService vegetableService;
 	
-	@GetMapping("/{localEngName}/{category}")
-	public List<Object> findItemsByCategory(@PathVariable String localEngName, @PathVariable String category) {
-		List<Object> resList = new ArrayList<Object>();
+	@GetMapping("/{localEngName}/fruit")
+	public List<Fruit.Response> findItemsByFruit(@PathVariable String localEngName) {
 		
-		if (category.equals("fruit")) resList = fruitService.findFruitsByLocalEngName(localEngName);
-		if (category.equals("vegetable")) resList = vegetableService.findVegetablesByLocalEngName(localEngName);
+		return fruitService.findFruitsByLocalEngName(localEngName);
+	}
+	
+	@GetMapping("/{localEngName}/vegetable")
+	public List<Vegetable.Response> findItemsByVegetable(@PathVariable String localEngName, @PathVariable String category) {
 		
-		return resList;
+		return vegetableService.findVegetablesByLocalEngName(localEngName);
 	}
 	
 }

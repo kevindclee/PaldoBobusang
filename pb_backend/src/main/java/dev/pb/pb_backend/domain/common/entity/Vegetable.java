@@ -13,14 +13,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-import dev.pb.pb_backend.domain.common.entity.Fruit.OnlyFruit;
-import dev.pb.pb_backend.domain.common.entity.Fruit.Response;
-import dev.pb.pb_backend.projection.ItemProjection;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -53,11 +48,9 @@ public class Vegetable {
 	private String itemImage;
 
 	@Column(name = "HARVEST_START")
-	@Temporal(TemporalType.DATE)
 	private Date harvestStart;
 
 	@Column(name = "HARVEST_END")
-	@Temporal(TemporalType.DATE)
 	private Date harvestEnd;
 
 	@Column(name = "ETC_DETAILS", columnDefinition = "TEXT")
@@ -120,6 +113,20 @@ public class Vegetable {
 					.build();
 		}
 		
+		public static Vegetable updateVegetable(Vegetable vegetable, Request request) {
+			
+			return Vegetable.builder()
+					.itemCode(vegetable.getItemCode())
+					.itemName(request.getItemName())
+					.unit(request.getUnit())
+					.itemImage(request.getItemImage())
+					.harvestStart(request.getHarvestStart())
+					.harvestEnd(request.getHarvestEnd())
+					.etcDetails(request.getEtcDetails())
+					.locations(vegetable.getLocations())
+					.prices(vegetable.getPrices())
+					.build();
+		}
 	}
 	
 	// 서버가 응답할 때 사용할 User Entity의 DTO
@@ -169,7 +176,7 @@ public class Vegetable {
 		private String etcDetails;
 		
 		private List<Location.OnlyLocation> locations;
-		private List<Price.OnlyPrice> prices;
+		private Map<String, List<Price.OnlyPrice>> prices;
 
 		public static Vegetable.Response toResponse(final Vegetable vegetable, final List<Location> locations, final List<Price> prices) {
 			return Vegetable.Response.builder()
@@ -192,6 +199,13 @@ public class Vegetable {
 			return resList;
 		}
 
+		public static List<Response> toResponseList(final List<Vegetable> vegetables, final Map<String, List<Location>> locationsForFruit, final Map<String, List<Price>> pricesForFruit) {
+			List<Response> resList = new ArrayList<>();
+			vegetables.stream().forEach(vegetable -> resList.add(Response.toResponse(vegetable, locationsForFruit.get(vegetable.getItemName()), pricesForFruit.get(vegetable.getItemName()))));
+			
+			return resList;
+		}
+		
 		public static List<Response> toResponseList(final Set<Vegetable> vegetables, final Map<String, List<Location>> locationsForFruit, final Map<String, List<Price>> pricesForFruit) {
 			List<Response> resList = new ArrayList<>();
 			vegetables.stream().forEach(vegetable -> resList.add(Response.toResponse(vegetable, locationsForFruit.get(vegetable.getItemName()), pricesForFruit.get(vegetable.getItemName()))));

@@ -2,8 +2,9 @@ package dev.pb.pb_backend.domain.common.entity;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,15 +13,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import dev.pb.pb_backend.domain.common.entity.Fruit.OnlyFruit;
-import dev.pb.pb_backend.projection.PriceLocationIdProjection;
-import dev.pb.pb_backend.projection.PriceProjection;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -47,22 +40,18 @@ public class Price {
 	private int priceValue;
 	
 	@Column(name = "PRICE_DATE")
-	@Temporal(TemporalType.DATE)
 	private LocalDate priceDate;
 	
 	@ManyToOne
 	@JoinColumn(name = "LOCATION_ID")
-	@JsonIgnore
 	private Location location;
 
 	@ManyToOne
 	@JoinColumn(name = "VEGETABLE_CODE")
-	@JsonIgnore
 	private Vegetable vegetable;
 
 	@ManyToOne
 	@JoinColumn(name = "FRUIT_CODE")
-	@JsonIgnore
 	private Fruit fruit;
 	
 	public void setLocation(Location location) {
@@ -133,9 +122,10 @@ public class Price {
 					.build();
 		}
 		
-		public static List<OnlyPrice> toOnlyPrices(List<Price> prices) {
-			List<Price.OnlyPrice> onlyPrices = null;
-			prices.stream().forEach(price -> onlyPrices.add(Price.OnlyPrice.toOnlyPrice(price))); 
+		public static Map<String, List<OnlyPrice>> toOnlyPrices(List<Price> prices) {
+			Map<String, List<OnlyPrice>> onlyPrices = new HashMap<String, List<OnlyPrice>>();
+			onlyPrices.put(prices.get(0).getLocation().getCityName(), new ArrayList<Price.OnlyPrice>());
+			prices.stream().forEach(price -> onlyPrices.get(price.getLocation().getCityName()).add(toOnlyPrice(price))); 
 
 			return onlyPrices; 
 		}

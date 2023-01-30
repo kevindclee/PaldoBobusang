@@ -13,13 +13,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-import dev.pb.pb_backend.projection.FruitItemImageProjection;
-import dev.pb.pb_backend.projection.ItemProjection;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -53,11 +49,9 @@ public class Fruit {
 	private String itemImage;
 
 	@Column(name = "HARVEST_START")
-	@Temporal(TemporalType.DATE)
 	private Date harvestStart;
 
 	@Column(name = "HARVEST_END")
-	@Temporal(TemporalType.DATE)
 	private Date harvestEnd;
 
 	@Column(name = "ETC_DETAILS", columnDefinition = "TEXT")
@@ -110,6 +104,7 @@ public class Fruit {
 		private List<Integer> locationIds;
 
 		public static Fruit toEntity(final Fruit.Request request, List<Location> locations) {
+
 			return Fruit.builder()
 					.itemCode(request.getItemCode())
 					.itemName(request.getItemName())
@@ -121,6 +116,22 @@ public class Fruit {
 					.brix(request.getBrix())
 					.locations(locations)
 					.prices(new ArrayList<Price>())
+					.build();
+		}
+		
+		public static Fruit updateFruit(Fruit fruit, Request request) {
+			
+			return Fruit.builder()
+					.itemCode(fruit.getItemCode())
+					.itemName(request.getItemName())
+					.unit(request.getUnit())
+					.itemImage(request.getItemImage())
+					.harvestStart(request.getHarvestStart())
+					.harvestEnd(request.getHarvestEnd())
+					.etcDetails(request.getEtcDetails())
+					.brix(request.getBrix())
+					.locations(fruit.getLocations())
+					.prices(fruit.getPrices())
 					.build();
 		}
 		
@@ -176,7 +187,7 @@ public class Fruit {
 		private Integer brix;
 		
 		private List<Location.OnlyLocation> locations;
-		private List<Price.OnlyPrice> prices;
+		private Map<String, List<Price.OnlyPrice>> prices;
 
 		public static Fruit.Response toResponse(final Fruit fruit, final List<Location> locations, final List<Price> prices) {
 			
@@ -200,34 +211,19 @@ public class Fruit {
 			return resList;
 		}
 		
-		public static List<Fruit.Response> toResponseList(final Set<Fruit> fruits, final Map<String, List<Location>> locationsForFruit, final Map<String, List<Price>> pricesForFruit) {
+		public static List<Fruit.Response> toResponseList(final List<Fruit> fruits, final Map<String, List<Location>> locationsForFruit, final Map<String, List<Price>> pricesForFruit) {
 			List<Fruit.Response> resList = new ArrayList<Fruit.Response>();
 			fruits.stream().forEach(fruit -> resList.add(toResponse(fruit, locationsForFruit.get(fruit.getItemName()), pricesForFruit.get(fruit.getItemName()))));
 			
 			return resList;
 		}
 		
-//		public static Fruit.Response toLocationResponse(final Fruit fruit, int locationId) {
-//			return Fruit.Response.builder()
-//					.itemCode(fruit.getItemCode())
-//					.itemName(fruit.getItemName())
-//					.unit(fruit.getUnit())
-//					.itemImage(fruit.getItemImage())
-//					.harvestStart(fruit.getHarvestStart())
-//					.harvestEnd(fruit.getHarvestEnd())
-//					.etcDetails(fruit.getEtcDetails())
-//					.brix(fruit.getBrix())
-//					.prices(Price.Response.toFruitLocationResponseList(fruit.getPrices(), locationId))
-//					.build();
-//		}
-		
-//		public static List<Fruit.Response> toLocationResponseList(final List<Fruit> fruits, int locationId) {
-//			List<Fruit.Response> resList = new ArrayList<>();
-//			for (Fruit fruit : fruits) {
-//				resList.add(Fruit.Response.toLocationResponse(fruit, locationId));
-//			}
-//			return resList;
-//		}
+		public static List<Fruit.Response> toResponseList(final Set<Fruit> fruits, final Map<String, List<Location>> locationsForFruit, final Map<String, List<Price>> pricesForFruit) {
+			List<Fruit.Response> resList = new ArrayList<Fruit.Response>();
+			fruits.stream().forEach(fruit -> resList.add(toResponse(fruit, locationsForFruit.get(fruit.getItemName()), pricesForFruit.get(fruit.getItemName()))));
+			
+			return resList;
+		}
 		
 		public static Fruit.Response toPriceResponse(final Fruit fruit) {
 			if (fruit == null) {
@@ -254,58 +250,6 @@ public class Fruit {
 			return resList;
 		}
 		
-		
-//		public static Fruit.Response toItemNameAndLocalEngNameResponse(final Fruit fruit, String localEngName) {
-//			return Fruit.Response.builder()
-//					.itemCode(fruit.getItemCode())
-//					.itemName(fruit.getItemName())
-//					.unit(fruit.getUnit())
-//					.itemImage(fruit.getItemImage())
-//					.harvestStart(fruit.getHarvestStart())
-//					.harvestEnd(fruit.getHarvestEnd())
-//					.etcDetails(fruit.getEtcDetails())
-//					.brix(fruit.getBrix())
-//					.locations(Location.Response.toFruitItemNameAndLocalEngNameResponseList(fruit.getLocations(), fruit.getItemCode(), localEngName))
-////					.locations(Location.Response.toResponseList(fruit.getLocations()))
-////					.prices(Price.Response.toResponseList(fruit.getPrices()))
-//					.build();
-//		}
-		
-//		public static List<Fruit.Response> toItemNameAndLocalEngNameResponseList(final List<Fruit> fruits, String localEngName) {
-//			List<Fruit.Response> resList = new ArrayList<>();
-//			for (Fruit fruit : fruits) {
-//				resList.add(Fruit.Response.toItemNameAndLocalEngNameResponse(fruit, localEngName));
-//			}
-//			return resList;
-//		}
-		
 	}
 	
-	// FruitItemImageProjection 을 이용한 Response DTO
-	@Setter
-	@Getter
-	@Builder
-	@NoArgsConstructor
-	@AllArgsConstructor
-	public static class ResponseItemImage {
-
-		private String itemName;
-		private String itemImage;
-
-		public static Fruit.ResponseItemImage toResponse(final FruitItemImageProjection fruit) {
-			return Fruit.ResponseItemImage.builder()
-					.itemName(fruit.getItemName())
-					.itemImage(fruit.getItemImage())
-					.build();
-		}
-
-		public static List<Fruit.ResponseItemImage> toResponseList(final List<FruitItemImageProjection> fruits) {
-			List<Fruit.ResponseItemImage> resList = new ArrayList<>();
-			for (FruitItemImageProjection fruit : fruits) {
-				resList.add(Fruit.ResponseItemImage.toResponse(fruit));
-			}
-			return resList;
-		}
-	}
-
 }
