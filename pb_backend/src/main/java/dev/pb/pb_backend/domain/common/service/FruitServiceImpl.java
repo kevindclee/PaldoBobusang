@@ -53,6 +53,7 @@ public class FruitServiceImpl implements FruitService {
 
 	@Override
 	public Response createFruit(Request request) {
+		System.out.println(String.format("request: %s", request));
 		List<Location> locations = new ArrayList<Location>();
 		request.getLocationIds().stream().forEach(locationId -> locations.add(locationRepository.findById(locationId).get()));
 		Fruit savedFruit = fruitRepository.save(Fruit.Request.toEntity(request, locations));
@@ -132,7 +133,7 @@ public class FruitServiceImpl implements FruitService {
 
 	@Override
 	public Fruit.Response findFruitsByItemNameLocalEngName(String itemName, String localEngName) {
-		Fruit fruit = fruitRepository.findDistinctByItemNameAndLocationsLocalEngName(itemName, localEngName);
+		Fruit fruit = fruitRepository.findByItemNameAndLocationsLocalEngName(itemName, localEngName);
 		List<Location> location = locationRepository.findByLocalEngName(localEngName);
 		List<Price> prices = priceRepository.findByFruitItemNameAndLocationLocalEngName(itemName, localEngName);
 	

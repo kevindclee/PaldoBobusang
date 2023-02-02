@@ -64,12 +64,12 @@ public class PriceController {
 		return priceService.findByItemCode(itemCode);
 	}
 
-	// 'GET' http://localhost:8090/prices/list/itemCodeAndLocationId/:itemCode/:locationId
-	@GetMapping("/list/itemCodeAndLocationId/{itemCode}/{locationId}")
-	public List<Object> findByItemCodeAndLocationId(@PathVariable int itemCode, @PathVariable int locationId) {
-		System.out.println("\nGET: findByItemCodeAndLocationId() of PriceController called\n");		
+	// 'GET' http://localhost:8090/prices/list/itemCodeAndLocalEngName/:itemCode/:localEngName
+	@GetMapping("/list/itemCodeAndLocationId/{itemCode}/{localEngName}")
+	public List<Object> findByItemCodeAndLocationId(@PathVariable int itemCode, @PathVariable String localEngName) {
+		System.out.println("\nGET: findByItemCodeAndLocalEngName() of PriceController called\n");		
 
-		return priceService.findByItemCodeAndLocationId(itemCode, locationId);
+		return priceService.findByItemCodeAndLocalName(itemCode, localEngName);
 	}
 
 	// 'GET' http://localhost:8090/prices/map/fruitItemNameAndLocalEngName/:itemName/:localEngName

@@ -71,8 +71,8 @@ public class PriceServiceImpl implements PriceService {
 
 	@Override
 	public Object createPrice(Request request) {
-		Fruit fruit = fruitRepository.findById(request.getItemCode()).orElseThrow(() -> null);
-		Vegetable vegetable = vegetableRepository.findById(request.getItemCode()).orElseThrow(() -> null);
+		Fruit fruit = fruitRepository.findById(request.getItemCode()).orElse(null);
+		Vegetable vegetable = vegetableRepository.findById(request.getItemCode()).orElse(null);
 		Location location = locationRepository.findById(request.getLocationId()).get();
 		
 		if (fruit != null) {
@@ -84,6 +84,8 @@ public class PriceServiceImpl implements PriceService {
 			
 			return Price.ForFruit.forFruit(savedPrice);
 		} else {
+			if (vegetable == null) return null;
+			
 			Price savedPrice = priceRepository.save(Price.Request.toEntity(request, location, vegetable));
 			savedPrice.setVegetable(vegetable);
 			savedPrice.setLocation(location);
@@ -104,7 +106,7 @@ public class PriceServiceImpl implements PriceService {
 
 	@Override
 	public List<Object> findByItemCode(int itemCode) {
-		Fruit fruit = fruitRepository.findById(itemCode).orElseThrow(() -> null);
+		Fruit fruit = fruitRepository.findById(itemCode).orElse(null);
 		
 		if (fruit != null) {
 			List<Price> prices = priceRepository.findByFruitItemCode(itemCode);
@@ -118,15 +120,15 @@ public class PriceServiceImpl implements PriceService {
 	}
 
 	@Override
-	public List<Object> findByItemCodeAndLocationId(int itemCode, int locationId) {
-		Fruit fruit = fruitRepository.findById(itemCode).orElseThrow(() -> null);
+	public List<Object> findByItemCodeAndLocalName(int itemCode, String localEngName) {
+		Fruit fruit = fruitRepository.findById(itemCode).orElse(null);
 		
 		if (fruit != null) {
-			List<Price> prices = priceRepository.findByFruitItemCodeAndLocationLocationId(itemCode, locationId);
+			List<Price> prices = priceRepository.findByFruitItemCodeAndLocationLocalEngName(itemCode, localEngName);
 			
 			return findByPrices(prices); 
 		} else {
-			List<Price> prices = priceRepository.findByVegetableItemCodeAndLocationLocationId(itemCode, locationId);
+			List<Price> prices = priceRepository.findByVegetableItemCodeAndLocationLocalEngName(itemCode, localEngName);
 			
 			return findByPrices(prices); 
 		}
@@ -134,7 +136,7 @@ public class PriceServiceImpl implements PriceService {
 
 	@Override
 	public List<Object> findByItemNameAndLocalEngName(String itemName, String localEngName) {
-		Fruit fruit = fruitRepository.findDistinctByItemNameAndLocationsLocalEngName(itemName, localEngName);
+		Fruit fruit = fruitRepository.findByItemNameAndLocationsLocalEngName(itemName, localEngName);
 		
 		if (fruit != null) {
 			List<Price> prices = priceRepository.findByFruitItemNameAndLocationLocalEngName(itemName, localEngName);
@@ -149,7 +151,7 @@ public class PriceServiceImpl implements PriceService {
 
 	@Override
 	public Object findByItemCodeAndLocationIdAndPriceDate(int itemCode, int locationId, LocalDate priceDate) {
-		Fruit fruit = fruitRepository.findById(itemCode).orElseThrow(() -> null);
+		Fruit fruit = fruitRepository.findById(itemCode).orElse(null);
 		
 		if (fruit != null) {
 			Price price = priceRepository.findByFruitItemCodeAndLocationLocationIdAndPriceDate(itemCode, locationId, priceDate);

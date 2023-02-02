@@ -97,10 +97,12 @@ public class LocationServiceImpl implements LocationService {
 			vegetables.put(location.getLocationId(), vegetableList);
 			
 			for (Fruit fruit : fruitList) {
-				prices.put(location.getLocationId(), (Map<String, List<Price>>) pricesOfItem.put(fruit.getItemName(), priceRepository.findByFruitItemCodeAndLocationLocationId(fruit.getItemCode(), location.getLocationId())));
+				pricesOfItem.put(fruit.getItemName(), priceRepository.findByFruitItemCodeAndLocationLocationId(fruit.getItemCode(), location.getLocationId()));
+				prices.put(location.getLocationId(), pricesOfItem);
 			}
 			for (Vegetable vegetable : vegetableList) {
-				prices.put(location.getLocationId(), (Map<String, List<Price>>) pricesOfItem.put(vegetable.getItemName(), priceRepository.findByVegetableItemCodeAndLocationLocationId(vegetable.getItemCode(), location.getLocationId())));
+				pricesOfItem.put(vegetable.getItemName(), priceRepository.findByVegetableItemCodeAndLocationLocationId(vegetable.getItemCode(), location.getLocationId()));
+				prices.put(location.getLocationId(), pricesOfItem);
 			}
 		}
 		

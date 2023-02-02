@@ -20,7 +20,7 @@ public interface PriceService {
 	List<Object> findByLocationCountryCode(int countryCode);
 	
 	List<Object> findByItemCode(int itemCode);
-	List<Object> findByItemCodeAndLocationId(int itemCode, int locationId);
+	List<Object> findByItemCodeAndLocalName(int itemCode, String localName);
 	List<Object> findByItemNameAndLocalEngName(String itemName, String localEngName);
 	
 	Object findByItemCodeAndLocationIdAndPriceDate(int itemCode, int locationId, LocalDate priceDate);

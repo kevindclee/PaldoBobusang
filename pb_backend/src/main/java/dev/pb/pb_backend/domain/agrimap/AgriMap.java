@@ -30,7 +30,7 @@ public class AgriMap {
 	}
 	
 	@GetMapping("/{localEngName}/vegetable")
-	public List<Vegetable.Response> findItemsByVegetable(@PathVariable String localEngName, @PathVariable String category) {
+	public List<Vegetable.Response> findItemsByVegetable(@PathVariable String localEngName) {
 		
 		return vegetableService.findVegetablesByLocalEngName(localEngName);
 	}

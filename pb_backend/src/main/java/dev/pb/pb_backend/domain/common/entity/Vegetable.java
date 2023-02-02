@@ -1,7 +1,7 @@
 package dev.pb.pb_backend.domain.common.entity;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -48,10 +48,10 @@ public class Vegetable {
 	private String itemImage;
 
 	@Column(name = "HARVEST_START")
-	private Date harvestStart;
+	private LocalDate harvestStart;
 
 	@Column(name = "HARVEST_END")
-	private Date harvestEnd;
+	private LocalDate harvestEnd;
 
 	@Column(name = "ETC_DETAILS", columnDefinition = "TEXT")
 	private String etcDetails;
@@ -89,10 +89,10 @@ public class Vegetable {
 		private String itemImage;
 
 //		@NotNull
-		private Date harvestStart;
+		private LocalDate harvestStart;
 
 //		@NotNull
-		private Date harvestEnd;
+		private LocalDate harvestEnd;
 
 //		@NotBlank(message = "etcDetails는 공백('', ' ')이나 Null 지정 불가")
 		private String etcDetails;
@@ -141,8 +141,8 @@ public class Vegetable {
 			private String itemName;
 			private String unit;
 			private String itemImage;
-			private Date harvestStart;
-			private Date harvestEnd;
+			private LocalDate harvestStart;
+			private LocalDate harvestEnd;
 			private String etcDetails;
 			
 			public static OnlyVegetable toOnlyVegetable(Vegetable vegetable) {
@@ -171,8 +171,8 @@ public class Vegetable {
 		private String itemName;
 		private String unit;
 		private String itemImage;
-		private Date harvestStart;
-		private Date harvestEnd;
+		private LocalDate harvestStart;
+		private LocalDate harvestEnd;
 		private String etcDetails;
 		
 		private List<Location.OnlyLocation> locations;

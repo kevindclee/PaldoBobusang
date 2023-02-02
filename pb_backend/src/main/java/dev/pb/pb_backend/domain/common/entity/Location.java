@@ -121,7 +121,7 @@ public class Location {
 		}
 		
 		public static List<OnlyLocation> toOnlyLocations(List<Location> locations) {
-			List<Location.OnlyLocation> onlyLocations = null;
+			List<Location.OnlyLocation> onlyLocations = new ArrayList<Location.OnlyLocation>();
 			locations.stream().forEach(location -> onlyLocations.add(Location.OnlyLocation.toOnlyLocation(location)));
 			
 			return onlyLocations; 

@@ -43,6 +43,7 @@ public class Price {
 	private LocalDate priceDate;
 	
 	@ManyToOne
+	
 	@JoinColumn(name = "LOCATION_ID")
 	private Location location;
 
@@ -73,7 +74,6 @@ public class Price {
 	@ToString
 	public static class Request {
 
-		private int priceId;
 		private int priceValue;
 		private LocalDate priceDate;
 		private int itemCode;
@@ -81,7 +81,6 @@ public class Price {
 
 		public static Price toEntity(final Price.Request request, Location location, Fruit fruit) {
 			return Price.builder()
-					.priceId(request.getPriceId())
 					.priceValue(request.getPriceValue())
 					.priceDate(request.getPriceDate())
 					.location(location)
@@ -91,7 +90,6 @@ public class Price {
 		
 		public static Price toEntity(final Price.Request request, Location location, Vegetable vegetable) {
 			return Price.builder()
-					.priceId(request.getPriceId())
 					.priceValue(request.getPriceValue())
 					.priceDate(request.getPriceDate())
 					.location(location)
@@ -123,9 +121,18 @@ public class Price {
 		}
 		
 		public static Map<String, List<OnlyPrice>> toOnlyPrices(List<Price> prices) {
+			if (prices == null || prices.size() == 0) return null;
+			
 			Map<String, List<OnlyPrice>> onlyPrices = new HashMap<String, List<OnlyPrice>>();
-			onlyPrices.put(prices.get(0).getLocation().getCityName(), new ArrayList<Price.OnlyPrice>());
-			prices.stream().forEach(price -> onlyPrices.get(price.getLocation().getCityName()).add(toOnlyPrice(price))); 
+			for (Price price : prices) {
+				String cityName = price.getLocation().getCityName();
+				
+				if (onlyPrices.containsKey(cityName)) onlyPrices.get(cityName).add(toOnlyPrice(price));
+				else {
+					onlyPrices.put(cityName, new ArrayList<Price.OnlyPrice>());
+					onlyPrices.get(cityName).add(toOnlyPrice(price));
+				}
+			}
 
 			return onlyPrices; 
 		}
