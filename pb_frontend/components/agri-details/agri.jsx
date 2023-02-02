@@ -6,7 +6,6 @@ import styles from '/styles/agri.module.css';
 const Agri = (props) => {
 
     const agri = props.object;
-
     const [modalVisible, setModalVisible] = useState(false);
 
     const modalChange = () => {

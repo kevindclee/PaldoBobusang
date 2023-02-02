@@ -1,0 +1,108 @@
+.agri-info {
+  width: 90%;
+  height: 70%;
+  padding: 1rem;
+  margin: 0.5rem 2rem;
+  border-radius: 2rem;
+  border: 1px solid rgba(225, 229, 232, 1);
+  background-color: rgba(225, 229, 232, 0.3);
+  font-family: "Cute Font", cursive;
+  font-size: 2rem;
+}
+
+.categories {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.category-false {
+  width: 8rem;
+  height: 4rem;
+  border-radius: 40%;
+  background-color: rgba(222, 229, 232, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.category-true {
+  width: 6rem;
+  height: 4rem;
+  padding: 1rem;
+  border-radius: 50% 50% 0 0;
+  background-color: rgba(255, 234, 167, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.products-false {
+  width: 100%;
+  height: 90%;
+  margin: 0 auto;
+  padding: 3rem 2.5rem 0 2.5rem;
+  border-radius: 1rem;
+  background-color: rgba(222, 229, 232, 0.7);
+}
+
+.products-true {
+  width: 100%;
+  height: 300px;
+  margin: 0 auto;
+  padding: 3rem 1rem 0 1rem;
+  border-radius: 1rem;
+  background-color: rgba(255, 234, 167, 0.5);
+  overflow: scroll;
+}
+
+.products-true::-webkit-scrollbar {
+  width: 0.8rem;
+}
+
+.products-true::-webkit-scrollbar-thumb {
+  height: 5%;
+  background: rgba(255, 234, 167, 0.7);
+  border-radius: 10px;
+}
+
+.has-no-cur {
+  height: 90%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-content: space-between;
+}
+
+.has-cur {
+  display: flex;
+}
+
+.product-list {
+  width: 50%;
+  height: 90%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-content: space-between;
+}
+
+.city-list {
+  width: 50%;
+}
+
+.item {
+  width: 8rem;
+  height: 3rem;
+  padding: 1rem;
+  border-radius: 1rem;
+  background-color: rgba(255, 234, 167, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.cities-frame {
+  background-color: rgba(211, 214, 218, 0.5);
+}
