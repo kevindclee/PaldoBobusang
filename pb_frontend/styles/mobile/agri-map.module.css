@@ -1,0 +1,21 @@
+.unclicked {
+  width: 90%;
+  height: 600px;
+  padding: 1rem;
+  border: 2px solid rgb(231, 231, 177);
+  margin: 8rem 1rem;
+  background-color: rgb(245, 245, 220);
+  border-radius: 2rem;
+  position: relative;
+}
+
+.clicked {
+  width: 90%;
+  height: 600px;
+  padding: 1rem;
+  border: 2px solid rgb(231, 231, 177);
+  margin: 1rem 2rem;
+  background-color: rgb(245, 245, 220);
+  border-radius: 2rem;
+  position: relative;
+}

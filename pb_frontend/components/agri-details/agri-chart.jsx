@@ -16,8 +16,6 @@ const AgriChart = (props) => {
 
   const [location, setLocation] = useState(0);
   const [priceData, setPriceData] = useState([]);
-  console.log(`curLocation: ${curLocation}`);
-  console.log(`curApp: ${curApp}`);
   useEffect(() => {
     const fetchData = async () => {
       curApp === "agri-map" ? setLocation(curLocation) : setLocation("capital");

@@ -112,7 +112,7 @@ public class VegetableServiceImpl implements VegetableService {
 	@Override
 	public Vegetable.Response findVegetablesByItemNameLocalEngName(String itemName, String localEngName) {
 		Vegetable vegetable = vegetableRepository.findDistinctByItemNameAndLocationsLocalEngName(itemName, localEngName);
-		List<Location> locations = locationRepository.findByLocalEngName(localEngName);
+		List<Location> locations = locationRepository.findByVegetablesItemNameAndLocalEngName(itemName, localEngName);
 		List<Price> prices = priceRepository.findByVegetableItemNameAndLocationLocalEngName(itemName, localEngName);
 		
 		return Vegetable.Response.toResponse(vegetable, locations, prices); 

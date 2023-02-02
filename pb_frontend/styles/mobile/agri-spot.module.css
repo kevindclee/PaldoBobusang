@@ -1,0 +1,84 @@
+.position-jeju {
+  position: absolute;
+  z-index: 2;
+  top: 25%;
+  left: 5%;
+}
+
+.position-capital {
+  position: absolute;
+  z-index: 2;
+  top: 27%;
+  left: 5%;
+}
+
+.position-gangwon {
+  position: absolute;
+  z-index: 2;
+  top: 25%;
+  left: 5%;
+}
+
+.position-chungbuk {
+  position: absolute;
+  z-index: 2;
+  top: 25%;
+  left: 5%;
+}
+
+.position-chungnam {
+  position: absolute;
+  z-index: 2;
+  top: 25%;
+  left: 5%;
+}
+
+.position-gyeongbuk {
+  position: absolute;
+  z-index: 2;
+  left: 5%;
+  top: 25%;
+}
+
+.position-gyeongnam {
+  position: absolute;
+  z-index: 2;
+  left: 5%;
+  margin: 0;
+  top: 23%;
+}
+
+.position-jeonbuk {
+  position: absolute;
+  z-index: 2;
+  top: 25%;
+  left: 5%;
+}
+
+.position-jeonnam {
+  position: absolute;
+  z-index: 2;
+  top: 22%;
+  left: 5%;
+}
+
+.image {
+  cursor: pointer;
+}
+
+@media (min-width: 1900px) {
+  .position {
+    position: absolute;
+    margin: 17vh 0 0 1.5vw;
+  }
+
+  .position-capital {
+    position: absolute;
+    margin: 17vh 0 0 1vw;
+  }
+
+  .position-jeonbuk {
+    position: absolute;
+    margin: 11% 0 0 3.5vw;
+  }
+}

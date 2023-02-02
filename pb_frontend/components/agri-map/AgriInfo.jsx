@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import styles from "../../styles/agri-info.module.css";
+import mobile from "../../styles/mobile/agri-info.module.css";
 import { useState } from "react";
 import { useAtom } from "jotai";
 import curLocationAtom from "../../atoms/CurLocationAtom";
@@ -8,8 +9,10 @@ import curProductAtom from "../../atoms/CurProductAtom";
 import curCitiesOnProductAtom from "../../atoms/CurCitiesOnProductAtom";
 import curProductListAtom from "../../atoms/CurProductList";
 import constant from "../../public/constant.json";
+import { useMediaQuery } from "react-responsive";
 
 const AgriInfo = () => {
+  const isLaptop = useMediaQuery({ minDeviceWidth: 1224 });
   const [curCategory, setCurCategory] = useState(null);
   const [isCategory, setIsCategory] = useState([false, false]);
   const [curList, setCurList] = useState(null);
@@ -50,23 +53,6 @@ const AgriInfo = () => {
     }
   }, [curCategory, curProduct]);
 
-  curProductList ? (
-    console.log(
-      "curLocation:",
-      curLocation,
-      "curCategory:",
-      curCategory,
-      "curProductList:",
-      curProductList,
-      "curCitiesOnProduct:",
-      curCitiesOnProduct,
-      "curProduct:",
-      curProduct
-    )
-  ) : (
-    <></>
-  );
-
   const clickHandler = (event) => {
     setCurCategory(event.target.id);
     setCurProduct(null);
@@ -79,8 +65,7 @@ const AgriInfo = () => {
     const items = document.getElementsByClassName("item");
     for (let item of items)
       item.style = "background-color: rgba(255, 234, 167, 0.5);";
-    event.target.style =
-      "border-radius: 1rem 1rem 0 0; background-color: rgba(211, 214, 218, 0.5);";
+    event.target.style = "background-color: rgba(211, 214, 218, 0.5);";
   };
   const mouseOverHandler = (event) =>
     (event.target.style = "background-color: rgba(211, 214, 218, 0.5);");
@@ -93,7 +78,7 @@ const AgriInfo = () => {
     }
   };
 
-  return (
+  return isLaptop ? (
     <div className={styles["agri-info"]}>
       <div className={styles.categories}>
         <div
@@ -132,6 +117,63 @@ const AgriInfo = () => {
         </div>
       ) : (
         <div className={styles["products-false"]}></div>
+      )}
+    </div>
+  ) : (
+    <div className={mobile["agri-info"]}>
+      <div className={mobile.categories}>
+        <div
+          className={mobile[`category-${isCategory[0]}`]}
+          id="vegetable"
+          onClick={clickHandler}>
+          야채
+        </div>
+        <div
+          className={mobile[`category-${isCategory[1]}`]}
+          id="fruit"
+          onClick={clickHandler}>
+          과일
+        </div>
+      </div>
+      {curProductList ? (
+        <div className={mobile["products-true"]} id="products">
+          {!curProduct ? (
+            <div className={mobile["has-no-cur"]}>
+              {curProductList.map((item, index) => (
+                <div
+                  onClick={selectHandler}
+                  onMouseOver={mouseOverHandler}
+                  onMouseOut={mouseOutHandler}
+                  className={`item ${mobile.item}`}
+                  id={item.itemName}
+                  key={index}>
+                  {item.itemName}
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className={mobile["has-cur"]}>
+              <div className={mobile["product-list"]}>
+                {curProductList.map((item, index) => (
+                  <div
+                    onClick={selectHandler}
+                    onMouseOver={mouseOverHandler}
+                    onMouseOut={mouseOutHandler}
+                    className={`item ${mobile.item}`}
+                    id={item.itemName}
+                    key={index}>
+                    {item.itemName}
+                  </div>
+                ))}
+              </div>
+              <div className={mobile["city-list"]}>
+                <LocationTable array={curCitiesOnProduct} local={curLocation} />
+              </div>
+            </div>
+          )}
+        </div>
+      ) : (
+        <div className={mobile["products-false"]}></div>
       )}
     </div>
   );

@@ -22,6 +22,13 @@ public interface LocationRepository extends JpaRepository<Location, Integer> {
 	// fruit 으로 조회
 	List<Location> findByFruitsItemName(String fruitName);
 
+	// fruit - itemName, lcoalEngName 으로 조회
+	List<Location> findByFruitsItemNameAndLocalEngName(String itemName, String localName);
+	
 	// vegetable 로 조회
 	List<Location> findByVegetablesItemName(String fruitName);
+
+	// vegetable - itemName, lcoalEngName 으로 조회
+	List<Location> findByVegetablesItemNameAndLocalEngName(String itemName, String localName);
+	
 }

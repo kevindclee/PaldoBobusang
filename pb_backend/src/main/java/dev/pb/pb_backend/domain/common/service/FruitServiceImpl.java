@@ -134,7 +134,7 @@ public class FruitServiceImpl implements FruitService {
 	@Override
 	public Fruit.Response findFruitsByItemNameLocalEngName(String itemName, String localEngName) {
 		Fruit fruit = fruitRepository.findByItemNameAndLocationsLocalEngName(itemName, localEngName);
-		List<Location> location = locationRepository.findByLocalEngName(localEngName);
+		List<Location> location = locationRepository.findByFruitsItemNameAndLocalEngName(itemName, localEngName);
 		List<Price> prices = priceRepository.findByFruitItemNameAndLocationLocalEngName(itemName, localEngName);
 	
 		return Fruit.Response.toResponse(fruit, location, prices); 
