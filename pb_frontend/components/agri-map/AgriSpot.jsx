@@ -10,8 +10,8 @@ import styles from "../../styles/agri-spot.module.css";
 import mobile from "../../styles/mobile/agri-spot.module.css";
 import curProductAtom from "../../atoms/CurProductAtom";
 import curProductListAtom from "../../atoms/CurProductList";
-import AgriListBlackout from "../agri-details/agriListBlackout";
-import AgriListDetail from "../agri-details/agri-list-detail";
+import AgriListBlackout from "../agri-details/AgriListBlackout";
+import AgriListDetail from "../agri-details/Agri-list-detail";
 import { useMediaQuery } from "react-responsive";
 
 const AgriSpot = (props) => {
