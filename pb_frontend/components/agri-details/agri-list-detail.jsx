@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import styles from "/styles/agriList.module.css";
 import mobile from "/styles/mobile/agriList.module.css";
-import AgriDetail from "./agri-detail";
-import AgriLocation from "./agri-location";
-import AgriChart from "./agri-chart";
+import AgriDetail from "./Agri-detail";
+import AgriLocation from "./Agri-location";
+import AgriChart from "./Agri-chart";
 import { useMediaQuery } from "react-responsive";
 
 const AgriListDetail = (props) => {

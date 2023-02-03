@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Agri from "../../components/agri-details/agri";
+import Agri from "../../components/agri-details/Agri";
 import styles from "/styles/agriList.module.css";
 import mobile from "/styles/mobile/agriList.module.css";
 import { useAtom } from "jotai";
