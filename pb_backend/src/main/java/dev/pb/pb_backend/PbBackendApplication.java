@@ -10,9 +10,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @SpringBootApplication
 public class PbBackendApplication {
 	
-	@Value("${frontUrl}")
-	private String frontUrl;
-	
 	public static void main(String[] args) {
 		SpringApplication.run(PbBackendApplication.class, args);
 	}
@@ -23,7 +20,7 @@ public class PbBackendApplication {
 
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
-				registry.addMapping("/**").allowedOrigins(frontUrl);
+				registry.addMapping("/**").allowedOrigins("*");
 			}
 			
 		};
