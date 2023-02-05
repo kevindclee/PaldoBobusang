@@ -17,9 +17,10 @@ for i in range(len(location)):
   data['cityName'] = location.iloc[i, 3]
   data['cityEngName'] = location.iloc[i, 4]
   data['countryCode'] = location.iloc[i, 5]
-  requests.post('http://localhost:8090/locations', data=json.dumps(data), headers=headers)
+  # requests.post('http://localhost:8090/locations', data=json.dumps(data), headers=headers)
 
 fruit = pd.read_csv("fruit.csv", encoding="cp949")
+fruit.drop(22, axis=0, inplace=True)
 fruit['FRUIT_CODE'] = fruit['FRUIT_CODE'].astype('int16').astype(str)
 fruit['HARVEST_START'] = fruit['HARVEST_START'].astype(str)
 fruit['HARVEST_END'] = fruit['HARVEST_END'].astype(str)
@@ -44,7 +45,7 @@ for i in range(len(fruit)):
   data['brix'] = fruit.iloc[i, 7]
   data['locationIds'] = [location.iloc[x, 1] for x in location[location.FRUIT_CODE == fruit.iloc[i, 0]].index]
   print(f'{i}: {data}\n')
-  requests.post('http://localhost:8090/fruits', data=json.dumps(data), headers=headers)
+  # requests.post('http://localhost:8090/fruits', data=json.dumps(data), headers=headers)
 
 
 vegetable = pd.read_csv("vegetable.csv", encoding="cp949")
@@ -68,4 +69,4 @@ for i in range(len(vegetable)):
   data['harvestEnd'] = vegetable.iloc[i, 5]
   data['etcDetails'] = vegetable.iloc[i, 6]
   data['locationIds'] = [location.iloc[x, 1] for x in location[location.VEGETABLE_CODE == vegetable.iloc[i, 0]].index]
-  requests.post('http://localhost:8090/vegetables', data=json.dumps(data), headers=headers)
+  # requests.post('http://localhost:8090/vegetables', data=json.dumps(data), headers=headers)
