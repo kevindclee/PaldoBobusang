@@ -76,4 +76,4 @@ def priceCrawling():
 
     sucess = True
 
-schedule.every().at("09:00").do(priceCrawling())
+schedule.every().day.at("09:00").do(priceCrawling())
