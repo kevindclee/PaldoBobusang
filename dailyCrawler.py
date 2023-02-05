@@ -27,11 +27,11 @@ market_idx = 0
 item_idx = 0
 
 while not sucess:
-  for i in range(len(markets)):
+  for i in range(market_idx, len(markets)):
     locationId = markets.iloc[i, 0]
     city = markets.iloc[i, 1][:2]
     countryCode = markets.iloc[i, 2]
-    for j in range(len(items)):
+    for j in range(item_idx, len(items)):
       data = {}
       p_itemcategorycode = items.iloc[j, 0]
       p_itemcode = items.iloc[j, 1]
