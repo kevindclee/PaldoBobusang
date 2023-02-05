@@ -16,6 +16,16 @@ const Specific = (props) => {
       left: "5%",
       "z-index": "1",
     },
+    "@media(max-width:390px)": {
+      " svg": {
+        width: "290px",
+        height: "270px",
+        position: "absolute",
+        top: "10%",
+        left: "5%",
+        "z-index": "1",
+      },
+    },
   });
 
   return <ReactSVG src={loc} className={curLocation} {...styles} />;
