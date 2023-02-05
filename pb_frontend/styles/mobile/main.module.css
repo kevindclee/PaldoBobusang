@@ -27,19 +27,6 @@
   justify-content: center;
 }
 
-@media (max-width: 360px) {
-  .logo {
-    width: 80%;
-    height: 20%;
-    margin: 3% auto 0;
-    font-size: 1.8rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
-}
-
 .logo .back {
   width: 40rem;
   height: 13rem;
@@ -137,6 +124,7 @@
 .video {
   width: 32rem;
   height: 20rem;
+  z-index: 5;
 }
 
 .question-mark-left {
@@ -148,6 +136,7 @@
   left: 80px;
   font-family: "Jua", sans-serif;
   animation: bounce 1s infinite;
+  z-index: 4;
 }
 
 .question-mark-right {
@@ -159,6 +148,7 @@
   right: 80px;
   font-family: "Jua", sans-serif;
   animation: bounce 1s infinite;
+  z-index: 4;
 }
 
 @keyframes bounce {
@@ -183,7 +173,17 @@
   }
 }
 
-@media (max-width: 360px) {
+@media (max-width: 420px) {
+  .logo {
+    width: 80%;
+    height: 20%;
+    margin: 3% auto 0;
+    font-size: 1.8rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
   .logo .back {
     width: 30rem;
     height: 13rem;
@@ -205,5 +205,11 @@
     font-weight: bold;
     background-color: beige;
     color: rgba(0, 0, 0, 0.8);
+  }
+}
+
+@media (max-height: 700px) {
+  .apps {
+    margin-top: 2rem;
   }
 }
