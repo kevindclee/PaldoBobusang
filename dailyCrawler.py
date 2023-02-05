@@ -8,7 +8,7 @@ import schedule
 today = datetime.now().strftime('%Y-%m-%d')
 p_cert_key = '39ad110d-8304-44da-b584-38ec75b1f6e1'
 p_cert_id = '2778'
-p_startday = '2023-02-04'
+p_startday = today
 p_endday = today
 p_itemcategorycode = None
 p_itemcode = None
@@ -23,6 +23,7 @@ location['LOCATION_ID'] = location['LOCATION_ID'].astype('int32')
 markets = location[location['COUNTRY_CODE'] != -1].loc[:, ['LOCATION_ID', 'CITY_NAME', 'COUNTRY_CODE']]
 
 def priceCrawling():
+  print(f'{today} price crawler start!!!')
   userAgent = UserAgent()
   sucess = False
   market_idx = 0
