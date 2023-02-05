@@ -1,3 +1,8 @@
+.position {
+  width: 320px;
+  height: 230px;
+}
+
 .position-jeju {
   position: absolute;
   z-index: 2;
@@ -10,6 +15,8 @@
   z-index: 2;
   top: 27%;
   left: 5%;
+  width: 320px;
+  height: 215px;
 }
 
 .position-gangwon {
