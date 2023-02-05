@@ -20,7 +20,7 @@ for i in range(len(location)):
   requests.post('http://localhost:8090/locations', data=json.dumps(data), headers=headers)
 
 fruit = pd.read_csv("fruit.csv", encoding="cp949")
-fruit['FRUIT_CODE'] = fruit['FRUIT_CODE'].astype(str)
+fruit['FRUIT_CODE'] = fruit['FRUIT_CODE'].astype('int16').astype(str)
 fruit['HARVEST_START'] = fruit['HARVEST_START'].astype(str)
 fruit['HARVEST_END'] = fruit['HARVEST_END'].astype(str)
 fruit['ETC_DETAILS'] = fruit['ETC_DETAILS'].fillna("None")
