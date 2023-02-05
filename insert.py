@@ -8,9 +8,9 @@ location.drop(161, axis=0, inplace=True)
 location['COUNTRY_CODE'] = location['COUNTRY_CODE'].fillna(-1).astype('int16').astype(str).replace('-1', None)
 location['LOCATION_ID'] = location['LOCATION_ID'].astype('int32').astype(str)
 
-data = {}
 headers = {'content-type': 'application/json;charset=utf-8'}
 for i in range(len(location)):
+  data = {}
   data['locationId'] = location.iloc[i, 0]
   data['localName'] = location.iloc[i, 1]
   data['localEngName'] = location.iloc[i, 2]
@@ -25,16 +25,15 @@ fruit['HARVEST_START'] = fruit['HARVEST_START'].astype(str)
 fruit['HARVEST_END'] = fruit['HARVEST_END'].astype(str)
 fruit['ETC_DETAILS'] = fruit['ETC_DETAILS'].fillna(-1).replace(-1, None)
 fruit['BRIX'] = fruit['BRIX'].fillna(0).astype('int16').astype(str)
-print(fruit)
+
 location = pd.read_csv("fruit-location.csv", encoding="cp949")
 location = location.drop(319, axis=0)
 location['FRUIT_CODE'] = location['FRUIT_CODE'].astype('int16').astype(str)
 location['LOCATION_ID'] = location['LOCATION_ID'].astype('int32').astype(str)
 
-data = {}
 headers = {'content-type': 'application/json;charset=utf-8'}
 for i in range(len(fruit)):
-  data['locationIds'] = []
+  data = {}
   data['itemCode'] = fruit.iloc[i, 0]
   data['itemName'] = fruit.iloc[i, 1]
   data['unit'] = fruit.iloc[i, 2]
@@ -58,10 +57,9 @@ location = location.drop(318, axis=0)
 location['VEGETABLE_CODE'] = location['VEGETABLE_CODE'].astype('int16').astype(str)
 location['LOCATION_ID'] = location['LOCATION_ID'].astype('int32').astype(str)
 
-data = {}
 headers = {'content-type': 'application/json;charset=utf-8'}
 for i in range(len(vegetable)):
-  data['locationIds'] = []
+  data = {}
   data['itemCode'] = vegetable.iloc[i, 0]
   data['itemName'] = vegetable.iloc[i, 1]
   data['unit'] = vegetable.iloc[i, 2]
