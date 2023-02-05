@@ -89,3 +89,26 @@
     margin: 11% 0 0 3.5vw;
   }
 }
+
+@media (max-width: 390px) {
+  .position {
+    width: 290px;
+    height: 210px;
+    top: 20%;
+    left: 5%;
+  }
+
+  .position-gyeongnam {
+    position: absolute;
+    z-index: 2;
+    left: 5%;
+    top: 17%;
+  }
+
+  .position-jeonnam {
+    position: absolute;
+    z-index: 2;
+    top: 16%;
+    left: 5%;
+  }
+}
