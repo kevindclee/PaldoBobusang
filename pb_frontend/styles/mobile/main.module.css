@@ -27,6 +27,19 @@
   justify-content: center;
 }
 
+@media (max-width: 360px) {
+  .logo {
+    width: 80%;
+    height: 20%;
+    margin: 3% auto 0;
+    font-size: 1.8rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
 .logo .back {
   width: 40rem;
   height: 13rem;
@@ -170,9 +183,9 @@
   }
 }
 
-@media (max-width: 500px) {
+@media (max-width: 360px) {
   .logo .back {
-    width: 35rem;
+    width: 30rem;
     height: 13rem;
     margin-top: 3rem;
     border-radius: 3rem 3rem 8rem 8rem;
@@ -180,33 +193,17 @@
     position: absolute;
     z-index: -1;
   }
-
-  .logo .logo-desc {
-    margin-top: 3rem;
-    font-size: 0.8em;
-    height: 0.5em;
-    font-weight: bolder;
-    margin-right: 8em;
-    color: rgba(0, 0, 0, 0.8);
-  }
-
-  .logo .ko-logo {
-    font-size: 2.8em;
-    height: 1em;
-    color: rgba(0, 0, 0, 0.8);
-    font-family: "Gugi", cursive;
-  }
-
-  .logo .en-logo {
-    font-size: 0.8em;
-    font-style: italic;
-    margin-left: 2.2em;
-    color: rgba(0, 0, 0, 0.8);
+  .button {
+    padding: 0 2rem;
+    height: 5rem;
+    border-radius: 3rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    font-size: 2.8rem;
     font-weight: bold;
-    font-family: "Sonsie One", cursive;
-  }
-
-  .service-video {
-    border-radius: 0;
+    background-color: beige;
+    color: rgba(0, 0, 0, 0.8);
   }
 }
