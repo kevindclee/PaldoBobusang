@@ -23,7 +23,7 @@ fruit = pd.read_csv("fruit.csv", encoding="cp949")
 fruit['FRUIT_CODE'] = fruit['FRUIT_CODE'].astype(str)
 fruit['HARVEST_START'] = fruit['HARVEST_START'].astype(str)
 fruit['HARVEST_END'] = fruit['HARVEST_END'].astype(str)
-fruit['ETC_DETAILS'] = fruit['ETC_DETAILS'].fillna(-1).replace(-1, None)
+fruit['ETC_DETAILS'] = fruit['ETC_DETAILS'].fillna("None")
 fruit['BRIX'] = fruit['BRIX'].fillna(0).astype('int16').astype(str)
 
 location = pd.read_csv("fruit-location.csv", encoding="cp949")
@@ -50,7 +50,7 @@ for i in range(len(fruit)):
 vegetable = pd.read_csv("vegetable.csv", encoding="cp949")
 vegetable = vegetable.drop(54, axis=0)
 vegetable['VEGETABLE_CODE'] = vegetable['VEGETABLE_CODE'].astype('int16').astype(str)
-vegetable['ETC_DETAILS'] = vegetable['ETC_DETAILS'].fillna(-1).replace(-1, None)
+vegetable['ETC_DETAILS'] = vegetable['ETC_DETAILS'].fillna("None")
 
 location = pd.read_csv("vegetable-location.csv", encoding="cp949")
 location = location.drop(318, axis=0)
