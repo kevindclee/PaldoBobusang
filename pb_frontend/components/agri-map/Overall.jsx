@@ -15,6 +15,7 @@ const Overall = (props) => {
   const clickHandler = (event) => {
     const location = event.target.classList[0];
     if (
+      location !== "Overall-large" &&
       location !== "Overall-small" &&
       location !== "overall_classified_svg__TEXT"
     ) {
