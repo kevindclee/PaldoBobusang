@@ -30,6 +30,8 @@ def priceCrawling():
   item_idx = 0
 
   while not sucess:
+    exception = False
+
     for i in range(market_idx, len(markets)):
       locationId = markets.iloc[i, 0]
       city = markets.iloc[i, 1][:2]
@@ -72,7 +74,14 @@ def priceCrawling():
         
         except:
           market_idx, item_idx = i, j
-          continue
+          exception = True
+          break
+      
+      if exception:
+        break
+    
+    if exception:
+      continue
 
     sucess = True
 
