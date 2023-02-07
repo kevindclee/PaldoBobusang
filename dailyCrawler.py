@@ -81,8 +81,9 @@ def priceCrawling():
         break
     
     if exception:
+      print('exception!!!')
       continue
 
     sucess = True
 
-schedule.every().day.at("09:00").do(priceCrawling())
+schedule.every().day.at("09:00").do(priceCrawling)
