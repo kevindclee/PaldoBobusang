@@ -9,12 +9,22 @@ const Specific = (props) => {
   const loc = `/classifiedSVG/${curLocation}_classified.svg`;
   const styles = css({
     " svg": {
-      width: "320px",
-      height: "350px",
+      width: "92%",
+      height: "92%",
       position: "absolute",
       top: "10%",
       left: "5%",
       "z-index": "1",
+    },
+    "@media(max-width:420px)": {
+      " svg": {
+        width: "320px",
+        height: "330px",
+        position: "absolute",
+        top: "10%",
+        left: "5%",
+        "z-index": "1",
+      },
     },
     "@media(max-width:390px)": {
       " svg": {
