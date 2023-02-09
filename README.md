@@ -3,6 +3,9 @@
 ![logo](/readme/logo.png "logo")
 
 </div>
+<a href="https://oxidized-sweater-1d3.notion.site/PB-PaldoBobusang-75ba91ead18e48fba8ad7a1bc2c6b441">
+<img src="https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1570106347/noticon/hx52ypkqqdzjdvd8iaid.svg" alt="Notion" width="30" height="30"/>&emsp;팔도보부상 설명서
+</a>
 
 ## 1. 프로젝트 소개
 제철 농산물 및 최근 가격 동향 정보 제공 플랫폼
