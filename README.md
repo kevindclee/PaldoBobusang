@@ -8,7 +8,7 @@
 제철 농산물 및 최근 가격 동향 정보 제공 플랫폼
 
 ## 2. 팀원 소개 및 담당 역할 or 기능
-- 이종수 : :cop: PM(프로젝트 도메인 및 관계형 DB 설계), :earth_asia: Map 페이지에서 .svg 파일을 이용한 지도 및 :art: CSS 구현
+- 이종수 : :cop: PM(프로젝트 도메인 및 관계형 DB 설계), :earth_asia: Map 페이지에서 .svg 파일을 이용한 지도 및 :art: CSS 구현, Refactorying 작업
 - 이동찬 : :leaves: Spring JPA 백엔드 및 MySQL DB 구현
 - 김현수 : :bookmark_tabs: List 페이지 및 Modal 기능과 Details 페이지 구현 (상세정보, :chart_with_upwards_trend: 가격 차트)
 
@@ -23,7 +23,7 @@
 
 
 ## 5. 테이블 구조도
-![Table Architecture](/readme/table_architecture.png "Table Architecture")
+![Table Architecture](/Entity.png "Table Architecture")
 
 [DB insert 쿼리문 작업 시트](https://docs.google.com/spreadsheets/d/1u5HhRLfmrG2ChYXGZXxlrg7YifOa5R4jUWCMqOSI3w8/edit?usp=sharing)
 
@@ -31,6 +31,7 @@
 
 ## 6. 서비스 아키텍처
 ![Service Architecture](/readme/service_architecture.png "Service Architecture")
+![Service Architecture](Backend_Flowchart.png "Service Architecture")
 
 ## 7. 개발 및 실행 환경
 - <img src="https://img.shields.io/badge/Spring-6DB33F?style=for-the-badge&logo=spring&logoColor=white"/> Spring Boot
