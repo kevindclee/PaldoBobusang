@@ -7,7 +7,7 @@
 <img src="https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1570106347/noticon/hx52ypkqqdzjdvd8iaid.svg" alt="Notion" width="30" height="30"/>&emsp;팔도보부상 설명서
 </a>
 
-## 1. 프로젝트 소개
+## 1. Project Introduction
 제철 농산물 및 최근 가격 동향 정보 제공 플랫폼
 
 ## 2. 팀원 소개 및 담당 역할 or 기능
